@@ -1,14 +1,14 @@
 import * as fs from "fs";
 import * as path from "path";
 
-const CONTRACT_NAMES = [
-  "IdentityRegistry",
-  "BharosaAccessControl",
-  "OwnershipRegistry",
-  "SocialRecovery",
-  "AuditAnchor",
-  "ZKCredentialVerifier",
-  "MockGroth16Verifier",
+const CONTRACTS: { name: string; file: string }[] = [
+  { name: "IdentityRegistry", file: "IdentityRegistry.sol" },
+  { name: "BharosaAccessControl", file: "AccessControl.sol" },
+  { name: "OwnershipRegistry", file: "OwnershipRegistry.sol" },
+  { name: "SocialRecovery", file: "SocialRecovery.sol" },
+  { name: "AuditAnchor", file: "AuditAnchor.sol" },
+  { name: "ZKCredentialVerifier", file: "ZKCredentialVerifier.sol" },
+  { name: "MockGroth16Verifier", file: "ZKCredentialVerifier.sol" },
 ];
 
 async function main() {
@@ -23,18 +23,18 @@ async function main() {
 
   let indexExport = `// Auto-generated ABI exports\n`;
 
-  for (const name of CONTRACT_NAMES) {
-    const artifactPath = path.join(artifactsDir, `${name}.sol`, `${name}.json`);
+  for (const item of CONTRACTS) {
+    const artifactPath = path.join(artifactsDir, item.file, `${item.name}.json`);
     if (fs.existsSync(artifactPath)) {
       const artifact = JSON.parse(fs.readFileSync(artifactPath, "utf8"));
       const abi = artifact.abi;
-      const targetPath = path.join(sdkAbiDir, `${name}.json`);
+      const targetPath = path.join(sdkAbiDir, `${item.name}.json`);
       fs.writeFileSync(targetPath, JSON.stringify(abi, null, 2));
 
-      indexExport += `import ${name}ABI from './abis/${name}.json' with { type: 'json' };\nexport { ${name}ABI };\n`;
-      console.log(`[Export-ABI] Exported ${name}.json`);
+      indexExport += `import ${item.name}ABI from './abis/${item.name}.json';\nexport { ${item.name}ABI };\n`;
+      console.log(`[Export-ABI] Exported ${item.name}.json`);
     } else {
-      console.warn(`[Export-ABI] Artifact not found for ${name} at ${artifactPath}`);
+      console.warn(`[Export-ABI] Artifact not found for ${item.name} at ${artifactPath}`);
     }
   }
 
