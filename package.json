@@ -1,0 +1,46 @@
+{
+  "name": "bharosa",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Bharosa (भरोसा): Blockchain-Based Secure Platform for Identity, Access Control & Digital Asset Management - SIH 2026",
+  "keywords": [
+    "bharosa",
+    "decentralized-identity",
+    "verifiable-credentials",
+    "zero-knowledge",
+    "access-control",
+    "abac",
+    "ipfs",
+    "ethereum",
+    "polygon"
+  ],
+  "author": "Team LUMINARYFORGE",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@12.8.1",
+  "scripts": {
+    "dev": "pnpm --filter @bharosa/contracts node & pnpm --filter @bharosa/api dev & pnpm --filter @bharosa/web dev",
+    "dev:docker": "docker compose up --build",
+    "build": "pnpm -r --filter=!@bharosa/circuits build",
+    "lint": "pnpm -r lint",
+    "lint:fix": "pnpm -r lint:fix",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,sol}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,sol}\"",
+    "test": "pnpm --filter @bharosa/contracts test && pnpm --filter @bharosa/sdk test && pnpm --filter @bharosa/api test",
+    "deploy:local": "pnpm --filter @bharosa/contracts deploy:local",
+    "deploy:testnet": "pnpm --filter @bharosa/contracts deploy:testnet",
+    "reindex": "pnpm --filter @bharosa/api reindex",
+    "seed:demo": "pnpm --filter @bharosa/api seed:demo",
+    "security:check": "pnpm audit --audit-level high && pnpm --filter @bharosa/contracts security:check && pnpm test"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.9",
+    "eslint": "^8.57.0",
+    "prettier": "^3.3.2",
+    "prettier-plugin-solidity": "^1.3.1",
+    "typescript": "^5.4.5"
+  }
+}
