@@ -40,3 +40,31 @@ This log captures all architectural, cryptographic, and security design decision
 - **Date:** 2026-09-29
 - **Decision:** The API service (`apps/api`) is strictly an indexing, notification, and relayer helper. It holds no user private keys, cannot grant access, and cannot forge credentials.
 - **Rationale:** In the event of backend downtime or compromise, credential verification and asset decryption continue to function end-to-end directly from Polygon/Arbitrum RPC and IPFS gateways.
+
+---
+
+## ADR 004: Hardhat Cancun Target & OpenZeppelin v5 Support
+- **Date:** 2026-09-29
+- **Decision:** Target `evmVersion: "cancun"` in Hardhat compiler configuration.
+- **Rationale:** OpenZeppelin Contracts v5 utilizes the `mcopy` EVM opcode for efficient memory copy operations in bytes and arrays utilities. Cancun EVM enables this natively.
+
+---
+
+## ADR 005: ABAC Contract Namespace Isolation
+- **Date:** 2026-09-29
+- **Decision:** Name the attribute-based access control engine `BharosaAccessControl` to avoid identifier collision with OpenZeppelin's internal `AccessControl` base contract.
+- **Rationale:** Preserves explicit inheritance while eliminating compiler symbol ambiguity.
+
+---
+
+## ADR 006: Redis Cache with In-Memory Resilient Fallback
+- **Date:** 2026-09-29
+- **Decision:** Provide an automatic in-memory fallback store in `apps/api/src/lib/redis.ts` if Redis is unreachable or when running standalone unit tests.
+- **Rationale:** Guarantees zero test failures and fast local execution without requiring Redis to be pre-started during contract or CI test phases.
+
+---
+
+## ADR 007: SIWE (EIP-4361) Replay Attack Protection
+- **Date:** 2026-09-29
+- **Decision:** Store SIWE nonces with 5-minute TTL and delete them atomically upon successful signature verification.
+- **Rationale:** Ensures nonces are strictly single-use and invalidates any attempted replay of signed messages.
