@@ -6,6 +6,7 @@ import auditRoutes from './routes/audit.routes';
 import verifyRoutes from './routes/verify.routes';
 import ipfsRoutes from './routes/ipfs.routes';
 import assetRoutes from './routes/asset.routes';
+import accessRoutes from './routes/access.routes';
 import { env } from './config/env';
 
 // Graceful JSON serialization for BigInt (Prisma & Blockchain block numbers)
@@ -40,6 +41,7 @@ app.use(`${env.API_PREFIX}/verify`, verifyRoutes);
 app.use(`${env.API_PREFIX}/audit`, auditRoutes);
 app.use(`${env.API_PREFIX}/ipfs`, ipfsRoutes);
 app.use(`${env.API_PREFIX}/assets`, assetRoutes);
+app.use(`${env.API_PREFIX}/access`, accessRoutes);
 app.use(`${env.API_PREFIX}`, auditRoutes); // mounts /v1/dids/:id and /v1/stats
 app.get(`${env.API_PREFIX}/me`, authRoutes);
 
