@@ -1,11 +1,15 @@
 // Auto-generated ABI exports
-import IdentityRegistryABI from './abis/IdentityRegistry.json' with { type: 'json' };
+import IdentityRegistryABI from './abis/IdentityRegistry.json';
 export { IdentityRegistryABI };
-import OwnershipRegistryABI from './abis/OwnershipRegistry.json' with { type: 'json' };
+import BharosaAccessControlABI from './abis/BharosaAccessControl.json';
+export { BharosaAccessControlABI };
+import OwnershipRegistryABI from './abis/OwnershipRegistry.json';
 export { OwnershipRegistryABI };
-import SocialRecoveryABI from './abis/SocialRecovery.json' with { type: 'json' };
+import SocialRecoveryABI from './abis/SocialRecovery.json';
 export { SocialRecoveryABI };
-import AuditAnchorABI from './abis/AuditAnchor.json' with { type: 'json' };
+import AuditAnchorABI from './abis/AuditAnchor.json';
 export { AuditAnchorABI };
-import ZKCredentialVerifierABI from './abis/ZKCredentialVerifier.json' with { type: 'json' };
+import ZKCredentialVerifierABI from './abis/ZKCredentialVerifier.json';
 export { ZKCredentialVerifierABI };
+import MockGroth16VerifierABI from './abis/MockGroth16Verifier.json';
+export { MockGroth16VerifierABI };
