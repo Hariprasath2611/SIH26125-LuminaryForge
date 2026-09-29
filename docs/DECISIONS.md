@@ -83,3 +83,18 @@ This log captures all architectural, cryptographic, and security design decision
 - **Decision:** Model all credentials under W3C VC Data Model v1.1 and sign using EIP-712 structured data (`BharosaCredentialRegistry`). Hash the canonical sorted representation for on-chain anchoring into `IdentityRegistry`.
 - **Rationale:** Enables instant, zero-contact off-chain verification by verifiers while anchoring immutable proof of issuance and revocation status on-chain.
 
+---
+
+## ADR 010: Event Indexer Mirror & Resilient In-Memory Fallback
+- **Date:** 2026-09-29
+- **Decision:** Build an idempotent event indexer (`apps/api/src/workers/indexer.ts`) that listens to contract events on Polygon/Hardhat and mirrors them to Postgres. Provide an in-memory fallback store in `apps/api/src/lib/db-fallback.ts` and BigInt serialization polyfill.
+- **Rationale:** Proves the database is 100% rebuildable from chain logs via `pnpm reindex` while guaranteeing the API and test suites operate reliably even without a running local database.
+
+---
+
+## ADR 011: Webpack Ignore for Optional Wagmi/RainbowKit Submodules
+- **Date:** 2026-09-29
+- **Decision:** Use Next.js `webpack.IgnorePlugin` to ignore optional `@x402/*` packages imported by Coinbase Smart Wallet submodules.
+- **Rationale:** Eliminates spurious Next.js production build module-not-found warnings and ensures seamless build without heavy unused mobile dependencies.
+
+
