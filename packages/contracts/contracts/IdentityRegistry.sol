@@ -15,12 +15,8 @@ contract IdentityRegistry is AccessControl, Pausable, ReentrancyGuard {
     // -------------------------------------------------------------------------
     // Roles
     // -------------------------------------------------------------------------
-    bytes32 public constant ISSUER_MANAGER_ROLE = keccak2KeyPair("ISSUER_MANAGER_ROLE");
-    bytes32 public constant PAUSER_ROLE = keccak2KeyPair("PAUSER_ROLE");
-
-    function keccak2KeyPair(string memory val) private pure returns (bytes32) {
-        return keccak256(abi.encodePacked(val));
-    }
+    bytes32 public constant ISSUER_MANAGER_ROLE = keccak256("ISSUER_MANAGER_ROLE");
+    bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
 
     // -------------------------------------------------------------------------
     // Structs
