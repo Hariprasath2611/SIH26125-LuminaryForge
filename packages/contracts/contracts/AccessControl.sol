@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-import "@openzeppelin/contracts/access/AccessControl.sol";
+import {AccessControl as OpenZeppelinAccessControl} from "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/Pausable.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/cryptography/EIP712.sol";
@@ -12,12 +12,12 @@ interface IOwnershipRegistry {
 }
 
 /**
- * @title AccessControl
+ * @title BharosaAccessControl
  * @notice Attribute-Based Access Control (ABAC, NIST SP 800-162) engine for decentralized assets.
  * @dev Validates subject, resource, and environment attributes with cryptographic integrity and EIP-712 meta-tx support.
  * Smart India Hackathon 2026 · PS SIH26125 · Team LUMINARYFORGE
  */
-contract AccessControl is AccessControl, Pausable, ReentrancyGuard, EIP712 {
+contract BharosaAccessControl is OpenZeppelinAccessControl, Pausable, ReentrancyGuard, EIP712 {
     // -------------------------------------------------------------------------
     // Typehashes & Constants
     // -------------------------------------------------------------------------

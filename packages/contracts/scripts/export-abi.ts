@@ -3,7 +3,7 @@ import * as path from "path";
 
 const CONTRACT_NAMES = [
   "IdentityRegistry",
-  "AccessControl",
+  "BharosaAccessControl",
   "OwnershipRegistry",
   "SocialRecovery",
   "AuditAnchor",

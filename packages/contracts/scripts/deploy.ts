@@ -24,11 +24,11 @@ async function main() {
   console.log(`[Deploy] OwnershipRegistry deployed to: ${ownershipRegistryAddress}`);
 
   // 3. Deploy AccessControl (ABAC)
-  const AccessControl = await ethers.getContractFactory("AccessControl");
+  const AccessControl = await ethers.getContractFactory("BharosaAccessControl");
   const accessControl = await AccessControl.deploy(deployer.address, ownershipRegistryAddress);
   await accessControl.waitForDeployment();
   const accessControlAddress = await accessControl.getAddress();
-  console.log(`[Deploy] AccessControl deployed to: ${accessControlAddress}`);
+  console.log(`[Deploy] BharosaAccessControl deployed to: ${accessControlAddress}`);
 
   // 4. Deploy SocialRecovery
   const SocialRecovery = await ethers.getContractFactory("SocialRecovery");
