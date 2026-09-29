@@ -107,5 +107,18 @@ This log captures all architectural, cryptographic, and security design decision
   3. **Public Verify (`/public-verify`):** A standalone, zero-login verification engine with client-side signature checking, smart contract anchor validation, and tamper simulation. Suspense-wrapped for Next.js App Router static optimization.
 - **Rationale:** Verifiers do not need an account, gas, or communication with the issuing university to verify authenticity. Tamper resistance is cryptographically proven in under 100 milliseconds.
 
+---
+
+## ADR 013: Client-Side Encrypted Asset Lifecycle & Distributed Pinning Health
+- **Date:** 2026-09-30
+- **Decision:** Implement encrypted asset management using a 5-step client-side pipeline:
+  1. **Step 1 (Select File):** Browser reads raw bytes of PDF degree, identity document, or research draft.
+  2. **Step 2 (Hash Integrity Anchor):** Compute plaintext SHA-256 (`0x...`) in WebCrypto memory as the immutable integrity anchor.
+  3. **Step 3 (AES-256-GCM Encryption):** Generate ephemeral 256-bit symmetric key, random 96-bit IV, and bind AAD to `assetId:v1`. Zero plaintext leaves browser memory.
+  4. **Step 4 (IPFS Cluster Pinning):** Upload ciphertext blob to IPFS gateway with 3x geo-distributed cluster replication (`delhi-primary-01`, `mumbai-edge-02`, `bangalore-edge-03`).
+  5. **Step 5 (On-Chain Minting):** Register asset on `OwnershipRegistry.sol` (ERC-1155) with soulbound flag toggle for non-transferable credentials.
+- **Decryption & Tamper Verification:** The vault decrypts ciphertext in-browser, re-evaluates the SHA-256 hash against the on-chain registry, and provides a tamper simulation proving AES-GCM authentication tag rejection upon 1-bit alteration.
+
+
 
 
