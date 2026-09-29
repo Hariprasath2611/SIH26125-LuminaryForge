@@ -1,0 +1,17 @@
+{
+  "name": "@bharosa/circuits",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Circom zk-SNARK circuits for Bharosa private credential predicates",
+  "scripts": {
+    "compile": "echo 'Circuits compilation via circom script'",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "circomlib": "^2.0.5",
+    "snarkjs": "^0.7.4"
+  },
+  "devDependencies": {
+    "vitest": "^1.6.0"
+  }
+}
