@@ -119,6 +119,18 @@ This log captures all architectural, cryptographic, and security design decision
   5. **Step 5 (On-Chain Minting):** Register asset on `OwnershipRegistry.sol` (ERC-1155) with soulbound flag toggle for non-transferable credentials.
 - **Decryption & Tamper Verification:** The vault decrypts ciphertext in-browser, re-evaluates the SHA-256 hash against the on-chain registry, and provides a tamper simulation proving AES-GCM authentication tag rejection upon 1-bit alteration.
 
+---
+
+## ADR 014: ABAC Time-Bound Access Control & ECIES Key Delegation
+- **Date:** 2026-09-30
+- **Decision:** Implement Attribute-Based Access Control (NIST SP 800-162) and ECIES secp256k1 key encapsulation:
+  1. **Access Request:** Verifiers specify role (`VERIFIER`, `AUDITOR`, `EMPLOYER`), specific purpose, and requested duration.
+  2. **ECIES Key Encapsulation:** Upon approval, the owner wraps the asset's AES-256 key using the requester's secp256k1 public key (`wrapAESKey` via ephemeral ECDH + HKDF-SHA256). Plaintext keys are never shared or sent to the backend.
+  3. **On-Chain Enforcement (`BharosaAccessControl.sol`):** Smart contract enforces exact active time windows (`notBefore` and `expiresAt`). Expired, not-yet-active, or mismatched-role access attempts revert.
+  4. **Instant Revocation:** Owners can revoke grants on-chain at any time with immediate state update to `REVOKED`.
+  5. **Consent Receipts:** Signed digital consent receipts following ISO/IEC 27560:2023 and the India Digital Personal Data Protection (DPDP) Act 2023 are generated with JSON export and printable formatting.
+
+
 
 
 
