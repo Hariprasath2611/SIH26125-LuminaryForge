@@ -39,7 +39,7 @@ async function wrapAESKey(rawKeyToWrap, recipientPublicKeyHex) {
     globalThis.crypto.getRandomValues(iv);
     const encryptedBuffer = await subtle.encrypt({
         name: 'AES-GCM',
-        iv,
+        iv: iv,
         tagLength: 128,
     }, wrappingCryptoKey, rawKeyToWrap);
     return {
@@ -73,7 +73,7 @@ async function unwrapAESKey(envelope, recipientPrivateKeyHex) {
     try {
         const decryptedBuffer = await subtle.decrypt({
             name: 'AES-GCM',
-            iv,
+            iv: iv,
             tagLength: 128,
         }, wrappingCryptoKey, ciphertext);
         return new Uint8Array(decryptedBuffer);

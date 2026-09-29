@@ -51,7 +51,7 @@ export async function wrapAESKey(
   const subtle = getSubtleCrypto();
   const wrappingCryptoKey = await subtle.importKey(
     'raw',
-    wrappingKeyBytes,
+    wrappingKeyBytes as any,
     { name: 'AES-GCM', length: 256 },
     false,
     ['encrypt']
@@ -63,11 +63,11 @@ export async function wrapAESKey(
   const encryptedBuffer = await subtle.encrypt(
     {
       name: 'AES-GCM',
-      iv,
+      iv: iv as any,
       tagLength: 128,
     },
     wrappingCryptoKey,
-    rawKeyToWrap
+    rawKeyToWrap as any
   );
 
   return {
@@ -105,7 +105,7 @@ export async function unwrapAESKey(
   const subtle = getSubtleCrypto();
   const wrappingCryptoKey = await subtle.importKey(
     'raw',
-    wrappingKeyBytes,
+    wrappingKeyBytes as any,
     { name: 'AES-GCM', length: 256 },
     false,
     ['decrypt']
@@ -120,11 +120,11 @@ export async function unwrapAESKey(
     const decryptedBuffer = await subtle.decrypt(
       {
         name: 'AES-GCM',
-        iv,
+        iv: iv as any,
         tagLength: 128,
       },
       wrappingCryptoKey,
-      ciphertext
+      ciphertext as any
     );
 
     return new Uint8Array(decryptedBuffer);

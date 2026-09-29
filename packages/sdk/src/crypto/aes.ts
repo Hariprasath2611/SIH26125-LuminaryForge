@@ -49,7 +49,7 @@ export async function importAESKey(rawKey: Uint8Array): Promise<CryptoKey> {
   const subtle = getSubtleCrypto();
   return subtle.importKey(
     'raw',
-    rawKey,
+    rawKey as any,
     {
       name: 'AES-GCM',
       length: 256,
@@ -89,12 +89,12 @@ export async function encryptFile(
   const encryptedBuffer = await subtle.encrypt(
     {
       name: 'AES-GCM',
-      iv,
-      additionalData: aad,
+      iv: iv as any,
+      additionalData: aad as any,
       tagLength: 128,
     },
     key,
-    data
+    data as any
   );
 
   const ciphertext = new Uint8Array(encryptedBuffer);
@@ -127,12 +127,12 @@ export async function decryptFile(
     const decryptedBuffer = await subtle.decrypt(
       {
         name: 'AES-GCM',
-        iv,
-        additionalData: aad,
+        iv: iv as any,
+        additionalData: aad as any,
         tagLength: 128,
       },
       key,
-      ciphertext
+      ciphertext as any
     );
 
     return new Uint8Array(decryptedBuffer);

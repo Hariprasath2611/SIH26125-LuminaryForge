@@ -64,7 +64,7 @@ async function encryptFile(data, key, assetId, version = 1) {
     const plaintextHash = (0, hash_1.sha256Hex)(data);
     const encryptedBuffer = await subtle.encrypt({
         name: 'AES-GCM',
-        iv,
+        iv: iv,
         additionalData: aad,
         tagLength: 128,
     }, key, data);
@@ -88,7 +88,7 @@ async function decryptFile(ciphertext, key, iv, assetId, version = 1) {
     try {
         const decryptedBuffer = await subtle.decrypt({
             name: 'AES-GCM',
-            iv,
+            iv: iv,
             additionalData: aad,
             tagLength: 128,
         }, key, ciphertext);
