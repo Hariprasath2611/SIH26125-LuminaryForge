@@ -68,3 +68,18 @@ This log captures all architectural, cryptographic, and security design decision
 - **Date:** 2026-09-29
 - **Decision:** Store SIWE nonces with 5-minute TTL and delete them atomically upon successful signature verification.
 - **Rationale:** Ensures nonces are strictly single-use and invalidates any attempted replay of signed messages.
+
+---
+
+## ADR 008: AES-256-GCM + ECIES secp256k1 Hybrid Cryptosystem for Assets
+- **Date:** 2026-09-29
+- **Decision:** Encrypt files using AES-256-GCM with unique 96-bit random IVs and AAD binding (`assetId:version`). Delegate file keys using ECIES on secp256k1 with ephemeral ECDH and domain-separated HKDF-SHA256 (`bharosa:ecies:aes-key-wrap`).
+- **Rationale:** Guarantees authenticated encryption at rest on IPFS, zero plaintext exposure, and cryptographically bound access rights without storing private keys in browser local storage.
+
+---
+
+## ADR 009: W3C Verifiable Credentials with Canonical EIP-712 Anchor Hash
+- **Date:** 2026-09-29
+- **Decision:** Model all credentials under W3C VC Data Model v1.1 and sign using EIP-712 structured data (`BharosaCredentialRegistry`). Hash the canonical sorted representation for on-chain anchoring into `IdentityRegistry`.
+- **Rationale:** Enables instant, zero-contact off-chain verification by verifiers while anchoring immutable proof of issuance and revocation status on-chain.
+
