@@ -1,0 +1,123 @@
+version: '3.8'
+
+services:
+  # ----------------------------------------------------------------------------
+  # 1. PostgreSQL Database
+  # ----------------------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: bharosa-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: bharosa_user
+      POSTGRES_PASSWORD: bharosa_password
+      POSTGRES_DB: bharosa_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bharosa_user -d bharosa_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ----------------------------------------------------------------------------
+  # 2. Redis Cache & Job Queue
+  # ----------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: bharosa-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ----------------------------------------------------------------------------
+  # 3. Kubo IPFS Local Node
+  # ----------------------------------------------------------------------------
+  kubo:
+    image: ipfs/kubo:v0.28.0
+    container_name: bharosa-ipfs
+    restart: unless-stopped
+    ports:
+      - "4001:4001" # IPFS swarm
+      - "5001:5001" # IPFS API
+      - "8080:8080" # IPFS Gateway
+    environment:
+      IPFS_PATH: /data/ipfs
+    volumes:
+      - ipfs_data:/data/ipfs
+
+  # ----------------------------------------------------------------------------
+  # 4. Hardhat Local Node (Mock L2 / Local Dev Chain)
+  # ----------------------------------------------------------------------------
+  hardhat:
+    image: node:20-alpine
+    container_name: bharosa-hardhat
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: sh -c "cd packages/contracts && npx hardhat node --hostname 0.0.0.0"
+    ports:
+      - "8545:8545"
+
+  # ----------------------------------------------------------------------------
+  # 5. Express API Backend & Worker Indexer
+  # ----------------------------------------------------------------------------
+  api:
+    image: node:20-alpine
+    container_name: bharosa-api
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=development
+      - PORT=4000
+      - DATABASE_URL=postgresql://bharosa_user:bharosa_password@postgres:5432/bharosa_db?schema=public
+      - REDIS_URL=redis://redis:6379
+      - RPC_URL=http://hardhat:8545
+      - IPFS_NODE_API_URL=http://kubo:5001
+      - IPFS_NODE_GATEWAY_URL=http://kubo:8080/ipfs/
+    ports:
+      - "4000:4000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: sh -c "pnpm --filter @bharosa/api dev"
+
+  # ----------------------------------------------------------------------------
+  # 6. Next.js Frontend Web Application
+  # ----------------------------------------------------------------------------
+  web:
+    image: node:20-alpine
+    container_name: bharosa-web
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - .:/app
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:4000
+      - NEXT_PUBLIC_RPC_URL=http://localhost:8545
+      - NEXT_PUBLIC_CHAIN_ID=31337
+      - NEXT_PUBLIC_LOCAL_IPFS_GATEWAY=http://localhost:8080/ipfs/
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+    command: sh -c "pnpm --filter @bharosa/web dev"
+
+volumes:
+  postgres_data:
+  redis_data:
+  ipfs_data:
