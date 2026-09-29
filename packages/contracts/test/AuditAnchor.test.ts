@@ -43,6 +43,17 @@ describe("AuditAnchor", () => {
     const fakeLeaf = ethers.keccak256(ethers.toUtf8Bytes("FakeLogTamperedRecord"));
     const isFakeIncluded = await auditAnchor.verifyLogIncluded(fakeLeaf, proofForA, 0);
     expect(isFakeIncluded).to.be.false;
+
+    // Getters
+    expect(await auditAnchor.getAnchorCount()).to.equal(1);
+    const anchorRecord = await auditAnchor.getAnchor(0);
+    expect(anchorRecord.merkleRoot).to.equal(root);
+    const latest = await auditAnchor.latestAnchor();
+    expect(latest.merkleRoot).to.equal(root);
+  });
+
+  it("Reverts when accessing out of bounds anchor index", async () => {
+    await expect(auditAnchor.getAnchor(99)).to.be.revertedWithCustomError(auditAnchor, "IndexOutOfBounds");
   });
 
   it("Unauthorized user cannot anchor Merkle roots", async () => {
