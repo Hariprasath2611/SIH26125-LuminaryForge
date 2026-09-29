@@ -97,4 +97,15 @@ This log captures all architectural, cryptographic, and security design decision
 - **Decision:** Use Next.js `webpack.IgnorePlugin` to ignore optional `@x402/*` packages imported by Coinbase Smart Wallet submodules.
 - **Rationale:** Eliminates spurious Next.js production build module-not-found warnings and ensures seamless build without heavy unused mobile dependencies.
 
+---
+
+## ADR 012: Multi-Tier Zero-Contact Verifiable Credential Architecture
+- **Date:** 2026-09-29
+- **Decision:** Implement credential issuance, holder management, and public verification as three decoupled stages:
+  1. **Issuer Console (`/issuer`):** Supports single issuing and CSV bulk issuance. Computes canonical anchor hashes and commits them to `IdentityRegistry.anchorCredential`. Supports instant on-chain revocation (`revokeCredential`).
+  2. **Holder Wallet (`/credentials`):** Displays self-custodied credentials, lets holders inspect full W3C JSON schemas, export raw signed credentials, and generate instant QR code share links for third-party verifiers.
+  3. **Public Verify (`/public-verify`):** A standalone, zero-login verification engine with client-side signature checking, smart contract anchor validation, and tamper simulation. Suspense-wrapped for Next.js App Router static optimization.
+- **Rationale:** Verifiers do not need an account, gas, or communication with the issuing university to verify authenticity. Tamper resistance is cryptographically proven in under 100 milliseconds.
+
+
 

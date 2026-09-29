@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import authRoutes from './routes/auth.routes';
 import auditRoutes from './routes/audit.routes';
+import verifyRoutes from './routes/verify.routes';
 import { env } from './config/env';
 
 // Graceful JSON serialization for BigInt (Prisma & Blockchain block numbers)
@@ -33,6 +34,7 @@ app.get('/readyz', (req: Request, res: Response) => {
 
 // v1 Routes
 app.use(`${env.API_PREFIX}/auth`, authRoutes);
+app.use(`${env.API_PREFIX}/verify`, verifyRoutes);
 app.use(`${env.API_PREFIX}/audit`, auditRoutes);
 app.use(`${env.API_PREFIX}`, auditRoutes); // mounts /v1/dids/:id and /v1/stats
 app.get(`${env.API_PREFIX}/me`, authRoutes);
