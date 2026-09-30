@@ -8,6 +8,8 @@ const nextConfig = {
       fs: false,
       net: false,
       tls: false,
+      'pino-pretty': false,
+      '@react-native-async-storage/async-storage': false,
     };
 
     config.plugins.push(
