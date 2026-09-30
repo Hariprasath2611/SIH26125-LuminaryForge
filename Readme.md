@@ -8,8 +8,8 @@
 
 Welcome! BHAROSA is built for zero-friction evaluation. You can run the entire platform locally with zero configuration edits or use the hosted demo link.
 
-- **Hosted Demo Link (Backup):** [https://bharosa.vercel.app](https://bharosa.vercel.app)
-- **Backend API URL:** [https://bharosa-api.onrender.com/v1](https://bharosa-api.onrender.com/v1)
+- **Hosted Demo Link:** [https://sih-26125-luminary-forge.vercel.app](https://sih-26125-luminary-forge.vercel.app)
+- **Backend API URL:** [https://sih26125-luminaryforge.onrender.com/v1](https://sih26125-luminaryforge.onrender.com/v1)
 - **Target Chains:** Polygon Amoy (`80002`) & Arbitrum Sepolia (`421614`)
 
 ---
