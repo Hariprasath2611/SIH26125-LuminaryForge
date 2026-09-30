@@ -1,0 +1,181 @@
+// Prisma Schema for Bharosa (भरोसा)
+// Smart India Hackathon 2026 · PS SIH26125 · Team LUMINARYFORGE
+// PRINCIPLE: The database stores mirror/indexed data ONLY. All truth resides on-chain & IPFS.
+// No plaintext PII, private keys, file contents, or decrypted data are EVER persisted.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Did {
+  id           String   @id @default(uuid())
+  didHash      String   @unique
+  didString    String   @unique // e.g. did:ethr:31337:0x1234...
+  controller   String   @unique
+  metadataCID  String
+  registeredAt DateTime
+  updatedAt    DateTime
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+}
+
+model Issuer {
+  id          String   @id @default(uuid())
+  address     String   @unique
+  name        String?
+  addedBy     String
+  isTrusted   Boolean  @default(true)
+  addedAt     DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model CredentialAnchor {
+  id             String    @id @default(uuid())
+  credentialHash String    @unique
+  issuer         String
+  subject        String
+  issuedAt       DateTime
+  expiry         DateTime?
+  revoked        Boolean   @default(false)
+  revokedAt      DateTime?
+  txHash         String?
+  blockNumber    BigInt?
+  createdAt      DateTime  @default(now())
+}
+
+model Asset {
+  id           String   @id @default(uuid())
+  assetId      String   @unique // on-chain bytes32
+  owner        String
+  cid          String   // IPFS CID of encrypted ciphertext
+  contentHash  String   // SHA-256 hash
+  metadataCID  String
+  isSoulbound  Boolean  @default(false)
+  registeredAt DateTime
+  txHash       String?
+  blockNumber  BigInt?
+  createdAt    DateTime @default(now())
+
+  grants       AccessGrant[]
+  requests     AccessRequest[]
+}
+
+model AccessGrant {
+  id            String    @id @default(uuid())
+  assetId       String
+  grantee       String
+  role          String
+  purpose       String
+  notBefore     DateTime?
+  expiresAt     DateTime?
+  wrappedKeyCID String
+  revoked       Boolean   @default(false)
+  revokedAt     DateTime?
+  grantedAt     DateTime
+  txHash        String?
+  blockNumber   BigInt?
+  createdAt     DateTime  @default(now())
+
+  asset         Asset     @relation(fields: [assetId], references: [assetId], onDelete: Cascade)
+
+  @@unique([assetId, grantee])
+}
+
+model AccessRequest {
+  id          String   @id @default(uuid())
+  assetId     String
+  requester   String
+  role        String
+  purpose     String
+  requestedAt DateTime
+  fulfilled   Boolean  @default(false)
+  txHash      String?
+  blockNumber BigInt?
+  createdAt   DateTime @default(now())
+
+  asset       Asset    @relation(fields: [assetId], references: [assetId], onDelete: Cascade)
+}
+
+model AuditEvent {
+  id          String   @id @default(uuid())
+  eventType   String   // DID_REGISTERED, CREDENTIAL_ANCHORED, ACCESS_GRANTED, ACCESS_REVOKED, ACCESS_USED, SECURITY_ALERT
+  actor       String
+  target      String?
+  txHash      String?
+  blockNumber BigInt?
+  payload     Json
+  timestamp   DateTime @default(now())
+}
+
+model RecoveryRequest {
+  id               String    @id @default(uuid())
+  account          String
+  proposedNewOwner String
+  initiator        String
+  approvalsCount   Int       @default(1)
+  unlockAt         DateTime
+  active           Boolean   @default(true)
+  executed         Boolean   @default(false)
+  createdAt        DateTime  @default(now())
+}
+
+model PinStatus {
+  id           String    @id @default(uuid())
+  cid          String    @unique
+  pinnedLocal  Boolean   @default(true)
+  pinnedPinata Boolean   @default(false)
+  lastChecked  DateTime  @default(now())
+  status       String    @default("PINNED") // PINNED, FAILED, RETRYING
+  errorMessage String?
+  createdAt    DateTime  @default(now())
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  recipient String   // Wallet address
+  title     String
+  message   String
+  type      String   // ACCESS_REQUEST, ACCESS_GRANTED, ACCESS_REVOKED, EXPIRING_SOON, SECURITY_ALERT
+  read      Boolean  @default(false)
+  metadata  Json?
+  createdAt DateTime @default(now())
+}
+
+model SecurityAlert {
+  id             String   @id @default(uuid())
+  alertType      String   // BURST_REQUESTS, VERIFICATION_FAILURE_SPIKE, UNBOUNDED_GRANT, OFF_HOURS_ACCESS, RAPID_REVOCATION, ACTIVE_RECOVERY_ATTEMPT
+  severity       String   // LOW, MEDIUM, HIGH, CRITICAL
+  targetAddress  String
+  evidenceTxHash String?
+  description    String
+  recommendedFix String
+  resolved       Boolean  @default(false)
+  createdAt      DateTime @default(now())
+}
+
+model ApiKey {
+  id          String    @id @default(uuid())
+  keyHash     String    @unique
+  owner       String
+  name        String
+  tier        String    @default("STANDARD") // STANDARD, ENTERPRISE
+  rateLimit   Int       @default(100)        // req/min
+  active      Boolean   @default(true)
+  expiresAt   DateTime?
+  createdAt   DateTime  @default(now())
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  address      String
+  chainId      Int
+  token        String   @unique
+  refreshToken String   @unique
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+}
