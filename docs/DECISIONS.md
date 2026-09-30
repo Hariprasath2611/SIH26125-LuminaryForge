@@ -140,6 +140,16 @@ This log captures all architectural, cryptographic, and security design decision
   3. **On-Chain Verifier (`ZKCredentialVerifier.sol`):** Validates Groth16 pairing points `(A, B, C)` against public signals `[issuerKeyHash, threshold, timestamp]` and ensures issuer authorization.
   4. **Soundness & Fraud Resistance:** Attempting to prove a false predicate (e.g. CGPA 6.2 attempting to prove >= 7.5) triggers constraint failure `gte.out === 1` in the circuit, preventing proof generation.
 
+---
+
+## ADR 016: Gasless Meta-Transactions & Relayer Paymaster Architecture
+- **Date:** 2026-09-30
+- **Decision:** Provide native gasless UX via EIP-712 typed data signing and a backend relayer paymaster service:
+  1. **Zero-Gas User Journey:** When "Gasless Mode" is toggled on, users sign an EIP-712 `GrantAccess` typed data structure in their wallet instead of paying native MATIC/ETH gas.
+  2. **Relayer Service (`/v1/relayer/sponsor`):** Receives signed meta-transactions, performs replay protection (deadline & single-use nonce), enforces a rate limit (25 tx/hr), and submits to `BharosaAccessControl.grantWithSig` paying gas from the relayer treasury.
+  3. **Transparency & Resilience:** Relayer Treasury balance, transaction counts, and paymaster health are publicly queryable via `/v1/relayer/treasury`. If the relayer is offline, users can seamlessly fall back to direct on-chain gas submission.
+
+
 
 
 
