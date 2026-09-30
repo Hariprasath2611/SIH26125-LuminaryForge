@@ -149,6 +149,17 @@ This log captures all architectural, cryptographic, and security design decision
   2. **Relayer Service (`/v1/relayer/sponsor`):** Receives signed meta-transactions, performs replay protection (deadline & single-use nonce), enforces a rate limit (25 tx/hr), and submits to `BharosaAccessControl.grantWithSig` paying gas from the relayer treasury.
   3. **Transparency & Resilience:** Relayer Treasury balance, transaction counts, and paymaster health are publicly queryable via `/v1/relayer/treasury`. If the relayer is offline, users can seamlessly fall back to direct on-chain gas submission.
 
+---
+
+## ADR 017: Multi-Guardian Social Recovery & Security Alert Architecture
+- **Date:** 2026-09-30
+- **Decision:** Implement M-of-N social recovery and real-time security safeguards:
+  1. **Guardian Configuration (`SocialRecovery.sol`):** Users configure M-of-N guardians (e.g. 2-of-3) with validation preventing duplicate or self-addresses.
+  2. **Safety Timelock:** Recovery sessions enforce a delay (48 hours production, 2 minutes demo mode) before finalization, allowing the legitimate account owner to cancel rogue or unauthorized recovery attempts (`cancelRecovery`).
+  3. **DID Handover:** Upon threshold approval and timelock expiration, `finalizeRecovery` updates the DID controller directly in `IdentityRegistry.sol`, transferring control to the new address and permanently revoking mutation rights from the lost key.
+  4. **Emergency Quick-Lock & Threat Telemetry:** Real-time alert stream for burst verification, off-hours access, and unbounded grants, coupled with an instant Quick-Lock freezing mechanism.
+
+
 
 
 
