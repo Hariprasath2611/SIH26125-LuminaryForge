@@ -3,7 +3,7 @@ services:
     name: bharosa-api
     runtime: node
     rootDir: backend
-    buildCommand: npm install && npx prisma generate && npm run build
+    buildCommand: npm install && npm run prisma:generate && npm run build
     startCommand: npm run start
     envVars:
       - key: NODE_ENV

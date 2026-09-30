@@ -57,7 +57,7 @@ Fill in the form with these exact settings:
 * **Runtime:** `Node`
 * **Build Command:** 
   ```bash
-  npm install && npx prisma generate && npm run build
+  npm install && npm run prisma:generate && npm run build
   ```
 * **Start Command:**
   ```bash
