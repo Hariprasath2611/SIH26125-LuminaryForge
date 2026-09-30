@@ -1,9 +1,7 @@
 version: '3.8'
 
 services:
-  # ----------------------------------------------------------------------------
   # 1. PostgreSQL Database
-  # ----------------------------------------------------------------------------
   postgres:
     image: postgres:16-alpine
     container_name: bharosa-postgres
@@ -22,9 +20,7 @@ services:
       timeout: 5s
       retries: 5
 
-  # ----------------------------------------------------------------------------
   # 2. Redis Cache & Job Queue
-  # ----------------------------------------------------------------------------
   redis:
     image: redis:7-alpine
     container_name: bharosa-redis
@@ -39,83 +35,84 @@ services:
       timeout: 5s
       retries: 5
 
-  # ----------------------------------------------------------------------------
-  # 3. Kubo IPFS Local Node
-  # ----------------------------------------------------------------------------
+  # 3. Kubo IPFS Node
   kubo:
     image: ipfs/kubo:v0.28.0
     container_name: bharosa-ipfs
     restart: unless-stopped
     ports:
-      - "4001:4001" # IPFS swarm
-      - "5001:5001" # IPFS API
-      - "8080:8080" # IPFS Gateway
+      - "4001:4001"
+      - "5001:5001"
+      - "8080:8080"
     environment:
       IPFS_PATH: /data/ipfs
     volumes:
       - ipfs_data:/data/ipfs
 
-  # ----------------------------------------------------------------------------
-  # 4. Hardhat Local Node (Mock L2 / Local Dev Chain)
-  # ----------------------------------------------------------------------------
-  hardhat:
+  # 4. Hardhat Local Blockchain Node + Deploy + Seed
+  chain:
     image: node:20-alpine
-    container_name: bharosa-hardhat
+    container_name: bharosa-chain
     restart: unless-stopped
-    working_dir: /app
+    working_dir: /app/blockchain
     volumes:
       - .:/app
-    command: sh -c "cd packages/contracts && npx hardhat node --hostname 0.0.0.0"
     ports:
       - "8545:8545"
+    command: >
+      sh -c "npm install &&
+             npx hardhat node --hostname 0.0.0.0 &
+             sleep 5 &&
+             npx hardhat run scripts/deploy.ts --network localhost &&
+             npx hardhat run scripts/seed-demo.ts --network localhost &&
+             tail -f /dev/null"
 
-  # ----------------------------------------------------------------------------
-  # 5. Express API Backend & Worker Indexer
-  # ----------------------------------------------------------------------------
-  api:
+  # 5. Express API Backend Service
+  backend:
     image: node:20-alpine
-    container_name: bharosa-api
+    container_name: bharosa-backend
     restart: unless-stopped
-    working_dir: /app
+    working_dir: /app/backend
     volumes:
       - .:/app
     environment:
       - NODE_ENV=development
-      - PORT=4000
+      - PORT=3001
+      - DEMO_MODE=true
       - DATABASE_URL=postgresql://bharosa_user:bharosa_password@postgres:5432/bharosa_db?schema=public
       - REDIS_URL=redis://redis:6379
-      - RPC_URL=http://hardhat:8545
-      - IPFS_NODE_API_URL=http://kubo:5001
-      - IPFS_NODE_GATEWAY_URL=http://kubo:8080/ipfs/
+      - RPC_URL=http://chain:8545
+      - CORS_ORIGINS=http://localhost:3000
     ports:
-      - "4000:4000"
+      - "3001:3001"
     depends_on:
       postgres:
         condition: service_healthy
       redis:
         condition: service_healthy
-    command: sh -c "pnpm --filter @bharosa/api dev"
+      chain:
+        condition: service_started
+    command: sh -c "npm install && npm run dev"
 
-  # ----------------------------------------------------------------------------
   # 6. Next.js Frontend Web Application
-  # ----------------------------------------------------------------------------
-  web:
+  frontend:
     image: node:20-alpine
-    container_name: bharosa-web
+    container_name: bharosa-frontend
     restart: unless-stopped
-    working_dir: /app
+    working_dir: /app/frontend
     volumes:
       - .:/app
     environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:4000
+      - NEXT_PUBLIC_API_URL=http://localhost:3001/v1
       - NEXT_PUBLIC_RPC_URL=http://localhost:8545
       - NEXT_PUBLIC_CHAIN_ID=31337
-      - NEXT_PUBLIC_LOCAL_IPFS_GATEWAY=http://localhost:8080/ipfs/
+      - NEXT_PUBLIC_DEMO_MODE=true
     ports:
       - "3000:3000"
     depends_on:
-      - api
-    command: sh -c "pnpm --filter @bharosa/web dev"
+      - backend
+      - chain
+    command: sh -c "npm install && npm run dev"
 
 volumes:
   postgres_data:
