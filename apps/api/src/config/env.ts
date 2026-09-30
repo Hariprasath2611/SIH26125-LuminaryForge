@@ -23,6 +23,7 @@ const envSchema = z.object({
 
   RPC_URL: z.string().default('http://127.0.0.1:8545'),
   CHAIN_ID: z.coerce.number().default(31337),
+  RELAYER_PRIVATE_KEY: z.string().default('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80'),
 });
 
 export const env = envSchema.parse(process.env);
