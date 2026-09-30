@@ -18,16 +18,24 @@ import {
   CheckCircle2,
   ExternalLink,
   Settings,
+  User,
+  School,
+  Building2,
+  UserCheck,
 } from 'lucide-react';
 
 const NAV_ITEMS = [
   { label: 'Dashboard', href: '/dashboard', icon: Shield },
+  { label: 'Identity', href: '/identity', icon: User },
+  { label: 'Issuer', href: '/issuer', icon: School },
   { label: 'Credentials', href: '/credentials', icon: Award },
   { label: 'ZK Proofs', href: '/zk', icon: Sparkles },
   { label: 'Assets', href: '/assets', icon: Lock },
-  { label: 'Access Control', href: '/access', icon: Key },
-  { label: 'Audit Log', href: '/audit', icon: FileClock },
-  { label: 'Security Center', href: '/security', icon: AlertTriangle },
+  { label: 'Access', href: '/access', icon: Key },
+  { label: 'Verifier', href: '/verifier', icon: Building2 },
+  { label: 'Recovery', href: '/recovery', icon: UserCheck },
+  { label: 'Audit', href: '/audit', icon: FileClock },
+  { label: 'Security', href: '/security', icon: AlertTriangle },
   { label: 'Admin', href: '/admin', icon: Settings },
 ];
 
