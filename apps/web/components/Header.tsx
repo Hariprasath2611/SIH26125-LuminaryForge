@@ -17,6 +17,7 @@ import {
   HardDrive,
   CheckCircle2,
   ExternalLink,
+  Settings,
 } from 'lucide-react';
 
 const NAV_ITEMS = [
@@ -27,6 +28,7 @@ const NAV_ITEMS = [
   { label: 'Access Control', href: '/access', icon: Key },
   { label: 'Audit Log', href: '/audit', icon: FileClock },
   { label: 'Security Center', href: '/security', icon: AlertTriangle },
+  { label: 'Admin', href: '/admin', icon: Settings },
 ];
 
 export function Header() {

@@ -159,6 +159,29 @@ This log captures all architectural, cryptographic, and security design decision
   3. **DID Handover:** Upon threshold approval and timelock expiration, `finalizeRecovery` updates the DID controller directly in `IdentityRegistry.sol`, transferring control to the new address and permanently revoking mutation rights from the lost key.
   4. **Emergency Quick-Lock & Threat Telemetry:** Real-time alert stream for burst verification, off-hours access, and unbounded grants, coupled with an instant Quick-Lock freezing mechanism.
 
+---
+
+## ADR 018: Platform Administration Governance & 10-Step Hero Flow End-to-End Verification
+- **Date:** 2026-09-30
+- **Decision:** Implement comprehensive platform administrative governance and an automated 10-step hero flow verification suite:
+  1. **System Telemetry & Health Dashboard (`/admin`):** Real-time monitoring of RPC node latency, geo-distributed IPFS cluster nodes (`delhi-primary-01`, `mumbai-edge-02`, `bangalore-edge-03`), Relayer Treasury balance, and Global Circuit Breaker status.
+  2. **Smart Contract Directory:** Complete verified catalog of all 6 smart contracts (`IdentityRegistry`, `BharosaAccessControl`, `OwnershipRegistry`, `SocialRecovery`, `AuditAnchor`, `ZKCredentialVerifier`) with network parameters, verified addresses, and ABI exports.
+  3. **Institutional Issuer Whitelisting:** Multi-role admin management for registering and whitelisting trusted academic and government issuers (e.g., Delhi Technological University, CBSE, AICTE) with deterministic audit logs.
+  4. **Emergency Circuit Breaker:** Instant toggle to pause/unpause contract operations during security anomalies or protocol maintenance.
+  5. **10-Step Hero Flow E2E Integration Suite (`packages/sdk/test/hero-flow.e2e.test.ts`):** Complete automated test exercising the entire platform lifecycle:
+     - **Step 1:** Student self-custodied W3C DID document registration (`did:ethr:31337:...`).
+     - **Step 2:** University W3C Degree Credential issuance with EIP-712 cryptographic signature and on-chain canonical hash anchor.
+     - **Step 3:** Student client-side AES-256-GCM encryption of research paper, asset ID computation, and IPFS ciphertext pinning.
+     - **Step 4:** Third-party company access request for background verification.
+     - **Step 5:** Student time-bound 24h access grant with ECIES secp256k1 AES key wrapping.
+     - **Step 6:** Company off-chain credential verification, ECIES key unwrapping with private key, and in-memory AES-GCM decryption with SHA-256 integrity match.
+     - **Step 7:** Student on-chain grant revocation prior to expiration.
+     - **Step 8:** Company decryption attempt fails with smart contract REVOKED invariant.
+     - **Step 9:** Student Groth16 zero-knowledge predicate proof generation (proving CGPA >= 7.5 without revealing 9.40 score) with local and on-chain verification.
+     - **Step 10:** Immutable audit log chaining with deterministic SHA-256 Merkle root computation across all 10 platform transitions.
+- **Rationale:** Proves end-to-end cryptographic and contractual integrity across all platform modules, ensuring zero mock dependencies in core verification paths while providing hackathon evaluators with a single-pane-of-glass administrative console.
+
+
 
 
 
