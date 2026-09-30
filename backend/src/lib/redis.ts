@@ -60,7 +60,7 @@ if (process.env.NODE_ENV === 'test') {
       logger.warn({ err: err.message }, '[Redis] Error occurred');
     });
 
-    client = redis;
+    client = redis as unknown as CacheClient;
   } catch (err) {
     logger.warn('[Redis] Init failed, utilizing in-memory cache');
     client = new InMemoryStore();
