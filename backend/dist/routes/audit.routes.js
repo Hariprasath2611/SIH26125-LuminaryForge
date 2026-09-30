@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const audit_controller_1 = require("../controllers/audit.controller");
+const router = (0, express_1.Router)();
+router.get('/', audit_controller_1.AuditController.getAuditEvents);
+router.get('/export', audit_controller_1.AuditController.exportAuditCSV);
+router.get('/stats', audit_controller_1.AuditController.getPlatformStats);
+router.get('/dids/:identifier', audit_controller_1.AuditController.getDid);
+exports.default = router;

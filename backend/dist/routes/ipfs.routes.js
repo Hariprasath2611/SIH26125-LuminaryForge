@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const ipfs_controller_1 = require("../controllers/ipfs.controller");
+const router = (0, express_1.Router)();
+router.post('/upload', ipfs_controller_1.uploadCiphertext);
+router.get('/pin-status/:cid', ipfs_controller_1.getPinStatus);
+router.get('/health', ipfs_controller_1.getClusterHealth);
+router.get('/blob/:cid', ipfs_controller_1.getCiphertextBlob);
+exports.default = router;

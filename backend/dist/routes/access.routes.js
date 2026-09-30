@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const access_controller_1 = require("../controllers/access.controller");
+const router = (0, express_1.Router)();
+router.get('/requests', access_controller_1.getRequests);
+router.post('/requests', access_controller_1.createRequest);
+router.post('/consent-receipt', access_controller_1.generateConsentReceipt);
+router.get('/consent-receipt/:consentId', access_controller_1.getConsentReceipt);
+exports.default = router;
