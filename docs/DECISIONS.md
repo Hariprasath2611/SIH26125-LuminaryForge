@@ -130,6 +130,17 @@ This log captures all architectural, cryptographic, and security design decision
   4. **Instant Revocation:** Owners can revoke grants on-chain at any time with immediate state update to `REVOKED`.
   5. **Consent Receipts:** Signed digital consent receipts following ISO/IEC 27560:2023 and the India Digital Personal Data Protection (DPDP) Act 2023 are generated with JSON export and printable formatting.
 
+---
+
+## ADR 015: Zero-Knowledge Predicate Verification (Circom 2 + Groth16)
+- **Date:** 2026-09-30
+- **Decision:** Implement private qualification proof system using Circom 2, SnarkJS, and Groth16 on BN254 curve:
+  1. **Circuit (`packages/circuits/credential_predicate.circom`):** Enforces `attributeValue >= threshold` via 64-bit comparator and computes blinded commitment `Poseidon(attributeValue, salt)` while checking `issuerPubKeyHash`.
+  2. **Zero Plaintext Leakage:** Raw scores (e.g. CGPA 9.40) or date-of-birth values are strictly confined to client-side WebCrypto/Wasm memory.
+  3. **On-Chain Verifier (`ZKCredentialVerifier.sol`):** Validates Groth16 pairing points `(A, B, C)` against public signals `[issuerKeyHash, threshold, timestamp]` and ensures issuer authorization.
+  4. **Soundness & Fraud Resistance:** Attempting to prove a false predicate (e.g. CGPA 6.2 attempting to prove >= 7.5) triggers constraint failure `gte.out === 1` in the circuit, preventing proof generation.
+
+
 
 
 
