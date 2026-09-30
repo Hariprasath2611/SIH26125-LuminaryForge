@@ -89,11 +89,8 @@ export function Header() {
               <span className="w-2 h-2 rounded-full bg-[#C6F432] animate-pulse"></span>
               Polygon Amoy Active (80002)
             </span>
-            <span className="hidden md:flex items-center gap-1 text-[#A7D18C] whitespace-nowrap">
+            <span className="hidden sm:flex items-center gap-1 text-[#A7D18C] whitespace-nowrap">
               <Mail className="w-3 h-3 text-[#C6F432]" /> contact@bharosa.network
-            </span>
-            <span className="hidden lg:flex items-center gap-1 text-[#A7D18C] whitespace-nowrap">
-              <ShieldCheck className="w-3 h-3 text-[#C6F432]" /> Enterprise Edition · Multi-Tenant Architecture
             </span>
           </div>
 
