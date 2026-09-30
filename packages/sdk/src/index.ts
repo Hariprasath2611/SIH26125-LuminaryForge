@@ -12,3 +12,4 @@ export * from './ipfs';
 export * from './contracts';
 export * from './contracts/client';
 export * from './api';
+export * from './zk/prover';

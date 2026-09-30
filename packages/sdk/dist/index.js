@@ -27,4 +27,5 @@ __exportStar(require("./ipfs"), exports);
 __exportStar(require("./contracts"), exports);
 __exportStar(require("./contracts/client"), exports);
 __exportStar(require("./api"), exports);
+__exportStar(require("./zk/prover"), exports);
 //# sourceMappingURL=index.js.map

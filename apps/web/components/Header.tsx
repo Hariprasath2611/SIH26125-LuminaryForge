@@ -4,11 +4,12 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { ShieldCheck, Shield, Key, Award, Lock, FileClock, AlertTriangle } from 'lucide-react';
+import { ShieldCheck, Shield, Key, Award, Lock, FileClock, AlertTriangle, Sparkles } from 'lucide-react';
 
 const NAV_ITEMS = [
   { label: 'Dashboard', href: '/dashboard', icon: Shield },
   { label: 'Credentials', href: '/credentials', icon: Award },
+  { label: 'ZK Proofs', href: '/zk', icon: Sparkles },
   { label: 'Assets', href: '/assets', icon: Lock },
   { label: 'Access Control', href: '/access', icon: Key },
   { label: 'Audit Log', href: '/audit', icon: FileClock },
