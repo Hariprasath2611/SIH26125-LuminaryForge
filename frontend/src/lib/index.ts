@@ -1,6 +1,6 @@
 /**
- * Bharosa Core Library (Browser-Side Crypto, DID, IPFS, ZK, API-Client & Contracts)
- * Smart India Hackathon 2026 · PS SIH26125 · Team LUMINARYFORGE
+ * Bharosa Enterprise Core Library (Client-Side Cryptography, DID, IPFS, ZK, API-Client & Smart Contracts)
+ * Decentralized Self-Sovereign Identity & Zero-Knowledge Custody Infrastructure
  */
 
 export const BHAROSA_VERSION = '1.0.0';

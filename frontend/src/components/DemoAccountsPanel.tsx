@@ -86,10 +86,10 @@ export function DemoAccountsPanel() {
           </span>
           <span className="font-extrabold text-[#1A2E05] flex items-center gap-1">
             <Zap className="w-3.5 h-3.5 text-lime-700" />
-            JUDGE DEMO MODE:
+            ENTERPRISE TEST ROLES:
           </span>
           <span className="text-[#4D6B2A] hidden sm:inline">
-            Pre-funded wallets (No MetaMask required)
+            Pre-configured wallets (Polygon Amoy Testnet)
           </span>
         </div>
 
@@ -127,12 +127,12 @@ export function DemoAccountsPanel() {
             className="flex items-center gap-1 text-[11px] text-[#4D6B2A] hover:text-[#1A2E05] font-semibold underline underline-offset-2"
           >
             <HelpCircle className="w-3 h-3" />
-            3-Min Demo Script
+            Platform Architecture Flow
           </button>
         </div>
       </div>
 
-      {/* Collapsible 3-Minute Demo Script for Judges */}
+      {/* Collapsible Architecture Flow */}
       {showGuide && (
         <div className="max-w-7xl mx-auto mt-2 pt-2 border-t border-lime-300/60 text-xs text-[#1A2E05] grid grid-cols-1 md:grid-cols-4 gap-3 bg-white p-3 rounded-lg border border-lime-200">
           <div className="p-2 bg-lime-50 rounded border border-lime-200">
