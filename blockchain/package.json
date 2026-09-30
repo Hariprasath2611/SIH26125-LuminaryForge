@@ -37,5 +37,11 @@
     "ts-node": "^10.9.2",
     "typechain": "^8.3.2",
     "typescript": "^5.4.5"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "keccak",
+      "secp256k1"
+    ]
   }
 }
