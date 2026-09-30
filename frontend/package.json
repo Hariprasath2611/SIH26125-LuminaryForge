@@ -5,6 +5,7 @@
   "description": "Bharosa Next.js 14 App Router Frontend - Identity, ABAC Access Control & Sovereign Asset Management",
   "scripts": {
     "dev": "next dev -p 3000",
+    "frontend": "next dev -p 3000",
     "build": "next build",
     "start": "next start -p 3000",
     "test": "vitest run",
