@@ -84,7 +84,7 @@ export default function VerifierPortalPage() {
                 >
                   <option value="1">1 Hour</option>
                   <option value="12">12 Hours</option>
-                  <option value="24">24 Hours (Demo Default)</option>
+                  <option value="24">24 Hours (Standard)</option>
                   <option value="72">72 Hours</option>
                 </select>
               </div>

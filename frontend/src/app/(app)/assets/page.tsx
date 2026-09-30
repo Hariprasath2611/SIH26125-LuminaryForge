@@ -48,7 +48,7 @@ interface RegisteredAsset {
   storedIvHex?: string;
 }
 
-const DEMO_REGISTERED_ASSETS: RegisteredAsset[] = [
+const INITIAL_REGISTERED_ASSETS: RegisteredAsset[] = [
   {
     assetId: '0x4f8a129d5b78e3c4a16298dbfc10398457291a0c84918239048a12837f4819a1',
     name: 'B.Tech Degree Certificate (Alice Sharma)',
@@ -84,7 +84,7 @@ export default function AssetsPage() {
   const [activeTab, setActiveTab] = useState<'upload' | 'vault' | 'cluster'>('upload');
 
   // Asset registration list
-  const [assets, setAssets] = useState<RegisteredAsset[]>(DEMO_REGISTERED_ASSETS);
+  const [assets, setAssets] = useState<RegisteredAsset[]>(INITIAL_REGISTERED_ASSETS);
 
   // Stepper State (Steps 1 to 5)
   const [step, setStep] = useState<number>(1);
@@ -983,7 +983,7 @@ export default function AssetsPage() {
                   disabled={isDecrypting || !decryptionKeyInput.trim()}
                   className="btn-secondary text-xs text-status-error border-status-error/40 hover:bg-red-50 flex items-center gap-1"
                 >
-                  <AlertTriangle className="w-3.5 h-3.5" /> Simulate Tampering
+                  <AlertTriangle className="w-3.5 h-3.5" /> Test Tamper Resistance
                 </button>
               </div>
 

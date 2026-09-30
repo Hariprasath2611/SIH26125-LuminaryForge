@@ -352,7 +352,7 @@ export default function ZKProofPage() {
                   disabled={isGenerating}
                   className="btn-secondary w-full text-[11px] py-1.5 text-status-error border-status-error/40 hover:bg-red-50 flex items-center justify-center gap-1"
                 >
-                  <AlertTriangle className="w-3.5 h-3.5" /> Simulate Fraudulent Proof (CGPA 6.2)
+                  <AlertTriangle className="w-3.5 h-3.5" /> Test Invalid Proof Rejection (CGPA 6.2)
                 </button>
               </div>
             </div>

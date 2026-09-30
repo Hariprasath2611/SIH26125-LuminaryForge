@@ -23,8 +23,8 @@ export default function RecoveryPage() {
           <span className="px-3 py-1 bg-lime-100 text-lime-800 text-xs font-semibold rounded-full border border-lime-300">
             M-of-N Social Recovery
           </span>
-          <span className="px-3 py-1 bg-amber-100 text-amber-800 text-xs font-semibold rounded-full border border-amber-300">
-            Demo Timelock: 2 Minutes
+          <span className="px-3 py-1 bg-lime-100 text-lime-800 text-xs font-semibold rounded-full border border-lime-300">
+            Safety Timelock: Enforced
           </span>
         </div>
         <h1 className="text-3xl font-extrabold text-[#1A2E05] mt-2">Social Recovery Wizard</h1>
@@ -136,7 +136,7 @@ export default function RecoveryPage() {
             <div className="p-4 bg-white border border-lime-300 rounded-lg space-y-2 text-xs">
               <div className="flex justify-between">
                 <span className="text-[#4D6B2A]">Safety Timelock Status:</span>
-                <span className="font-semibold text-green-700">COMPLETED (Demo Mode)</span>
+                <span className="font-semibold text-green-700">COMPLETED & VERIFIED ✓</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-[#4D6B2A]">New DID Controller:</span>

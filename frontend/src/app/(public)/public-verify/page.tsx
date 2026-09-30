@@ -21,7 +21,7 @@ import {
   VerifiableCredential,
 } from '@/lib';
 
-const DEMO_CREDENTIAL: VerifiableCredential = {
+const SAMPLE_OFFICIAL_CREDENTIAL: VerifiableCredential = {
   '@context': [
     'https://www.w3.org/2018/credentials/v1',
     'https://bharosa.app/contexts/v1',
@@ -143,13 +143,13 @@ function PublicVerifyContent() {
     }
   };
 
-  const handleLoadDemo = () => {
-    setJsonInput(JSON.stringify(DEMO_CREDENTIAL, null, 2));
-    performVerification(DEMO_CREDENTIAL);
+  const handleLoadSample = () => {
+    setJsonInput(JSON.stringify(SAMPLE_OFFICIAL_CREDENTIAL, null, 2));
+    performVerification(SAMPLE_OFFICIAL_CREDENTIAL);
   };
 
   const handleSimulateTampering = () => {
-    const tampered = JSON.parse(JSON.stringify(DEMO_CREDENTIAL));
+    const tampered = JSON.parse(JSON.stringify(SAMPLE_OFFICIAL_CREDENTIAL));
     // Malicious student changes their CGPA to 10.0
     tampered.credentialSubject.cgpa = 10.0;
     setJsonInput(JSON.stringify(tampered, null, 2));
@@ -181,7 +181,7 @@ function PublicVerifyContent() {
           <div className="flex gap-2 text-xs">
             <button
               type="button"
-              onClick={handleLoadDemo}
+              onClick={handleLoadSample}
               className="text-primary-hover font-bold hover:underline flex items-center gap-1"
             >
               <Sparkles className="w-3.5 h-3.5" /> Load Authentic Degree
@@ -192,7 +192,7 @@ function PublicVerifyContent() {
               onClick={handleSimulateTampering}
               className="text-status-error font-bold hover:underline flex items-center gap-1"
             >
-              <AlertTriangle className="w-3.5 h-3.5" /> Simulate Tampering
+              <AlertTriangle className="w-3.5 h-3.5" /> Test Invalid Signature Rejection
             </button>
           </div>
         </div>

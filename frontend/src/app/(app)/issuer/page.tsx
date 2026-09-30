@@ -54,7 +54,7 @@ export default function IssuerConsolePage() {
   // Issued Credentials History
   const [issuedList, setIssuedList] = useState<any[]>([
     {
-      id: 'urn:uuid:demo-issued-1',
+      id: 'urn:uuid:issued-dtu-btech-2026',
       student: '0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
       degree: 'B.Tech in Computer Science',
       credentialHash: '0x8f3c72b145a190ef2981ad68c3a3145caedde4f0ac0b8dc4dfe241234567890a',

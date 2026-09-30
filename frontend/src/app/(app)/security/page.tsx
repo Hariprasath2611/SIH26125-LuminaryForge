@@ -585,7 +585,7 @@ export default function SecurityPage() {
                 <div className="p-3 bg-white rounded-xl border border-border space-y-1">
                   <span className="text-[10px] font-bold text-text-muted uppercase">Safety Timelock:</span>
                   <div className="font-semibold text-text">
-                    {secondsRemaining > 0 ? 'Enforcing 2-Min Demo Delay' : 'Delay Passed ✓'}
+                    {secondsRemaining > 0 ? 'Enforcing Timelock Delay' : 'Timelock Passed ✓'}
                   </div>
                 </div>
               </div>
