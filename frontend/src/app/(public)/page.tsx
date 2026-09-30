@@ -149,8 +149,8 @@ export default function HomePage() {
       {/* =========================================================================
           MARQUEE TICKER (Matches Reference Design: Dark Green Bar with Starbursts)
           ========================================================================= */}
-      <section className="w-full bg-[#0C2518] py-4 overflow-hidden border-y border-[#18442D]">
-        <div className="flex items-center gap-8 whitespace-nowrap text-white font-extrabold text-sm sm:text-base tracking-wide uppercase">
+      <section className="w-full max-w-full overflow-hidden bg-[#0C2518] py-4 border-y border-[#18442D] select-none">
+        <div className="flex w-max items-center gap-8 whitespace-nowrap text-white font-extrabold text-sm sm:text-base tracking-wide uppercase">
           <div className="flex items-center gap-8 shrink-0 animate-[marquee_25s_linear_infinite]">
             <span>Self-Sovereign Identity</span>
             <span className="text-[#C6F432] text-xl">❋</span>

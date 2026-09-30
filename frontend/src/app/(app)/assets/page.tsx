@@ -65,8 +65,8 @@ const INITIAL_REGISTERED_ASSETS: RegisteredAsset[] = [
   },
   {
     assetId: '0x910283746519283746501928374650192837465019283746501928374650192b',
-    name: 'LuminaryForge SIH Patent Draft',
-    filename: 'luminary_patent_v1.pdf',
+    name: 'Bharosa Protocol Cryptographic Patent Specification',
+    filename: 'bharosa_patent_v1.pdf',
     mimeType: 'application/pdf',
     size: 512000,
     cid: 'bafkreic98f12a34b56c78d90e12f34a56b78c90d12e34f56a78b90c12d34e56',

@@ -150,7 +150,7 @@ export default function OnboardingPage() {
                   onClick={() => setStep(2)}
                   className="btn-primary w-full"
                 >
-                  Continue to SIH Verification <ArrowRight className="w-4 h-4 ml-1" />
+                  Continue to Identity Verification <ArrowRight className="w-4 h-4 ml-1" />
                 </button>
               </div>
             )}

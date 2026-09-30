@@ -30,16 +30,15 @@ import {
 } from 'lucide-react';
 
 const PRIMARY_NAV = [
-  { label: 'Home', href: '/', icon: Shield },
   { label: 'Dashboard', href: '/dashboard', icon: ShieldCheck },
   { label: 'Identity', href: '/identity', icon: User },
   { label: 'Credentials', href: '/credentials', icon: Award },
-  { label: 'ZK Proofs', href: '/zk', icon: Sparkles },
   { label: 'Asset Vault', href: '/assets', icon: Lock },
-  { label: 'ABAC Access', href: '/access', icon: Key },
+  { label: 'ZK Proofs', href: '/zk', icon: Sparkles },
 ];
 
 const SECONDARY_NAV = [
+  { label: 'ABAC Access Control', href: '/access', icon: Key, desc: 'Decentralized time-bound access delegation' },
   { label: 'Issuer Portal', href: '/issuer', icon: School, desc: 'Accredited credential issuance' },
   { label: 'Verifier Portal', href: '/verifier', icon: Building2, desc: 'Third-party verification requests' },
   { label: 'Public Verifier', href: '/public-verify', icon: ShieldCheck, desc: 'Instant zero-login proof check' },
@@ -94,7 +93,7 @@ export function Header() {
               <Mail className="w-3 h-3 text-[#C6F432]" /> contact@bharosa.network
             </span>
             <span className="hidden lg:flex items-center gap-1 text-[#A7D18C] whitespace-nowrap">
-              <MapPin className="w-3 h-3 text-[#C6F432]" /> SIH 2026 · PS SIH26125
+              <ShieldCheck className="w-3 h-3 text-[#C6F432]" /> Enterprise Edition · Multi-Tenant Architecture
             </span>
           </div>
 
@@ -245,14 +244,6 @@ export function Header() {
                   chainStatus="icon"
                 />
               </div>
-
-              {/* Launch App Pill (Matches Reference's "Get A Quote" pill button) */}
-              <Link
-                href="/dashboard"
-                className="hidden md:inline-flex items-center gap-1 px-4 py-2 rounded-full bg-[#0C2518] text-[#C6F432] text-xs font-bold hover:bg-[#18442D] transition shadow-xs"
-              >
-                Launch App
-              </Link>
 
               {/* Mobile / Tablet Menu Button (Visible < xl) */}
               <button
