@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useAccount } from 'wagmi';
-import { formatDID } from '@/lib/did';
+import { formatDID } from '@/lib';
 
 export default function IdentityPage() {
   const { address, isConnected } = useAccount();
