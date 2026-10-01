@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useParams } from 'react-router-dom';
 import {
   ShieldCheck,
   CheckCircle2,
@@ -48,20 +48,24 @@ const SAMPLE_OFFICIAL_CREDENTIAL: VerifiableCredential = {
 
 export function PublicVerifyPage() {
   const [searchParams] = useSearchParams();
+  const { hash: routeHash } = useParams<{ hash?: string }>();
   const [jsonInput, setJsonInput] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [result, setResult] = useState<any | null>(null);
 
   useEffect(() => {
     const vcParam = searchParams.get('vc');
+    const hashParam = routeHash || searchParams.get('hash');
     if (vcParam) {
       try {
         const decoded = decodeURIComponent(vcParam);
         setJsonInput(decoded);
         performVerification(JSON.parse(decoded));
       } catch {}
+    } else if (hashParam) {
+      setJsonInput(JSON.stringify({ ...SAMPLE_OFFICIAL_CREDENTIAL, id: hashParam }, null, 2));
     }
-  }, [searchParams]);
+  }, [searchParams, routeHash]);
 
   const performVerification = async (parsedVC: VerifiableCredential) => {
     setLoading(true);

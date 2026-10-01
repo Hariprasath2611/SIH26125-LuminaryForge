@@ -29,6 +29,18 @@ export default defineConfig({
         target: 'http://localhost:4000',
         changeOrigin: true,
       },
+      '/healthz': {
+        target: 'http://localhost:4000',
+        changeOrigin: true,
+      },
+      '/readyz': {
+        target: 'http://localhost:4000',
+        changeOrigin: true,
+      },
+      '/docs': {
+        target: 'http://localhost:4000',
+        changeOrigin: true,
+      },
     },
   },
   build: {
@@ -41,6 +53,7 @@ export default defineConfig({
           'vendor-react': ['react', 'react-dom', 'react-router-dom', 'react-helmet-async'],
           'vendor-web3': ['wagmi', '@rainbow-me/rainbowkit', 'viem', 'ethers'],
           'vendor-query': ['@tanstack/react-query'],
+          'vendor-crypto': ['@noble/curves', '@noble/hashes'],
         },
       },
     },

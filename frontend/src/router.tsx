@@ -49,6 +49,22 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: '/verify',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PublicVerify />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/verify/:hash',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PublicVerify />
+          </Suspense>
+        ),
+      },
     ],
   },
 
