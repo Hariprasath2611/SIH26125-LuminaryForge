@@ -111,17 +111,17 @@ Expand the **Environment Variables** section and add the following:
 
 | Key | Value | Notes |
 |---|---|---|
-| `NEXT_PUBLIC_API_URL` | `https://bharosa-api-xxxx.onrender.com/v1` | ⚠️ **Use your Render URL from Step 2 with `/v1` at the end!** |
-| `NEXT_PUBLIC_APP_NAME` | `Bharosa` | Platform name |
-| `NEXT_PUBLIC_DEMO_MODE` | `true` | Enables interactive simulated testing |
-| `NEXT_PUBLIC_IPFS_GATEWAY` | `https://ipfs.io/ipfs/` | IPFS gateway for encrypted asset viewing |
-| `NEXT_PUBLIC_CHAIN_ID` | `80002` | Polygon Amoy testnet ID |
-| `NEXT_PUBLIC_RPC_URL` | `https://rpc-amoy.polygon.technology/` | Polygon Amoy public RPC |
+| `VITE_API_URL` | `https://bharosa-api-xxxx.onrender.com/v1` | ⚠️ **Use your Render URL from Step 2 with `/v1` at the end!** |
+| `VITE_APP_NAME` | `Bharosa` | Platform name |
+| `VITE_DEMO_MODE` | `true` | Enables interactive simulated testing |
+| `VITE_IPFS_GATEWAY` | `https://ipfs.io/ipfs/` | IPFS gateway for encrypted asset viewing |
+| `VITE_CHAIN_ID` | `80002` | Polygon Amoy testnet ID |
+| `VITE_RPC_URL` | `https://rpc-amoy.polygon.technology/` | Polygon Amoy public RPC |
 
 ### 3.5 Deploy!
 1. Click **Deploy**.
-2. Vercel will install dependencies, build the Next.js routes, and deploy your site to their global CDN.
-3. In about 60 seconds, you will see confetti and a screenshot of your live app!
+2. Vercel will install dependencies, build the Vite SPA bundle, and deploy your site to their global CDN.
+3. In about 45 seconds, you will see confetti and a screenshot of your live app!
 4. Click the link to open your live application (e.g., `https://bharosa-xyz.vercel.app`).
 
 ---
