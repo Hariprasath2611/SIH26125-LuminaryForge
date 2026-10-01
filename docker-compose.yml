@@ -94,7 +94,7 @@ services:
         condition: service_started
     command: sh -c "npm install && npm run dev"
 
-  # 6. Next.js Frontend Web Application
+  # 6. React 18 + Vite Frontend Application
   frontend:
     image: node:20-alpine
     container_name: bharosa-frontend
