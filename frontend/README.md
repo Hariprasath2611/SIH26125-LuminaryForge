@@ -1,14 +1,14 @@
-# Bharosa Frontend
-### Next.js 14 App Router + TypeScript + Tailwind CSS (White + Lime Green Theme)
-**Smart India Hackathon 2026** · **PS SIH26125** · **Team LUMINARYFORGE**
+# Bharosa Enterprise Frontend
+### React 18 + Vite 5 + TypeScript + Tailwind CSS (White + Lime Green Theme)
 
-The frontend is a sovereign, client-side cryptographic dashboard built with:
-- **Design System:** Strict White + Lime Green (`#84CC16`), `color-scheme: light` (no dark mode), WCAG AA compliant.
-- **Judge Demo Mode:** Top floating panel with one-click persona switching (Student / University / Employer) without requiring MetaMask.
+The frontend is a sovereign, enterprise-grade client-side cryptographic application built with:
+- **Architecture:** React 18 + Vite 5 + React Router v6 + TanStack Query + Wagmi / RainbowKit.
+- **Design System:** Strict White + Lime Green (`#84CC16`), `color-scheme: light`, responsive layout, WCAG AA compliant.
+- **Role Switcher:** Role switching panel for exploring organizational personas (Student / University / Employer / Auditor / Admin).
 - **In-Browser Cryptography:** WebCrypto AES-256-GCM file encryption, ECIES secp256k1 key encapsulation, and SnarkJS Groth16 zero-knowledge qualification verification.
-- **Route Layout:**
-  - `(public)/`: Landing page (`/`) and Zero-Login Public Verification (`/public-verify`).
-  - `(app)/`: Dashboard, Identity Hub, Issuer Console, Credentials Wallet, Assets Vault, ABAC Access Control, Verifier Review, Social Recovery, Security Center, Audit Logs, Admin Governance.
+- **Routes:**
+  - Public: Landing page (`/`) and Zero-Login Verification (`/public-verify`).
+  - Enterprise App: Dashboard (`/dashboard`), Identity Hub (`/identity`), Issuer Console (`/issuer`), Credentials Wallet (`/credentials`), Assets Vault (`/assets`), ABAC Access Control (`/access`), Verifier Review (`/verifier`), Social Recovery (`/recovery`), Security Center (`/security`), Audit Logs (`/audit`), Admin Governance (`/admin`).
 
 ---
 
@@ -30,12 +30,11 @@ npm run build
 
 ---
 
-## Deployment to Vercel
+## Deployment (Vercel / Node.js Static Hosting)
 
-1. Import project repository into Vercel.
-2. Set **Root Directory** to `frontend`.
-3. Configure Environment Variables:
-   - `NEXT_PUBLIC_API_URL` = URL of deployed backend service (e.g. `https://bharosa-api.onrender.com/v1`)
-   - `NEXT_PUBLIC_CHAIN_ID` = `80002` (Polygon Amoy) or `421614` (Arbitrum Sepolia)
-   - `NEXT_PUBLIC_RPC_URL` = RPC endpoint URL
-   - `NEXT_PUBLIC_DEMO_MODE` = `false` (for production) or `true` (for demo)
+1. Deploy using Vite preset with output directory `dist`.
+2. Configure Environment Variables:
+   - `VITE_API_URL` = URL of backend service (e.g. `https://api.bharosa.io/v1` or `/v1` via reverse proxy)
+   - `VITE_CHAIN_ID` = `80002` (Polygon Amoy) or `421614` (Arbitrum Sepolia) or `31337` (Localhost)
+   - `VITE_RPC_URL` = RPC endpoint URL
+   - `VITE_WALLETCONNECT_PROJECT_ID` = WalletConnect Project ID
