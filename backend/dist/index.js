@@ -15,13 +15,28 @@ const access_routes_1 = __importDefault(require("./routes/access.routes"));
 const relayer_routes_1 = __importDefault(require("./routes/relayer.routes"));
 const security_routes_1 = __importDefault(require("./routes/security.routes"));
 const env_1 = require("./config/env");
+const path_1 = __importDefault(require("path"));
+const fs_1 = __importDefault(require("fs"));
 // Graceful JSON serialization for BigInt (Prisma & Blockchain block numbers)
 BigInt.prototype.toJSON = function () {
     return this.toString();
 };
 const app = (0, express_1.default)();
 const port = env_1.env.PORT;
-app.use((0, helmet_1.default)());
+app.use((0, helmet_1.default)({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: ["'self'", "'wasm-unsafe-eval'"],
+            styleSrc: ["'self'", "'unsafe-inline'"],
+            imgSrc: ["'self'", 'data:', 'blob:', 'https:', 'ipfs:'],
+            connectSrc: ["'self'", 'http:', 'https:', 'ws:', 'wss:'],
+            workerSrc: ["'self'", 'blob:'],
+            frameAncestors: ["'none'"],
+        },
+    },
+    crossOriginEmbedderPolicy: false,
+}));
 app.use((0, cors_1.default)({
     origin: (origin, callback) => {
         // In development or demo, allow requests without origin (e.g. curl/Postman) or matching origins
@@ -64,6 +79,26 @@ app.use(`${env_1.env.API_PREFIX}/relayer`, relayer_routes_1.default);
 app.use(`${env_1.env.API_PREFIX}/security`, security_routes_1.default);
 app.use(`${env_1.env.API_PREFIX}`, audit_routes_1.default); // mounts /v1/dids/:id and /v1/stats
 app.get(`${env_1.env.API_PREFIX}/me`, auth_routes_1.default);
+// Optional Frontend Static Hosting with SPA Fallback (when SERVE_FRONTEND=true)
+const distPathCandidates = [
+    path_1.default.resolve(__dirname, '../../frontend/dist'),
+    path_1.default.resolve(process.cwd(), 'frontend/dist'),
+    path_1.default.resolve(process.cwd(), '../frontend/dist'),
+];
+const distPath = distPathCandidates.find((p) => fs_1.default.existsSync(p)) || distPathCandidates[0];
+if (env_1.env.SERVE_FRONTEND && fs_1.default.existsSync(distPath)) {
+    console.log(`[Bharosa Server] Serving production frontend from: ${distPath}`);
+    app.use(express_1.default.static(distPath, { maxAge: '1y', index: false }));
+    app.get('*', (req, res, next) => {
+        if (req.path.startsWith('/v1') ||
+            req.path.startsWith('/healthz') ||
+            req.path.startsWith('/readyz') ||
+            req.path.startsWith('/docs')) {
+            return next();
+        }
+        res.sendFile(path_1.default.join(distPath, 'index.html'));
+    });
+}
 // Uniform Error Handler
 app.use((err, req, res, next) => {
     const statusCode = err.status || 500;

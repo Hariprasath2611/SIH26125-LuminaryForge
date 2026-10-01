@@ -28,5 +28,6 @@ const envSchema = zod_1.z.object({
     CHAIN_ID: zod_1.z.coerce.number().default(31337),
     RELAYER_PRIVATE_KEY: zod_1.z.string().default('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80'),
     PINATA_JWT: zod_1.z.string().optional(),
+    SERVE_FRONTEND: zod_1.z.preprocess((val) => val === 'true' || val === true, zod_1.z.boolean()).default(false),
 });
 exports.env = envSchema.parse(process.env);
