@@ -1,8 +1,5 @@
-'use client';
-
 import React, { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link, useLocation } from 'react-router-dom';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import {
   ShieldCheck,
@@ -49,7 +46,7 @@ const SECONDARY_NAV = [
 ];
 
 export function Header() {
-  const pathname = usePathname();
+  const { pathname } = useLocation();
   const [gaslessMode, setGaslessMode] = useState<boolean>(true);
   const [showTreasuryModal, setShowTreasuryModal] = useState<boolean>(false);
   const [moreOpen, setMoreOpen] = useState<boolean>(false);
