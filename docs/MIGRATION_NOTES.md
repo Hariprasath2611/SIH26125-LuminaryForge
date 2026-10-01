@@ -114,11 +114,14 @@ The following variables are active in `.env`, `.env.example`, and frontend code:
 
 ---
 
-## 3. Implementation Roadmap
+## 3. Implementation Roadmap & Verification Results
 1. **Step 1 (Complete):** Audit complete, baseline verified.
-2. **Step 2:** Scaffold Vite + React 18 configuration (`vite.config.ts`, `index.html`, polyfills, fonts, Tailwind/postcss, `src/main.tsx`, `src/App.tsx`).
-3. **Step 3:** Implement React Router v6 (`src/router.tsx`), layout wrappers (`PublicLayout`, `AppLayout`), and migrate all 15 page components from `src/app` into `src/pages`.
-4. **Step 4:** Replace all Next.js navigation, image, and router hooks with React Router & standard DOM equivalents.
-5. **Step 5:** Migrate environment variables from `process.env.NEXT_PUBLIC_*` to `import.meta.env.VITE_*`.
-6. **Step 6:** Configure Express backend to serve `frontend/dist` with SPA fallback and security headers when `SERVE_FRONTEND=true`.
-7. **Step 7:** Clean up Next.js configuration artifacts (`next.config.*`, `.next/`, `eslint-config-next`) and verify builds, type-checking, and zero `next` references.
+2. **Step 2 (Complete):** Scaffolded Vite + React 18 configuration (`vite.config.ts`, `index.html`, node polyfills, `@fontsource/inter`, `@fontsource/plus-jakarta-sans`, Tailwind/postcss, `src/main.tsx`, `src/App.tsx`).
+3. **Step 3 (Complete):** Implemented React Router v6 (`src/router.tsx`), layout wrappers (`PublicLayout`, `AppLayout`), and migrated all page components into `src/pages/` with lazy chunking.
+4. **Step 4 (Complete):** Replaced all Next.js navigation (`Link`), image (`img`), and navigation hooks (`useLocation`, `useSearchParams`, `useNavigate`) with standard React Router and DOM equivalents.
+5. **Step 5 (Complete):** Migrated environment variables to `VITE_*` and `import.meta.env` with typed fallbacks.
+6. **Step 6 (Complete):** Configured Express backend to serve `frontend/dist` with robust candidate path resolution, SPA fallback, CSP and security headers when `SERVE_FRONTEND=true`.
+7. **Step 7 (Complete):** Removed all Next.js configuration artifacts, `.next` caches, and verified zero `next` dependencies in source code.
+   - **Typecheck:** `tsc --noEmit` passed with 0 errors.
+   - **Unit & Integration Tests:** 6 test files, 28/28 tests passed (`vitest run`).
+   - **Production Build:** `tsc && vite build` succeeded in 18.58s producing production chunks in `frontend/dist/`.
