@@ -125,3 +125,69 @@ The following variables are active in `.env`, `.env.example`, and frontend code:
    - **Typecheck:** `tsc --noEmit` passed with 0 errors.
    - **Unit & Integration Tests:** 6 test files, 28/28 tests passed (`vitest run`).
    - **Production Build:** `tsc && vite build` succeeded in 18.58s producing production chunks in `frontend/dist/`.
+
+---
+
+## 4. Gap Checks
+
+### 4.1 Raw Check Output
+```text
+--- non-public process.env uses
+(no output)
+
+--- next config / middleware
+(no output)
+
+--- special files
+(src/app not present; pages migrated to src/pages)
+
+--- wagmi ssr/cookie storage
+(no output)
+
+--- tailwind content paths
+6:  content: [
+      "./index.html",
+      "./src/**/*.{js,ts,jsx,tsx}",
+    ],
+
+--- window guards
+(no output)
+
+--- path aliases
+16:    "paths": {
+17:      "@/*": ["./src/*"]
+src/pages/Access.tsx
+src/pages/Admin.tsx
+src/pages/Assets.tsx
+src/pages/AuditLog.tsx
+src/pages/Credentials.tsx
+
+--- hardcoded WalletConnect id
+./src/config/env.ts:17:    import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || '3a8170812b534d0ff9d794f168faebeb',
+
+--- required deps present?
+38:    "@testing-library/jest-dom": "^6.4.6",
+39:    "@testing-library/react": "^16.0.0",
+
+--- baseline (npm run build && npx tsc --noEmit && npx vitest run)
+vite v5.4.21 building for production...
+✓ built in 11.40s
+tsc --noEmit: 0 errors
+vitest run: 6 passed (6 files), 28 passed (28 tests), duration 1.07s
+Result: PASS
+```
+
+### 4.2 Gap Findings & Replacement Audit Table
+
+| Check Category | Detected Finding / File | Current Behavior | Vite / React Router Replacement Plan |
+|---|---|---|---|
+| **WalletConnect ID** | `src/config/env.ts:17` | Fallback to hardcoded ID `'3a8170812b534d0ff9d794f168faebeb'` when env unset | Remove hardcoded fallback completely. Read `VITE_WALLETCONNECT_PROJECT_ID` strictly via zod schema; if missing or empty, omit WalletConnect connector and display only injected/demo wallets. |
+| **Special Files / App Router** | `src/app/` | Prior App Router layout & routing artifacts | All 15 routes cleanly unified under `src/router.tsx` with `PublicLayout` and `AppLayout`. |
+| **Path Aliases** | `tsconfig.json`, `vite.config.ts` | Uses `@/*` mapped to `./src/*` | Verified `@/*` is present in both `tsconfig.json` (`compilerOptions.paths`) and `vite.config.ts` (`resolve.alias`). |
+| **Tailwind Content** | `tailwind.config.ts:6-9` | Targets `./index.html` and `./src/**/*.{js,ts,jsx,tsx}` | Already updated from Next.js paths. Confirmed light mode tokens only, no `dark:` classes. |
+| **Non-public Env** | `src/` | No non-public `process.env` calls found | Handled: standard client env via `import.meta.env.VITE_*`. |
+| **Wagmi Storage / SSR** | `src/config/wagmi.ts` | Client SPA wagmi configuration | Confirmed: no `ssr: true`, no `cookieStorage`/`cookieToInitialState`; uses default localStorage storage for wagmi connection state. |
+| **Window Guards** | `src/` | No SSR `typeof window !== 'undefined'` wrappers found | Unnecessary in client SPA; preserved standard `typeof window.ethereum !== 'undefined'` for injected wallet detection. |
+| **Testing & Dependencies** | `package.json` | Testing library present (`@testing-library/react`, `jest-dom`) | Add `jsdom` and `@testing-library/user-event` to support comprehensive DOM event testing. |
+| **Baseline Status** | `npm run build && tsc --noEmit && vitest run` | All checks pass | Baseline verified: Build succeeds in 11.4s, 0 TypeScript errors, 28/28 unit/E2E tests pass. |
+
