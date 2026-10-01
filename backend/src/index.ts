@@ -86,7 +86,12 @@ app.use(`${env.API_PREFIX}`, auditRoutes); // mounts /v1/dids/:id and /v1/stats
 app.get(`${env.API_PREFIX}/me`, authRoutes);
 
 // Optional Frontend Static Hosting with SPA Fallback (when SERVE_FRONTEND=true)
-const distPath = path.resolve(__dirname, '../../../frontend/dist');
+const distPathCandidates = [
+  path.resolve(__dirname, '../../frontend/dist'),
+  path.resolve(process.cwd(), 'frontend/dist'),
+  path.resolve(process.cwd(), '../frontend/dist'),
+];
+const distPath = distPathCandidates.find((p) => fs.existsSync(p)) || distPathCandidates[0];
 if (env.SERVE_FRONTEND && fs.existsSync(distPath)) {
   console.log(`[Bharosa Server] Serving production frontend from: ${distPath}`);
   app.use(express.static(distPath, { maxAge: '1y', index: false }));
