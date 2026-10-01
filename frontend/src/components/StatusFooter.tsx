@@ -9,6 +9,8 @@ interface SubsystemStatus {
   latencyMs: number;
 }
 
+import { env } from '../config/env';
+
 export function StatusFooter() {
   const [status, setStatus] = useState<SubsystemStatus>({
     chain: 'ONLINE',
@@ -22,7 +24,7 @@ export function StatusFooter() {
   const checkHealth = async () => {
     const start = performance.now();
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://sih26125-luminaryforge.onrender.com/v1';
+      const apiUrl = env.API_URL;
       const res = await fetch(`${apiUrl}/relayer/treasury`, { cache: 'no-store' });
       const elapsed = Math.round(performance.now() - start);
       if (res.ok) {

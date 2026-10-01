@@ -1,7 +1,6 @@
-'use client';
-
 import React, { useState, useEffect } from 'react';
 import { User, School, Building2, Check, Zap, HelpCircle } from 'lucide-react';
+import { env } from '../config/env';
 
 export interface DemoAccount {
   id: string;
@@ -45,12 +44,11 @@ export const DEMO_ACCOUNTS: DemoAccount[] = [
 
 export function DemoAccountsPanel() {
   const [activeId, setActiveId] = useState<string>('student');
-  const [isDemoMode, setIsDemoMode] = useState<boolean>(true);
+  const [isDemoMode, setIsDemoMode] = useState<boolean>(env.DEMO_MODE);
   const [showGuide, setShowGuide] = useState<boolean>(false);
 
   useEffect(() => {
-    // Check if DEMO_MODE is disabled via env
-    if (process.env.NEXT_PUBLIC_DEMO_MODE === 'false') {
+    if (!env.DEMO_MODE) {
       setIsDemoMode(false);
       return;
     }
