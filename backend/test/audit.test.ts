@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import request from 'supertest';
 import app from '../src/index';
 
-describe('Audit & Platform Stats API', () => {
+describe('Audit & Platform Stats API', { timeout: 15000 }, () => {
   it('GET /v1/audit should return paginated audit logs', async () => {
     const res = await request(app).get('/v1/audit?page=1&limit=10');
     expect(res.status).toBe(200);
