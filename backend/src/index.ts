@@ -11,6 +11,9 @@ import relayerRoutes from './routes/relayer.routes';
 import securityRoutes from './routes/security.routes';
 import { env } from './config/env';
 
+import path from 'path';
+import fs from 'fs';
+
 // Graceful JSON serialization for BigInt (Prisma & Blockchain block numbers)
 (BigInt.prototype as any).toJSON = function () {
   return this.toString();
@@ -19,7 +22,22 @@ import { env } from './config/env';
 const app = express();
 const port = env.PORT;
 
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'wasm-unsafe-eval'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: ["'self'", 'data:', 'blob:', 'https:', 'ipfs:'],
+        connectSrc: ["'self'", 'http:', 'https:', 'ws:', 'wss:'],
+        workerSrc: ["'self'", 'blob:'],
+        frameAncestors: ["'none'"],
+      },
+    },
+    crossOriginEmbedderPolicy: false,
+  })
+);
 app.use(
   cors({
     origin: (origin, callback) => {
