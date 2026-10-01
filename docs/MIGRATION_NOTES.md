@@ -65,26 +65,26 @@ The current App Router structure has 16 routes grouped under `(public)` and `(ap
 
 ---
 
-### 2.5 Environment Variables Audit (`NEXT_PUBLIC_*` -> `VITE_*`)
+### 2.5 Environment Variables Audit (Legacy Next prefix -> `VITE_*`)
 
 The following variables are active in `.env`, `.env.example`, and frontend code:
 
-| Existing Variable (`process.env`) | Target Variable (`import.meta.env`) | Default / Fallback |
+| Legacy Variable (`process.env`) | Target Variable (`import.meta.env`) | Default / Fallback |
 |---|---|---|
-| `NEXT_PUBLIC_APP_NAME` | `VITE_APP_NAME` | `"Bharosa"` |
-| `NEXT_PUBLIC_DEMO_MODE` | `VITE_DEMO_MODE` | `"true"` / `"false"` |
-| `NEXT_PUBLIC_API_URL` | `VITE_API_URL` | `"/v1"` (dev proxy) or `http://localhost:4000/v1` |
-| `NEXT_PUBLIC_CHAIN_ID` | `VITE_CHAIN_ID` | `"31337"` |
-| `NEXT_PUBLIC_RPC_URL` | `VITE_RPC_URL` | `"http://127.0.0.1:8545"` |
-| `NEXT_PUBLIC_AMOY_RPC_URL` | `VITE_AMOY_RPC_URL` | `"https://rpc-amoy.polygon.technology"` |
-| `NEXT_PUBLIC_ARBITRUM_SEPOLIA_RPC_URL` | `VITE_ARBITRUM_SEPOLIA_RPC_URL` | `"https://sepolia-rollup.arbitrum.io/rpc"` |
-| `NEXT_PUBLIC_IPFS_GATEWAY` | `VITE_IPFS_GATEWAY` | `"https://ipfs.io/ipfs/"` |
-| `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` | `VITE_WALLETCONNECT_PROJECT_ID` | `"3a8170812b534d0ff9d794f168faebeb"` |
-| `NEXT_PUBLIC_CONTRACT_IDENTITY_REGISTRY` | `VITE_CONTRACT_IDENTITY_REGISTRY` | Auto-resolved from `contracts/` |
-| `NEXT_PUBLIC_CONTRACT_ACCESS_CONTROL` | `VITE_CONTRACT_ACCESS_CONTROL` | Auto-resolved from `contracts/` |
-| `NEXT_PUBLIC_CONTRACT_OWNERSHIP_REGISTRY`| `VITE_CONTRACT_OWNERSHIP_REGISTRY` | Auto-resolved from `contracts/` |
-| `NEXT_PUBLIC_CONTRACT_SOCIAL_RECOVERY` | `VITE_CONTRACT_SOCIAL_RECOVERY` | Auto-resolved from `contracts/` |
-| `NEXT_PUBLIC_CONTRACT_ZK_VERIFIER` | `VITE_CONTRACT_ZK_VERIFIER` | Auto-resolved from `contracts/` |
+| `LEGACY_APP_NAME` | `VITE_APP_NAME` | `"Bharosa"` |
+| `LEGACY_DEMO_MODE` | `VITE_DEMO_MODE` | `"true"` / `"false"` |
+| `LEGACY_API_URL` | `VITE_API_URL` | `"/v1"` (dev proxy) or `http://localhost:4000/v1` |
+| `LEGACY_CHAIN_ID` | `VITE_CHAIN_ID` | `"31337"` |
+| `LEGACY_RPC_URL` | `VITE_RPC_URL` | `"http://127.0.0.1:8545"` |
+| `LEGACY_AMOY_RPC_URL` | `VITE_AMOY_RPC_URL` | `"https://rpc-amoy.polygon.technology"` |
+| `LEGACY_ARBITRUM_SEPOLIA_RPC_URL` | `VITE_ARBITRUM_SEPOLIA_RPC_URL` | `"https://sepolia-rollup.arbitrum.io/rpc"` |
+| `LEGACY_IPFS_GATEWAY` | `VITE_IPFS_GATEWAY` | `"https://ipfs.io/ipfs/"` |
+| `LEGACY_WALLETCONNECT_PROJECT_ID` | `VITE_WALLETCONNECT_PROJECT_ID` | `<REMOVED_WC_ID>` |
+| `LEGACY_CONTRACT_IDENTITY_REGISTRY` | `VITE_CONTRACT_IDENTITY_REGISTRY` | Auto-resolved from `contracts/` |
+| `LEGACY_CONTRACT_ACCESS_CONTROL` | `VITE_CONTRACT_ACCESS_CONTROL` | Auto-resolved from `contracts/` |
+| `LEGACY_CONTRACT_OWNERSHIP_REGISTRY`| `VITE_CONTRACT_OWNERSHIP_REGISTRY` | Auto-resolved from `contracts/` |
+| `LEGACY_CONTRACT_SOCIAL_RECOVERY` | `VITE_CONTRACT_SOCIAL_RECOVERY` | Auto-resolved from `contracts/` |
+| `LEGACY_CONTRACT_ZK_VERIFIER` | `VITE_CONTRACT_ZK_VERIFIER` | Auto-resolved from `contracts/` |
 
 ---
 
@@ -163,7 +163,7 @@ src/pages/AuditLog.tsx
 src/pages/Credentials.tsx
 
 --- hardcoded WalletConnect id
-./src/config/env.ts:17:    import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || '3a8170812b534d0ff9d794f168faebeb',
+./src/config/env.ts:17:    import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || '<REMOVED_WC_ID>',
 
 --- required deps present?
 38:    "@testing-library/jest-dom": "^6.4.6",
@@ -181,7 +181,7 @@ Result: PASS
 
 | Check Category | Detected Finding / File | Current Behavior | Vite / React Router Replacement Plan |
 |---|---|---|---|
-| **WalletConnect ID** | `src/config/env.ts:17` | Fallback to hardcoded ID `'3a8170812b534d0ff9d794f168faebeb'` when env unset | Remove hardcoded fallback completely. Read `VITE_WALLETCONNECT_PROJECT_ID` strictly via zod schema; if missing or empty, omit WalletConnect connector and display only injected/demo wallets. |
+| **WalletConnect ID** | `src/config/env.ts:17` | Fallback to hardcoded ID `'<REMOVED_WC_ID>'` when env unset | Remove hardcoded fallback completely. Read `VITE_WALLETCONNECT_PROJECT_ID` strictly via zod schema; if missing or empty, omit WalletConnect connector and display only injected/demo wallets. |
 | **Special Files / App Router** | `src/app/` | Prior App Router layout & routing artifacts | All 15 routes cleanly unified under `src/router.tsx` with `PublicLayout` and `AppLayout`. |
 | **Path Aliases** | `tsconfig.json`, `vite.config.ts` | Uses `@/*` mapped to `./src/*` | Verified `@/*` is present in both `tsconfig.json` (`compilerOptions.paths`) and `vite.config.ts` (`resolve.alias`). |
 | **Tailwind Content** | `tailwind.config.ts:6-9` | Targets `./index.html` and `./src/**/*.{js,ts,jsx,tsx}` | Already updated from Next.js paths. Confirmed light mode tokens only, no `dark:` classes. |
