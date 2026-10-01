@@ -99,31 +99,66 @@ export default function ZKProofPage() {
     }
   };
 
-  // Generate Groth16 Zero-Knowledge Proof in browser memory
+  // Generate Groth16 Zero-Knowledge Proof off-thread via Web Worker
   const handleGenerateProof = async (forceFraud = false) => {
     setIsGenerating(true);
     setProofResult(null);
     setOnChainVerified(false);
 
+    const attributeVal = forceFraud ? 6.2 : selectedCred.realValue;
+    const proofParams = {
+      attributeName: selectedCred.attributeName,
+      attributeValue: attributeVal,
+      threshold: selectedThreshold,
+      issuerAddress: selectedCred.issuerAddress,
+    };
+
+    if (typeof Worker !== 'undefined') {
+      try {
+        const worker = new Worker(new URL('../lib/zk/zkWorker.ts', import.meta.url), { type: 'module' });
+        worker.onmessage = (e) => {
+          const { type, message, result, error } = e.data;
+          if (type === 'PROGRESS') {
+            setProgressStep(message);
+          } else if (type === 'DONE') {
+            setProofResult(result);
+            setIsGenerating(false);
+            setProgressStep('');
+            worker.terminate();
+          } else if (type === 'ERROR') {
+            setProofResult({
+              success: false,
+              predicateSatisfied: false,
+              error,
+            });
+            setIsGenerating(false);
+            setProgressStep('');
+            worker.terminate();
+          }
+        };
+        worker.onerror = (err) => {
+          console.error('[ZK Worker Error]', err);
+          worker.terminate();
+          // Fallback to sync prover if worker fails
+          generatePredicateProof(proofParams)
+            .then(setProofResult)
+            .finally(() => {
+              setIsGenerating(false);
+              setProgressStep('');
+            });
+        };
+        worker.postMessage({ type: 'GENERATE_PROOF', payload: proofParams });
+        return;
+      } catch (e) {
+        console.warn('[ZK Prover] Worker initialization failed, using main thread fallback');
+      }
+    }
+
     try {
       setProgressStep('Synthesizing R1CS witness in WebAssembly...');
-      await new Promise((r) => setTimeout(r, 400));
+      await new Promise((r) => setTimeout(r, 200));
 
-      setProgressStep('Blinding secret attribute with cryptographic salt...');
-      await new Promise((r) => setTimeout(r, 400));
-
-      setProgressStep('Evaluating BN254 elliptic curve pairing points (A, B, C)...');
-      await new Promise((r) => setTimeout(r, 400));
-
-      const attributeVal = forceFraud ? 6.2 : selectedCred.realValue;
-
-      const result = await generatePredicateProof({
-        attributeName: selectedCred.attributeName,
-        attributeValue: attributeVal,
-        threshold: selectedThreshold,
-        issuerAddress: selectedCred.issuerAddress,
-      });
-
+      const result = await generatePredicateProof(proofParams);
       setProofResult(result);
     } catch (err: any) {
       setProofResult({
