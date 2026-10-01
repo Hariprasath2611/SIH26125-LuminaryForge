@@ -115,7 +115,7 @@ export function Header() {
           <div className="flex items-center justify-between h-18 py-2 gap-4">
             
             {/* Logo and Brand with Signature Capsule Icon */}
-            <Link href="/" className="flex items-center gap-3 shrink-0 group">
+            <Link to="/" className="flex items-center gap-3 shrink-0 group">
               <div className="w-10 h-10 rounded-2xl bg-[#0C2518] border border-[#C6F432]/40 flex items-center justify-center text-[#C6F432] shadow-sm transition group-hover:scale-105 shrink-0">
                 <div className="flex items-center gap-1">
                   <div className="w-2.5 h-5 rounded-full bg-[#C6F432]"></div>
@@ -143,7 +143,7 @@ export function Header() {
                 return (
                   <Link
                     key={item.href}
-                    href={item.href}
+                    to={item.href}
                     className={`px-3.5 py-1.5 text-xs font-bold rounded-full transition-all whitespace-nowrap ${
                       isActive
                         ? 'bg-[#0C2518] text-[#C6F432] shadow-xs scale-102'
@@ -182,7 +182,7 @@ export function Header() {
                         return (
                           <Link
                             key={item.href}
-                            href={item.href}
+                            to={item.href}
                             onClick={() => setMoreOpen(false)}
                             className={`flex items-start gap-2.5 px-3 py-2 rounded-xl text-xs transition ${
                               isActive
@@ -283,7 +283,7 @@ export function Header() {
                   return (
                     <Link
                       key={item.href}
-                      href={item.href}
+                      to={item.href}
                       onClick={() => setMobileMenuOpen(false)}
                       className={`flex items-center gap-2 p-2.5 rounded-xl text-xs font-bold transition ${
                         isActive
@@ -311,7 +311,7 @@ export function Header() {
                   return (
                     <Link
                       key={item.href}
-                      href={item.href}
+                      to={item.href}
                       onClick={() => setMobileMenuOpen(false)}
                       className={`flex items-center gap-2.5 p-2.5 rounded-xl text-xs transition ${
                         isActive
@@ -334,7 +334,7 @@ export function Header() {
 
             <div className="pt-2">
               <Link
-                href="/dashboard"
+                to="/dashboard"
                 onClick={() => setMobileMenuOpen(false)}
                 className="w-full flex items-center justify-center gap-2 p-3 rounded-xl bg-[#0C2518] text-[#C6F432] text-xs font-bold shadow-md"
               >
