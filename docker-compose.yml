@@ -103,10 +103,10 @@ services:
     volumes:
       - .:/app
     environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:3001/v1
-      - NEXT_PUBLIC_RPC_URL=http://localhost:8545
-      - NEXT_PUBLIC_CHAIN_ID=31337
-      - NEXT_PUBLIC_DEMO_MODE=true
+      - VITE_API_URL=/v1
+      - VITE_RPC_URL=http://localhost:8545
+      - VITE_CHAIN_ID=31337
+      - VITE_DEMO_MODE=true
     ports:
       - "3000:3000"
     depends_on:

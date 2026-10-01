@@ -85,6 +85,24 @@ app.use(`${env.API_PREFIX}/security`, securityRoutes);
 app.use(`${env.API_PREFIX}`, auditRoutes); // mounts /v1/dids/:id and /v1/stats
 app.get(`${env.API_PREFIX}/me`, authRoutes);
 
+// Optional Frontend Static Hosting with SPA Fallback (when SERVE_FRONTEND=true)
+const distPath = path.resolve(__dirname, '../../../frontend/dist');
+if (env.SERVE_FRONTEND && fs.existsSync(distPath)) {
+  console.log(`[Bharosa Server] Serving production frontend from: ${distPath}`);
+  app.use(express.static(distPath, { maxAge: '1y', index: false }));
+  app.get('*', (req: Request, res: Response, next: NextFunction) => {
+    if (
+      req.path.startsWith('/v1') ||
+      req.path.startsWith('/healthz') ||
+      req.path.startsWith('/readyz') ||
+      req.path.startsWith('/docs')
+    ) {
+      return next();
+    }
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+}
+
 // Uniform Error Handler
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   const statusCode = err.status || 500;
