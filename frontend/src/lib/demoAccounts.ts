@@ -1,6 +1,7 @@
 export interface DemoAccount {
   id: string;
   uid: string;
+  email: string;
   name: string;
   role: string;
   persona: 'HOLDER' | 'ISSUER' | 'VERIFIER' | 'ADMIN';
@@ -14,6 +15,7 @@ export const DEMO_USERS: DemoAccount[] = [
   {
     id: 'priya',
     uid: 'demo-priya-sharma',
+    email: 'priya.sharma@bharosa.demo',
     name: 'Priya Sharma',
     role: 'Student (Holder)',
     persona: 'HOLDER',
@@ -25,6 +27,7 @@ export const DEMO_USERS: DemoAccount[] = [
   {
     id: 'chennai',
     uid: 'demo-chennai-univ',
+    email: 'dean.chennai@bharosa.demo',
     name: 'Chennai University',
     role: 'Issuer',
     persona: 'ISSUER',
@@ -36,6 +39,7 @@ export const DEMO_USERS: DemoAccount[] = [
   {
     id: 'techcorp',
     uid: 'demo-techcorp-hr',
+    email: 'hr.techcorp@bharosa.demo',
     name: 'TechCorp HR',
     role: 'Verifier / Employer',
     persona: 'VERIFIER',
@@ -47,6 +51,7 @@ export const DEMO_USERS: DemoAccount[] = [
   {
     id: 'arjun',
     uid: 'demo-arjun-mehta',
+    email: 'arjun.mehta@bharosa.demo',
     name: 'Arjun Mehta',
     role: 'Student (Holder)',
     persona: 'HOLDER',
@@ -58,6 +63,7 @@ export const DEMO_USERS: DemoAccount[] = [
   {
     id: 'admin',
     uid: 'demo-bharosa-admin',
+    email: 'admin@bharosa.demo',
     name: 'Bharosa Admin',
     role: 'Admin',
     persona: 'ADMIN',
