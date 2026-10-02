@@ -30,6 +30,11 @@ const envSchema = z.object({
 
   PINATA_JWT: z.string().optional(),
   SERVE_FRONTEND: z.preprocess((val) => val === 'true' || val === true, z.boolean()).default(false),
+
+  FIREBASE_PROJECT_ID: z.string().default('bharosa-demo'),
+  FIREBASE_CLIENT_EMAIL: z.string().optional(),
+  FIREBASE_PRIVATE_KEY: z.string().optional(),
+  FIREBASE_AUTH_EMULATOR_HOST: z.string().optional(),
 });
 
 export const env = envSchema.parse(process.env);
