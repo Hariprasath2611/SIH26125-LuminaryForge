@@ -1,16 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Header } from '../components/Header';
+import { Sidebar } from '../components/shell/Sidebar';
+import { Topbar } from '../components/shell/Topbar';
 import { StatusFooter } from '../components/StatusFooter';
 
 export function AppLayout() {
+  const [collapsed, setCollapsed] = useState<boolean>(() => {
+    return localStorage.getItem('bharosa_sidebar_collapsed') === 'true';
+  });
+  const [mobileOpen, setMobileOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    localStorage.setItem('bharosa_sidebar_collapsed', String(collapsed));
+  }, [collapsed]);
+
   return (
-    <div className="min-h-screen flex flex-col bg-background text-text">
-      <Header />
-      <main className="flex-1 flex flex-col">
-        <Outlet />
-      </main>
-      <StatusFooter />
+    <div className="min-h-screen flex bg-[#F7FBEF] text-[#1A2E05]">
+      {/* Sidebar (Desktop Sticky + Mobile Drawer) */}
+      <Sidebar
+        collapsed={collapsed}
+        setCollapsed={setCollapsed}
+        mobileOpen={mobileOpen}
+        setMobileOpen={setMobileOpen}
+      />
+
+      {/* Main Container */}
+      <div className="flex-1 flex flex-col min-w-0">
+        <Topbar onOpenMobileMenu={() => setMobileOpen(true)} />
+
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto animate-in fade-in duration-150">
+          <Outlet />
+        </main>
+
+        <StatusFooter />
+      </div>
     </div>
   );
 }
