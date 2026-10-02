@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { AuthController } from '../controllers/auth.controller';
 import { requireAuth } from '../middleware/auth';
 import { requireFirebaseAuth } from '../middleware/firebaseAuth';
+import { verifyAccessToken } from '../lib/jwt';
 
 const router = Router();
 
@@ -18,7 +19,6 @@ router.get('/me', (req: any, res: any, next: any) => {
   if (authHeader?.startsWith('Bearer ')) {
     const token = authHeader.split('Bearer ')[1].trim();
     try {
-      const { verifyAccessToken } = require('../lib/jwt');
       const payload = verifyAccessToken(token);
       if (payload && payload.address) {
         req.user = payload;
