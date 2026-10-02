@@ -9,9 +9,8 @@ interface LandingNavbarProps {
 const NAV_ITEMS = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
-  { id: 'why-us', label: 'Why Us' },
+  { id: 'why-us', label: 'Why us' },
   { id: 'features', label: 'Features' },
-  { id: 'faq', label: 'FAQ' },
 ];
 
 export function LandingNavbar({ activeSection }: LandingNavbarProps) {
