@@ -4,6 +4,8 @@ export interface DemoAccount {
   email: string;
   name: string;
   role: string;
+  badge?: string;
+  subtitle?: string;
   persona: 'HOLDER' | 'ISSUER' | 'VERIFIER' | 'ADMIN';
   description: string;
   walletAddress: `0x${string}`;
@@ -21,6 +23,8 @@ export const DEMO_USERS: DemoAccount[] = IS_DEMO_MODE
     email: 'priya.sharma@bharosa.demo',
     name: 'Priya Sharma',
     role: 'Student (Holder)',
+    badge: 'Student',
+    subtitle: 'Has a credential and an encrypted certificate',
     persona: 'HOLDER',
     description: 'DID registered, 1 credential from the university, 1 encrypted certificate asset, one pending access request from TechCorp',
     walletAddress: '0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
@@ -33,6 +37,8 @@ export const DEMO_USERS: DemoAccount[] = IS_DEMO_MODE
     email: 'dean.chennai@bharosa.demo',
     name: 'Chennai University',
     role: 'Issuer',
+    badge: 'Issuer',
+    subtitle: 'Approved issuer of credentials',
     persona: 'ISSUER',
     description: 'Approved as trusted issuer, 3 credentials issued, 1 revoked',
     walletAddress: '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC',
@@ -45,11 +51,13 @@ export const DEMO_USERS: DemoAccount[] = IS_DEMO_MODE
     email: 'hr.techcorp@bharosa.demo',
     name: 'TechCorp HR',
     role: 'Verifier / Employer',
+    badge: 'Verifier',
+    subtitle: 'Verifies candidate credentials',
     persona: 'VERIFIER',
     description: 'DID registered, one active grant from Priya (expiring soon), one rejected request',
     walletAddress: '0x90F79bf6EB2c4f870365E785982E1f101E93b906',
     privateKey: '0x7c852118294e51e653712a81e05800f419141751be58f605c371e15141b007a6',
-    initials: 'TC',
+    initials: 'TH',
   },
   {
     id: 'arjun',
@@ -57,6 +65,8 @@ export const DEMO_USERS: DemoAccount[] = IS_DEMO_MODE
     email: 'arjun.mehta@bharosa.demo',
     name: 'Arjun Mehta',
     role: 'Student (Holder)',
+    badge: 'Student',
+    subtitle: 'Fresh account to start from scratch',
     persona: 'HOLDER',
     description: 'DID registered, empty wallet, for "start from scratch" demos',
     walletAddress: '0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65',
@@ -69,6 +79,8 @@ export const DEMO_USERS: DemoAccount[] = IS_DEMO_MODE
     email: 'admin@bharosa.demo',
     name: 'Bharosa Admin',
     role: 'Admin',
+    badge: 'Admin',
+    subtitle: 'Manages issuers and security alerts',
     persona: 'ADMIN',
     description: 'ADMIN_ROLE on-chain, sees the security alerts and issuer management',
     walletAddress: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266',

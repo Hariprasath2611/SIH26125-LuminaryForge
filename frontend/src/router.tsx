@@ -78,16 +78,16 @@ export const router = createBrowserRouter([
 
   // 2. Authentication Flow (Firebase)
   {
+    path: '/login',
+    element: (
+      <Suspense fallback={<PageLoader />}>
+        <Login />
+      </Suspense>
+    ),
+  },
+  {
     element: <AuthLayout />,
     children: [
-      {
-        path: '/login',
-        element: (
-          <Suspense fallback={<PageLoader />}>
-            <Login />
-          </Suspense>
-        ),
-      },
       {
         path: '/signup',
         element: (
