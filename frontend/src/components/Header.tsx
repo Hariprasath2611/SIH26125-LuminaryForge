@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import {
   ShieldCheck,
-  Shield,
   Key,
   Award,
   Lock,
@@ -20,10 +19,6 @@ import {
   ChevronDown,
   Menu,
   X,
-  Mail,
-  MapPin,
-  ExternalLink,
-  Github,
 } from 'lucide-react';
 
 const PRIMARY_NAV = [
@@ -76,39 +71,6 @@ export function Header() {
 
   return (
     <>
-      {/* Top Utility Bar (Matches Reference Design: Dark Green with Lime Cutout on Right) */}
-      <div className="w-full bg-[#0C2518] text-[#E2F7C2] text-[11px] font-medium border-b border-[#18442D] relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-9">
-          
-          {/* Left Info: Contact & Network */}
-          <div className="flex items-center gap-4 sm:gap-6 overflow-x-auto no-scrollbar py-1">
-            <span className="flex items-center gap-1.5 whitespace-nowrap text-[#C6F432]">
-              <span className="w-2 h-2 rounded-full bg-[#C6F432] animate-pulse"></span>
-              Polygon Amoy Active (80002)
-            </span>
-            <span className="hidden sm:flex items-center gap-1 text-[#A7D18C] whitespace-nowrap">
-              <Mail className="w-3 h-3 text-[#C6F432]" /> contact@bharosa.network
-            </span>
-          </div>
-
-          {/* Right Cutout Pill (Vibrant Electric Lime Accent) */}
-          <div className="flex items-center gap-3">
-            <div className="bg-[#C6F432] text-[#0C2518] font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl flex items-center gap-2 shadow-xs text-[11px]">
-              <span className="hidden sm:inline">100% Self-Sovereign</span>
-              <a
-                href="https://github.com/Hariprasath2611/SIH26125-LuminaryForge"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:opacity-80 transition flex items-center gap-1"
-                title="GitHub Repository"
-              >
-                <Github className="w-3.5 h-3.5" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Main Navigation Bar */}
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-border shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
