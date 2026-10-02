@@ -100,50 +100,8 @@ export default function Login() {
           </div>
         )}
 
-        {/* Demo Fast Login for Judges / Evaluators */}
-        <div className="p-3.5 bg-[#ECFCCB]/60 border border-[#84CC16]/40 rounded-xl space-y-2.5">
-          <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-[#1A2E05] flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-[#65A30D]" /> Evaluator Demo Logins
-            </span>
-            <span className="text-[10px] font-semibold text-[#4D6B2A] uppercase">Zero-Setup</span>
-          </div>
-          <p className="text-[11px] text-[#4D6B2A] leading-tight">
-            Judges can test the platform instantly with pre-funded wallets and verified credentials:
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-0.5">
-            <button
-              type="button"
-              onClick={() => handleDemoSignIn('student')}
-              disabled={submitting}
-              className="py-1.5 px-2 bg-white hover:bg-lime-50 border border-[#D9EBB5] rounded-lg text-[11px] font-bold text-[#1A2E05] flex items-center justify-center gap-1 shadow-2xs transition"
-            >
-              <User className="w-3 h-3 text-[#65A30D]" /> Student
-            </button>
-            <button
-              type="button"
-              onClick={() => handleDemoSignIn('university')}
-              disabled={submitting}
-              className="py-1.5 px-2 bg-white hover:bg-lime-50 border border-[#D9EBB5] rounded-lg text-[11px] font-bold text-[#1A2E05] flex items-center justify-center gap-1 shadow-2xs transition"
-            >
-              <School className="w-3 h-3 text-[#0EA5E9]" /> University
-            </button>
-            <button
-              type="button"
-              onClick={() => handleDemoSignIn('employer')}
-              disabled={submitting}
-              className="py-1.5 px-2 bg-white hover:bg-lime-50 border border-[#D9EBB5] rounded-lg text-[11px] font-bold text-[#1A2E05] flex items-center justify-center gap-1 shadow-2xs transition"
-            >
-              <Building2 className="w-3 h-3 text-[#16A34A]" /> Verifier
-            </button>
-          </div>
-        </div>
-
-        <div className="relative flex py-1 items-center">
-          <div className="flex-grow border-t border-border"></div>
-          <span className="flex-shrink mx-3 text-[11px] font-bold text-text-muted uppercase">or continue with</span>
-          <div className="flex-grow border-t border-border"></div>
-        </div>
+        {/* Quick Demo Login (One-click sample users with silent demo signer) */}
+        <QuickDemoLogin onSuccess={() => navigate('/dashboard', { replace: true })} />
 
         {/* Google Sign In */}
         <button
