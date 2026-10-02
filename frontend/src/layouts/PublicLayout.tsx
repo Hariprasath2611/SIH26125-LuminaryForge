@@ -2,17 +2,24 @@ import React from 'react';
 import { Outlet, useLocation, Link } from 'react-router-dom';
 import { ShieldCheck, ArrowRight, ArrowLeft } from 'lucide-react';
 import { StatusFooter } from '../components/StatusFooter';
+import { DemoModeBanner } from '../components/common/DemoModeBanner';
 
 export function PublicLayout() {
   const { pathname } = useLocation();
   const isLanding = pathname === '/';
 
   if (isLanding) {
-    return <Outlet />;
+    return (
+      <>
+        <DemoModeBanner />
+        <Outlet />
+      </>
+    );
   }
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F7FBEF] text-[#1A2E05]">
+      <DemoModeBanner />
       {/* Sleek Public Header for verification subpages */}
       <header className="h-16 bg-[#FFFFFF] border-b border-[#ECFCCB] px-4 sm:px-6 lg:px-8 flex items-center justify-between sticky top-0 z-30">
         <div className="flex items-center space-x-3">
