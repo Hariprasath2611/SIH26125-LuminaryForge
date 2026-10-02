@@ -210,9 +210,9 @@ export function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobileOpen }: 
                 {chainId === 31337 ? 'Hardhat Node' : 'Polygon Amoy'}
               </span>
             </div>
-            {blockNumber && (
-              <span className="font-mono text-[10px] text-[#65A30D]">#{blockNumber.toString()}</span>
-            )}
+            {Boolean(blockNumber) ? (
+              <span className="font-mono text-[10px] text-[#65A30D]">#{blockNumber!.toString()}</span>
+            ) : null}
           </div>
         ) : (
           <div className="flex justify-center" title="Network Online">
