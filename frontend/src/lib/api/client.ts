@@ -146,3 +146,8 @@ export class BharosaApiClient {
     return this.request('/v1/auth/me');
   }
 }
+
+export const apiClient = new BharosaApiClient({
+  baseUrl: import.meta.env.VITE_API_URL || 'http://localhost:4000',
+});
+
