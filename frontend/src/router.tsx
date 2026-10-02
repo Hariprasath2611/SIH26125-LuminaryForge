@@ -2,10 +2,12 @@ import React, { Suspense, lazy } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { PublicLayout } from './layouts/PublicLayout';
 import { AppLayout } from './layouts/AppLayout';
+import { AuthLayout } from './layouts/AuthLayout';
+import { AuthGate, WalletGate, OnboardingGate, RoleGate } from './guards';
 import { Loader2 } from 'lucide-react';
 
 const PageLoader = () => (
-  <div className="flex-1 flex items-center justify-center p-16 text-sm text-[#4D6B2A]">
+  <div className="flex-1 min-h-[60vh] flex items-center justify-center p-16 text-sm text-[#4D6B2A]">
     <Loader2 className="w-6 h-6 animate-spin mr-2 text-[#84CC16]" /> Loading Bharosa Protocol...
   </div>
 );
@@ -13,6 +15,12 @@ const PageLoader = () => (
 // Lazy load route pages
 const Landing = lazy(() => import('./pages/Landing'));
 const PublicVerify = lazy(() => import('./pages/PublicVerify'));
+const Login = lazy(() => import('./pages/auth/Login'));
+const SignUp = lazy(() => import('./pages/auth/SignUp'));
+const ForgotPassword = lazy(() => import('./pages/auth/ForgotPassword'));
+const VerifyEmail = lazy(() => import('./pages/auth/VerifyEmail'));
+const ConnectWallet = lazy(() => import('./pages/ConnectWallet'));
+const AppRedirect = lazy(() => import('./pages/AppRedirect'));
 const Onboarding = lazy(() => import('./pages/Onboarding'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const Identity = lazy(() => import('./pages/Identity'));
@@ -29,7 +37,7 @@ const Admin = lazy(() => import('./pages/Admin'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 export const router = createBrowserRouter([
-  // Public Routes
+  // 1. Public Routes
   {
     element: <PublicLayout />,
     children: [
@@ -68,9 +76,77 @@ export const router = createBrowserRouter([
     ],
   },
 
-  // App & Management Routes
+  // 2. Authentication Flow (Firebase)
   {
-    element: <AppLayout />,
+    element: <AuthLayout />,
+    children: [
+      {
+        path: '/login',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <Login />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/signup',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <SignUp />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/forgot-password',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ForgotPassword />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/verify-email',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <VerifyEmail />
+          </Suspense>
+        ),
+      },
+    ],
+  },
+
+  // 3. Application State Resolver
+  {
+    path: '/app',
+    element: (
+      <Suspense fallback={<PageLoader />}>
+        <AppRedirect />
+      </Suspense>
+    ),
+  },
+
+  // 4. Wallet Gate (Auth Required)
+  {
+    element: <AuthGate />,
+    children: [
+      {
+        path: '/connect-wallet',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ConnectWallet />
+          </Suspense>
+        ),
+      },
+    ],
+  },
+
+  // 5. Onboarding (Auth + Wallet Required)
+  {
+    element: (
+      <AuthGate>
+        <WalletGate />
+      </AuthGate>
+    ),
     children: [
       {
         path: '/onboarding',
@@ -80,6 +156,21 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
       },
+    ],
+  },
+
+  // 6. Main Application Shell (Auth + Wallet + DID Onboarding Required)
+  {
+    element: (
+      <AuthGate>
+        <WalletGate>
+          <OnboardingGate>
+            <AppLayout />
+          </OnboardingGate>
+        </WalletGate>
+      </AuthGate>
+    ),
+    children: [
       {
         path: '/dashboard',
         element: (
@@ -160,34 +251,42 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
       },
+
+      // Portals with RoleGate
       {
         path: '/issuer',
         element: (
-          <Suspense fallback={<PageLoader />}>
-            <Issuer />
-          </Suspense>
+          <RoleGate allowedRoles={['ISSUER', 'ADMIN']}>
+            <Suspense fallback={<PageLoader />}>
+              <Issuer />
+            </Suspense>
+          </RoleGate>
         ),
       },
       {
         path: '/verifier',
         element: (
-          <Suspense fallback={<PageLoader />}>
-            <Verifier />
-          </Suspense>
+          <RoleGate allowedRoles={['VERIFIER', 'ADMIN']}>
+            <Suspense fallback={<PageLoader />}>
+              <Verifier />
+            </Suspense>
+          </RoleGate>
         ),
       },
       {
         path: '/admin',
         element: (
-          <Suspense fallback={<PageLoader />}>
-            <Admin />
-          </Suspense>
+          <RoleGate allowedRoles={['ADMIN']}>
+            <Suspense fallback={<PageLoader />}>
+              <Admin />
+            </Suspense>
+          </RoleGate>
         ),
       },
     ],
   },
 
-  // 404 Fallback
+  // 7. 404 Fallback
   {
     element: <PublicLayout />,
     children: [

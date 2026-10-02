@@ -15,13 +15,15 @@ import {
 import { formatDID, deriveWrappingKeypairFromSignature, createDIDDocument, defaultIpfsClient } from '@/lib';
 import { env } from '@/config/env';
 import { PageMeta } from '@/components/PageMeta';
+import { useAuth } from '@/hooks/useAuth';
 
 export function OnboardingPage() {
   const navigate = useNavigate();
   const { address, isConnected, chainId } = useAccount();
   const { signMessageAsync } = useSignMessage();
+  const { refreshAccount } = useAuth();
 
-  const [step, setStep] = useState<number>(1);
+  const [step, setStep] = useState<number>(isConnected ? 2 : 1);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -96,7 +98,12 @@ export function OnboardingPage() {
   };
 
   // Step 4: Complete Onboarding
-  const handleComplete = () => {
+  const handleComplete = async () => {
+    try {
+      await refreshAccount();
+    } catch (e) {
+      // Continue
+    }
     navigate('/dashboard');
   };
 
