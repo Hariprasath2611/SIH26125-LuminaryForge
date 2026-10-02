@@ -191,3 +191,37 @@ Result: PASS
 | **Testing & Dependencies** | `package.json` | Testing library present (`@testing-library/react`, `jest-dom`) | Add `jsdom` and `@testing-library/user-event` to support comprehensive DOM event testing. |
 | **Baseline Status** | `npm run build && tsc --noEmit && vitest run` | All checks pass | Baseline verified: Build succeeds in 11.4s, 0 TypeScript errors, 28/28 unit/E2E tests pass. |
 
+---
+
+## 5. Verification (Acceptance Proof)
+
+### 5.1 Acceptance Criteria Test Results
+
+| Acceptance Command | Expected Output | Actual Output | Status |
+|---|---|---|---|
+| `grep -rn "from 'next" frontend/src` | No output | `(No matches)` | **PASS** |
+| `grep -rn "NEXT_PUBLIC" . --exclude-dir=node_modules` | No output | `(No matches)` | **PASS** |
+| `grep -rn "3a8170812b534d0ff9d794f168faebeb" .` | No output | `(No matches)` | **PASS** |
+| `grep -n '"next"\|eslint-config-next' frontend/package.json` | No output | `(No matches)` | **PASS** |
+| `cd frontend && npm run build && npx tsc --noEmit && npx vitest run` | 0 errors, tests pass | Build 11.76s, 0 tsc errors, 28/28 vitest passed | **PASS** |
+| `curl -sI http://localhost:4000/ \| grep -iE "content-security-policy\|strict-transport\|x-frame\|referrer"` | Valid security headers | CSP, HSTS, X-Frame-Options, Referrer-Policy present | **PASS** |
+| `curl -s http://localhost:4000/verify/0xabc \| grep -c '<div id="root"'` | Count = 1 | `1` | **PASS** |
+
+### 5.2 Header Proof (Express Production Server :4000)
+```text
+HTTP/1.1 200 OK
+Content-Security-Policy: default-src 'self';script-src 'self' 'wasm-unsafe-eval';style-src 'self' 'unsafe-inline';img-src 'self' data: blob: https: ipfs:;connect-src 'self' http: https: ws: wss:;worker-src 'self' blob:;frame-ancestors 'none';base-uri 'self';font-src 'self' https: data:;form-action 'self';object-src 'none';script-src-attr 'none';upgrade-insecure-requests
+Referrer-Policy: strict-origin-when-cross-origin
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+X-Frame-Options: SAMEORIGIN
+Permissions-Policy: camera=(), microphone=(), geolocation=()
+Cache-Control: no-cache, no-store, must-revalidate
+```
+
+### 5.3 SPA Deep Link Proof
+```bash
+curl -s http://localhost:4000/verify/0xabc | grep -c '<div id="root"'
+# Output: 1
+```
+
+
