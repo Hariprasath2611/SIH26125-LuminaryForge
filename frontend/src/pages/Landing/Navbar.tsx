@@ -53,7 +53,7 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
             alt="Bharosa Logo"
             className="w-9 h-9 sm:w-10 sm:h-10 object-contain transition-transform group-hover:scale-105"
           />
-          <span className="font-extrabold text-2xl tracking-tight text-[#111827] font-sans">
+          <span className="font-anton text-2xl sm:text-3xl tracking-wider text-[#111827] uppercase">
             Bharosa
           </span>
         </Link>

@@ -79,10 +79,10 @@ export function Hero() {
               <span>Smart India Hackathon 2026 &middot; SIH26125</span>
             </div>
 
-            {/* Main Title strictly matching user screenshot */}
-            <h1 className="text-5xl sm:text-6xl lg:text-[76px] font-extrabold tracking-tight text-[#111827] leading-[1.08] mb-6 font-sans">
+            {/* Main Title with Anton SC font */}
+            <h1 className="font-anton text-5xl sm:text-6xl lg:text-[76px] tracking-wide text-[#111827] leading-[1.06] mb-6 uppercase">
               Trust, owned <br />
-              <span className="inline-block bg-[#84CC16] text-[#111827] px-4 py-1 sm:px-5 sm:py-1.5 rounded-2xl mt-1.5 font-sans">
+              <span className="inline-block bg-[#84CC16] text-[#111827] px-4 py-1 sm:px-6 sm:py-1.5 rounded-2xl sm:rounded-3xl mt-2 font-anton uppercase shadow-sm">
                 by you.
               </span>
             </h1>
@@ -190,24 +190,24 @@ export function Hero() {
       <div className="pt-16 sm:pt-20 overflow-hidden">
         <ScrollVelocity
           texts={[
-            <span className="inline-flex items-center gap-8 sm:gap-12 text-sm sm:text-base font-bold text-[#111827] tracking-wide">
+            <span className="inline-flex items-center gap-8 sm:gap-12 font-anton text-base sm:text-lg tracking-wider text-[#111827] uppercase">
               <span className="flex items-center gap-2.5">
-                <span className="flex gap-1 text-[#84CC16] font-extrabold text-lg">• •</span> W3C DIDs
+                <span className="flex gap-1 text-[#84CC16] font-sans font-extrabold text-lg">• •</span> W3C DIDs
               </span>
               <span className="flex items-center gap-2.5">
-                <span className="flex gap-1 text-[#84CC16] font-extrabold text-lg">• •</span> Verifiable Credentials
+                <span className="flex gap-1 text-[#84CC16] font-sans font-extrabold text-lg">• •</span> Verifiable Credentials
               </span>
               <span className="flex items-center gap-2.5">
-                <span className="flex gap-1 text-[#84CC16] font-extrabold text-lg">• •</span> Zero-Knowledge Proofs
+                <span className="flex gap-1 text-[#84CC16] font-sans font-extrabold text-lg">• •</span> Zero-Knowledge Proofs
               </span>
               <span className="flex items-center gap-2.5">
-                <span className="flex gap-1 text-[#84CC16] font-extrabold text-lg">• •</span> IPFS Storage
+                <span className="flex gap-1 text-[#84CC16] font-sans font-extrabold text-lg">• •</span> IPFS Storage
               </span>
               <span className="flex items-center gap-2.5">
-                <span className="flex gap-1 text-[#84CC16] font-extrabold text-lg">• •</span> Layer-2 Blockchain
+                <span className="flex gap-1 text-[#84CC16] font-sans font-extrabold text-lg">• •</span> Layer-2 Blockchain
               </span>
               <span className="flex items-center gap-2.5">
-                <span className="flex gap-1 text-[#84CC16] font-extrabold text-lg">• •</span> On-chain ABAC
+                <span className="flex gap-1 text-[#84CC16] font-sans font-extrabold text-lg">• •</span> On-chain ABAC
               </span>
             </span>
           ]}
