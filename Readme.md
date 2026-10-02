@@ -26,7 +26,7 @@ Welcome! BHAROSA is built for zero-friction evaluation. You can run the entire p
 ```bash
 docker compose up --build
 ```
-> Starts: Local Chain (Hardhat 31337 on `:8545`), auto-deploys all 6 contracts, seeds demo accounts, Postgres (`:5432`), Redis (`:6379`), IPFS Kubo (`:5001`), Express Backend (`:3001`), and Next.js Frontend (`:3000`).  
+> Starts: Local Chain (Hardhat 31337 on `:8545`), auto-deploys all 6 contracts, seeds demo accounts, Postgres (`:5432`), Redis (`:6379`), IPFS Kubo (`:5001`), Express Backend (`:4000`), and React 18 + Vite Frontend (`:3000`).  
 > **Open:** [http://localhost:3000](http://localhost:3000)
 
 ---
@@ -40,10 +40,10 @@ npm run setup
 # Step 2: In Terminal 1 - Start local Hardhat chain, deploy contracts & seed demo data
 npm run chain
 
-# Step 3: In Terminal 2 - Start backend API & workers (:3001)
+# Step 3: In Terminal 2 - Start backend API & workers (:4000)
 npm run backend
 
-# Step 4: In Terminal 3 - Start Next.js frontend (:3000)
+# Step 4: In Terminal 3 - Start React 18 + Vite frontend (:3000)
 npm run frontend
 ```
 *(Or run `npm run demo` to start chain, backend, and frontend concurrently).*
@@ -89,7 +89,7 @@ The app includes a top **Judge Demo Accounts Panel** with one-click persona swit
 
 | Issue / Symptom | Probable Cause | Instant Resolution |
 | :--- | :--- | :--- |
-| **Port 3000 / 3001 / 8545 in use** | Lingering background process | Windows: `Stop-Process -Id (Get-NetTCPConnection -LocalPort <PORT>).OwningProcess -Force`<br>Linux/Mac: `lsof -ti:<PORT> \| xargs kill -9` |
+| **Port 3000 / 4000 / 8545 in use** | Lingering background process | Windows: `Stop-Process -Id (Get-NetTCPConnection -LocalPort <PORT>).OwningProcess -Force`<br>Linux/Mac: `lsof -ti:<PORT> \| xargs kill -9` |
 | **RPC node not reachable** | Chain not started before frontend | Run `npm run chain` in a separate terminal or ensure Hardhat is up on `http://127.0.0.1:8545`. |
 | **IPFS node offline** | Docker not running Kubo | In `DEMO_MODE=true`, the SDK and API automatically utilize an in-memory IPFS cluster simulator so all uploads and pinning succeed! |
 | **Database not running** | PostgreSQL not started locally | In `DEMO_MODE=true`, backend falls back to an in-memory audit store so all tests and endpoints run with zero DB dependency. |
@@ -100,14 +100,13 @@ The app includes a top **Judge Demo Accounts Panel** with one-click persona swit
 
 ```
 bharosa/
-├─ frontend/                       # Next.js 14 App Router + Tailwind (White + Lime Green #84CC16)
-│  ├─ src/app/(public)/            # Landing (/), Public Verify (/public-verify)
-│  ├─ src/app/(app)/               # Dashboard, Identity, Issuer, Credentials, Assets, Access, Verifier, ZK, Recovery, Admin, Audit
+├─ frontend/                       # React 18 + Vite 5 + React Router v6 + Tailwind (#84CC16)
+│  ├─ src/pages/                   # Landing, PublicVerify, Dashboard, Identity, Issuer, Credentials, Assets, Access, Verifier, ZK, Recovery, Admin, Audit
 │  ├─ src/components/              # Header, DemoAccountsPanel, StatusFooter, Providers
-│  ├─ src/lib/                     # Browser-side Crypto (AES-GCM, ECIES), DID, IPFS, ZK prover, API-client, Contracts
+│  ├─ src/lib/                     # Browser-side Crypto (AES-GCM, ECIES), DID, IPFS, ZK prover (Web Worker), API-client, Contracts
 │  ├─ src/contracts/               # ABIs + deployed addresses (auto-written by blockchain deploy script)
-│  ├─ public/zk/                   # Groth16 circuit wasm + zkey
-│  ├─ .env.example  package.json  README.md
+│  ├─ public/zk/                   # Groth16 circuit wasm + zkey verification parameters
+│  ├─ .env.example  package.json  README.md  vite.config.ts  vercel.json
 ├─ backend/                        # Node 20 + Express + TypeScript
 │  ├─ src/(routes|controllers|services|middleware|workers|lib|config)/
 │  ├─ src/contracts/               # ABIs + addresses (auto-written by deploy script)
@@ -119,7 +118,7 @@ bharosa/
 │  ├─ scripts/                     # deploy.ts, seed-demo.ts
 │  ├─ circuits/                    # credential_predicate.circom (Circom 2)
 │  ├─ hardhat.config.ts  .env.example  package.json  README.md
-├─ docs/                           # ARCHITECTURE, SECURITY, THREAT_MODEL, API, DEMO, DECISIONS, AUDIT_CHECKLIST
+├─ docs/                           # ARCHITECTURE, SECURITY, THREAT_MODEL, API, DEMO, DECISIONS, AUDIT_CHECKLIST, MIGRATION_NOTES
 ├─ docker-compose.yml              # Single-command containerized stack
 ├─ package.json                    # Root coordinator scripts
 └─ README.md
