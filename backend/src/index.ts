@@ -9,7 +9,21 @@ import assetRoutes from './routes/asset.routes';
 import accessRoutes from './routes/access.routes';
 import relayerRoutes from './routes/relayer.routes';
 import securityRoutes from './routes/security.routes';
+import demoRoutes from './routes/demo.routes';
 import { env } from './config/env';
+
+// Safety Check: Fail to boot if DEMO_MODE is on while chainId is mainnet
+const MAINNET_CHAIN_IDS = [1, 10, 56, 137, 8453, 42161];
+if (env.DEMO_MODE) {
+  if (MAINNET_CHAIN_IDS.includes(Number(env.CHAIN_ID))) {
+    console.error(`[CRITICAL SECURITY] DEMO_MODE cannot be enabled on mainnet chain ID ${env.CHAIN_ID}! Refusing to start.`);
+    process.exit(1);
+  }
+  if (process.env.NODE_ENV === 'production' && process.env.ALLOW_DEMO_IN_PRODUCTION !== 'true') {
+    console.error(`[CRITICAL SECURITY] DEMO_MODE in production requires explicit ALLOW_DEMO_IN_PRODUCTION=true! Refusing to start.`);
+    process.exit(1);
+  }
+}
 
 import path from 'path';
 import fs from 'fs';
@@ -88,6 +102,9 @@ app.use(`${env.API_PREFIX}/assets`, assetRoutes);
 app.use(`${env.API_PREFIX}/access`, accessRoutes);
 app.use(`${env.API_PREFIX}/relayer`, relayerRoutes);
 app.use(`${env.API_PREFIX}/security`, securityRoutes);
+if (env.DEMO_MODE) {
+  app.use(`${env.API_PREFIX}/demo`, demoRoutes);
+}
 app.use(`${env.API_PREFIX}`, auditRoutes); // mounts /v1/dids/:id and /v1/stats
 app.get(`${env.API_PREFIX}/me`, authRoutes);
 
