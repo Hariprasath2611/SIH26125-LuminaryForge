@@ -10,11 +10,23 @@ router.post('/verify', AuthController.verify);
 router.post('/refresh', AuthController.refresh);
 router.post('/logout', AuthController.logout);
 
-// Firebase Auth Protected Endpoints
+// Firebase & SIWE Protected Endpoints
 router.post('/link-wallet', requireFirebaseAuth, AuthController.linkWallet);
 router.post('/unlink-wallet', requireFirebaseAuth, AuthController.unlinkWallet);
-router.get('/me', (req, res, next) => {
-  if (req.headers.authorization?.startsWith('Bearer ')) {
+router.get('/me', (req: any, res: any, next: any) => {
+  const authHeader = req.headers.authorization;
+  if (authHeader?.startsWith('Bearer ')) {
+    const token = authHeader.split('Bearer ')[1].trim();
+    try {
+      const { verifyAccessToken } = require('../lib/jwt');
+      const payload = verifyAccessToken(token);
+      if (payload && payload.address) {
+        req.user = payload;
+        return AuthController.me(req, res);
+      }
+    } catch {
+      // Continue to Firebase Auth
+    }
     return requireFirebaseAuth(req, res, () => AuthController.me(req, res));
   }
   return requireAuth(req, res, () => AuthController.me(req, res));

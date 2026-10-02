@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import * as admin from 'firebase-admin';
+import { getApps, initializeApp, cert } from 'firebase-admin/app';
+import { getAuth, DecodedIdToken } from 'firebase-admin/auth';
 import { env } from '../config/env';
 import { prisma } from '../lib/prisma';
 
@@ -8,10 +9,10 @@ if (env.FIREBASE_AUTH_EMULATOR_HOST) {
   process.env.FIREBASE_AUTH_EMULATOR_HOST = env.FIREBASE_AUTH_EMULATOR_HOST;
 }
 
-if (!admin.apps.length) {
+if (!getApps().length) {
   if (env.FIREBASE_CLIENT_EMAIL && env.FIREBASE_PRIVATE_KEY) {
-    admin.initializeApp({
-      credential: admin.credential.cert({
+    initializeApp({
+      credential: cert({
         projectId: env.FIREBASE_PROJECT_ID,
         clientEmail: env.FIREBASE_CLIENT_EMAIL,
         privateKey: env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
@@ -19,14 +20,14 @@ if (!admin.apps.length) {
     });
   } else {
     // Emulator or default demo project
-    admin.initializeApp({
+    initializeApp({
       projectId: env.FIREBASE_PROJECT_ID,
     });
   }
 }
 
 export interface FirebaseAuthenticatedRequest extends Request {
-  firebaseUser?: admin.auth.DecodedIdToken | {
+  firebaseUser?: DecodedIdToken | {
     uid: string;
     email: string;
     email_verified?: boolean;
@@ -74,7 +75,7 @@ export async function requireFirebaseAuth(
         name: parts[3] || 'Demo Student',
       };
     } else {
-      decodedToken = await admin.auth().verifyIdToken(token, true);
+      decodedToken = await getAuth().verifyIdToken(token, true);
     }
 
     // Require email verification for password accounts

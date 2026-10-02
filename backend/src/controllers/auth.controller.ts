@@ -5,6 +5,7 @@ import { cache } from '../lib/redis';
 import { signAccessToken, signRefreshToken, verifyRefreshToken } from '../lib/jwt';
 import { AuthenticatedRequest } from '../middleware/auth';
 import { env } from '../config/env';
+import { prisma } from '../lib/prisma';
 
 const verifySchema = z.object({
   message: z.string().min(1, 'SIWE message string required'),
