@@ -145,17 +145,25 @@ export class DemoController {
     try {
       // 1. Generate Firebase Custom Token
       let customToken: string;
-      try {
-        customToken = await getAuth().createCustomToken(demoUser.uid, {
-          persona: demoUser.persona,
-          role: demoUser.role,
-          isDemo: true,
-          email: demoUser.email,
-          name: demoUser.displayName,
-        });
-      } catch (fbErr: any) {
-        logger.warn({ err: fbErr.message }, '[Demo Auth] Firebase Admin custom token generation fallback');
-        // Fallback for offline/local emulator development without Service Account keys
+      const hasFirebaseServiceAccount =
+        Boolean(env.FIREBASE_CLIENT_EMAIL && env.FIREBASE_PRIVATE_KEY) ||
+        Boolean(process.env.FIREBASE_AUTH_EMULATOR_HOST);
+
+      if (hasFirebaseServiceAccount) {
+        try {
+          customToken = await getAuth().createCustomToken(demoUser.uid, {
+            persona: demoUser.persona,
+            role: demoUser.role,
+            isDemo: true,
+            email: demoUser.email,
+            name: demoUser.displayName,
+          });
+        } catch (fbErr: any) {
+          logger.warn({ err: fbErr.message }, '[Demo Auth] Firebase Admin custom token generation fallback');
+          customToken = `demo-custom-jwt-${demoUser.uid}-${Date.now()}`;
+        }
+      } else {
+        // Fast path for local / demo dev without GCP credentials
         customToken = `demo-custom-jwt-${demoUser.uid}-${Date.now()}`;
       }
 
