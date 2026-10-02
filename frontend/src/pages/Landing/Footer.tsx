@@ -9,11 +9,12 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10 mb-12 sm:mb-16">
           {/* Brand Info */}
           <div className="md:col-span-1 space-y-4">
-            <Link to="/" className="flex items-center space-x-3 group">
-              <div className="w-9 h-9 rounded-xl bg-[#84CC16] flex items-center justify-center text-[#1A2E05] shadow-xs">
-                <ShieldCheck className="w-5 h-5 stroke-[2.5]" />
-              </div>
-              <span className="font-anton text-2xl tracking-wide text-[#1A2E05] uppercase">Bharosa</span>
+            <Link to="/" className="inline-block group">
+              <img
+                src="/logos/bharosa-logo.png"
+                alt="Bharosa - भरोसा"
+                className="h-10 w-auto object-contain transition-transform group-hover:scale-105"
+              />
             </Link>
             <p className="text-xs text-[#4D6B2A] leading-relaxed">
               Decentralized Identity, Client-Side AES-256-GCM IPFS Custody, and Mathematical Groth16 Zero-Knowledge Verification.

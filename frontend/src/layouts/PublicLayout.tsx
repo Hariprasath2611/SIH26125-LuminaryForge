@@ -24,9 +24,11 @@ export function PublicLayout() {
       <header className="h-16 bg-[#FFFFFF] border-b border-[#ECFCCB] px-4 sm:px-6 lg:px-8 flex items-center justify-between sticky top-0 z-30">
         <div className="flex items-center space-x-3">
           <Link to="/" className="flex items-center space-x-2.5 group">
-            <div className="w-8 h-8 rounded-xl bg-[#84CC16] flex items-center justify-center text-[#1A2E05] shadow-xs group-hover:scale-105 transition-transform">
-              <ShieldCheck className="w-5 h-5 stroke-[2.5]" />
-            </div>
+            <img
+              src="/logos/bharosa-mark.png"
+              alt="Bharosa Logo"
+              className="w-8 h-8 object-contain group-hover:scale-105 transition-transform"
+            />
             <span className="font-anton text-xl tracking-wide text-[#1A2E05] uppercase">Bharosa</span>
           </Link>
           <span className="text-stone-300">/</span>

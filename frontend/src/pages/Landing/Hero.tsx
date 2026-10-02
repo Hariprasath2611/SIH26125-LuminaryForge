@@ -28,7 +28,7 @@ export function Hero() {
         <div className="lg:col-span-7 space-y-8 text-left">
           {/* Pill Badge */}
           <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#ECFCCB] border border-[#D9F99D] shadow-2xs">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#84CC16] animate-pulse"></span>
+            <img src="/logos/bharosa-mark.png" alt="Bharosa" className="w-5 h-5 object-contain" />
             <span className="text-xs font-bold uppercase tracking-wider text-[#1A2E05]">
               Polygon Amoy &bull; Zero-Knowledge Sovereign Identity
             </span>

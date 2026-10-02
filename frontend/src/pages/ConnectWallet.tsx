@@ -150,9 +150,11 @@ export default function ConnectWallet() {
         {/* Top Navbar */}
         <header className="max-w-4xl w-full mx-auto flex items-center justify-between py-4">
           <Link to="/" className="flex items-center space-x-3 group">
-            <div className="w-10 h-10 rounded-xl bg-[#84CC16] flex items-center justify-center text-[#1A2E05] shadow-sm transition-transform group-hover:scale-105">
-              <ShieldCheck className="w-6 h-6 stroke-[2.5]" />
-            </div>
+            <img
+              src="/logos/bharosa-mark.png"
+              alt="Bharosa Logo"
+              className="w-10 h-10 object-contain transition-transform group-hover:scale-105"
+            />
             <div>
               <span className="font-anton text-2xl tracking-wide text-[#1A2E05] uppercase">Bharosa</span>
               <span className="hidden sm:inline-block ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-[#ECFCCB] text-[#4D6B2A]">

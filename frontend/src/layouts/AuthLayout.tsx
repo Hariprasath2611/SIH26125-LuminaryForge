@@ -10,23 +10,11 @@ export function AuthLayout() {
       {/* Top Simple Navigation Header */}
       <header className="p-4 sm:p-6 flex items-center justify-between max-w-6xl mx-auto w-full">
         <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-2xl bg-[#0C2518] border border-[#C6F432]/40 flex items-center justify-center text-[#C6F432] shadow-sm transition group-hover:scale-105 shrink-0">
-            <div className="flex items-center gap-1">
-              <div className="w-2.5 h-5 rounded-full bg-[#C6F432]"></div>
-              <div className="w-2.5 h-3 rounded-full bg-white"></div>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <div className="flex items-center gap-1.5">
-              <span className="font-black text-xl tracking-tight text-[#0C2518] leading-tight">Bharosa</span>
-              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-[#ECFCCB] text-[#1A2E05] border border-[#84CC16]/40">
-                भरोसा
-              </span>
-            </div>
-            <span className="text-[10px] font-bold text-[#4D6B2A] tracking-wider leading-none uppercase">
-              Sovereign Trust Platform
-            </span>
-          </div>
+          <img
+            src="/logos/bharosa-logo.png"
+            alt="Bharosa - भरोसा"
+            className="h-10 sm:h-11 w-auto object-contain transition-transform group-hover:scale-105"
+          />
         </Link>
 
         <Link

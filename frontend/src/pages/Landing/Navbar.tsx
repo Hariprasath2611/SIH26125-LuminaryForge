@@ -51,14 +51,17 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Brand */}
         <Link to="/" className="flex items-center space-x-3.5 group">
-          <div className="w-11 h-11 rounded-2xl bg-[#84CC16] flex items-center justify-center text-[#1A2E05] shadow-sm group-hover:scale-105 group-hover:shadow-lime-glow transition-all duration-200">
-            <ShieldCheck className="w-6 h-6 stroke-[2.5]" />
-          </div>
+          <img
+            src="/logos/bharosa-mark.png"
+            alt="Bharosa Logo"
+            className="w-10 h-10 object-contain transition-transform group-hover:scale-105"
+          />
           <div className="flex items-baseline gap-2">
             <span className="font-anton text-2xl tracking-wide text-[#1A2E05] uppercase">
               Bharosa
             </span>
-            <span className="hidden sm:inline-block text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-[#ECFCCB] text-[#1A2E05] border border-[#84CC16] tracking-wider uppercase">
+            <span className="text-xs font-bold text-[#65A30D]">भरोसा</span>
+            <span className="hidden sm:inline-block text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-[#ECFCCB] text-[#1A2E05] border border-[#84CC16] tracking-wider uppercase ml-1">
               Sovereign Identity
             </span>
           </div>

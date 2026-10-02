@@ -76,18 +76,20 @@ export function Header() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-18 py-2 gap-4">
             
-            {/* Logo and Brand with Signature Capsule Icon */}
+            {/* Logo and Brand with Official Hexagon Mark */}
             <Link to="/" className="flex items-center gap-3 shrink-0 group">
-              <div className="w-10 h-10 rounded-2xl bg-[#0C2518] border border-[#C6F432]/40 flex items-center justify-center text-[#C6F432] shadow-sm transition group-hover:scale-105 shrink-0">
-                <div className="flex items-center gap-1">
-                  <div className="w-2.5 h-5 rounded-full bg-[#C6F432]"></div>
-                  <div className="w-2.5 h-3 rounded-full bg-white"></div>
-                </div>
-              </div>
+              <img
+                src="/logos/bharosa-mark.png"
+                alt="Bharosa Logo"
+                className="w-9 h-9 object-contain transition-transform group-hover:scale-105 shrink-0"
+              />
               <div className="flex flex-col">
-                <span className="font-black text-xl tracking-tight text-[#0C2518] leading-tight">
-                  Bharosa
-                </span>
+                <div className="flex items-center gap-1.5">
+                  <span className="font-anton text-xl tracking-wide text-[#1A2E05] uppercase leading-tight">
+                    Bharosa
+                  </span>
+                  <span className="text-[11px] font-bold text-[#65A30D]">भरोसा</span>
+                </div>
                 <span className="text-[10px] font-bold text-[#4D6B2A] tracking-wider leading-none uppercase">
                   Sovereign Trust Platform
                 </span>
