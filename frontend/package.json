@@ -16,6 +16,7 @@
   "dependencies": {
     "@fontsource/inter": "^5.0.19",
     "@fontsource/plus-jakarta-sans": "^5.0.20",
+    "@hookform/resolvers": "^5.9.1",
     "@noble/curves": "^1.4.0",
     "@noble/hashes": "^1.4.0",
     "@rainbow-me/rainbowkit": "^2.1.2",
