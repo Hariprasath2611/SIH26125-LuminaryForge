@@ -186,7 +186,8 @@ model Account {
   email         String
   displayName   String?
   walletAddress String?  @unique
-  persona       String   @default("HOLDER") // HOLDER, ISSUER, VERIFIER
+  persona       String   @default("HOLDER") // HOLDER, ISSUER, VERIFIER, ADMIN
+  isDemo        Boolean  @default(false)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
