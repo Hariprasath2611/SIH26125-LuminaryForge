@@ -81,3 +81,21 @@ Landing (public /) ──[Launch App]──► /app ──► /login (Firebase) 
    - Unified topbar with gasless sponsor toggle, live notification bell, network switcher, and user profile menu.
    - Role-based portal routing (`RoleGate`) for accredited Issuers, Verifiers, and Protocol Administrators.
 
+---
+
+## 6. Quick Demo Architecture (Evaluator & Judge Fast-Path)
+
+To enable friction-free live evaluations without external browser extensions or testnet faucet bottlenecks, Bharosa implements an integrated demo architecture:
+
+1. **Dual-Layer Demo Auth (`POST /v1/demo/login`):**
+   - The backend validates the requested demo user ID (`priya`, `chennai`, `techcorp`, `arjun`, `admin`) and produces a Firebase custom token.
+   - The client signs in via `signInWithCustomToken()`, routing the demo user through the exact same security token and JWT verification pipelines as standard users.
+2. **Silent Browser Signer (`DemoWalletConnector`):**
+   - Implemented as a custom Wagmi connector backed by `viem/accounts` `privateKeyToAccount`.
+   - Automatically executes and signs on-chain transactions, EIP-712 typed signatures, and personal_sign requests silently in browser memory with zero popups.
+3. **Triple Safety Isolation:**
+   - Active only when `DEMO_MODE=true` on backend, `VITE_DEMO_MODE=true` on frontend, and connected chain is NOT a mainnet ID (`1, 10, 56, 137, 8453, 42161`).
+   - Production builds statically eliminate demo account keys (`VITE_DEMO_MODE=false`).
+   - Persistent lime top banner and demo wallet badge prevent any confusion with production environments.
+
+
