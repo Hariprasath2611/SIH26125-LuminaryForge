@@ -36,7 +36,13 @@ app.use((0, helmet_1.default)({
         },
     },
     crossOriginEmbedderPolicy: false,
+    referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+    hsts: { maxAge: 31536000, includeSubDomains: true, preload: true },
 }));
+app.use((req, res, next) => {
+    res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+    next();
+});
 app.use((0, cors_1.default)({
     origin: (origin, callback) => {
         // In development or demo, allow requests without origin (e.g. curl/Postman) or matching origins
@@ -88,7 +94,16 @@ const distPathCandidates = [
 const distPath = distPathCandidates.find((p) => fs_1.default.existsSync(p)) || distPathCandidates[0];
 if (env_1.env.SERVE_FRONTEND && fs_1.default.existsSync(distPath)) {
     console.log(`[Bharosa Server] Serving production frontend from: ${distPath}`);
-    app.use(express_1.default.static(distPath, { maxAge: '1y', index: false }));
+    app.use(express_1.default.static(distPath, {
+        maxAge: '1y',
+        immutable: true,
+        index: false,
+        setHeaders: (res, filePath) => {
+            if (filePath.endsWith('index.html')) {
+                res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+            }
+        },
+    }));
     app.get('*', (req, res, next) => {
         if (req.path.startsWith('/v1') ||
             req.path.startsWith('/healthz') ||
@@ -96,6 +111,7 @@ if (env_1.env.SERVE_FRONTEND && fs_1.default.existsSync(distPath)) {
             req.path.startsWith('/docs')) {
             return next();
         }
+        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
         res.sendFile(path_1.default.join(distPath, 'index.html'));
     });
 }

@@ -36,8 +36,14 @@ app.use(
       },
     },
     crossOriginEmbedderPolicy: false,
+    referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+    hsts: { maxAge: 31536000, includeSubDomains: true, preload: true },
   })
 );
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  next();
+});
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -94,7 +100,18 @@ const distPathCandidates = [
 const distPath = distPathCandidates.find((p) => fs.existsSync(p)) || distPathCandidates[0];
 if (env.SERVE_FRONTEND && fs.existsSync(distPath)) {
   console.log(`[Bharosa Server] Serving production frontend from: ${distPath}`);
-  app.use(express.static(distPath, { maxAge: '1y', index: false }));
+  app.use(
+    express.static(distPath, {
+      maxAge: '1y',
+      immutable: true,
+      index: false,
+      setHeaders: (res, filePath) => {
+        if (filePath.endsWith('index.html')) {
+          res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+        }
+      },
+    })
+  );
   app.get('*', (req: Request, res: Response, next: NextFunction) => {
     if (
       req.path.startsWith('/v1') ||
@@ -104,6 +121,7 @@ if (env.SERVE_FRONTEND && fs.existsSync(distPath)) {
     ) {
       return next();
     }
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     res.sendFile(path.join(distPath, 'index.html'));
   });
 }
