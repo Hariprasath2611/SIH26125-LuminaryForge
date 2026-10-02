@@ -24,12 +24,6 @@ export function Hero() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
         {/* Left Column: Headlines & Actions */}
         <div className="lg:col-span-6 text-left animate-in fade-in slide-in-from-bottom-2 duration-500">
-          {/* Top Pill Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#ECFCCB] text-xs font-semibold text-[#1A2E05] mb-6 shadow-xs border border-[#D9F99D]">
-            <span className="w-2 h-2 rounded-full bg-[#84CC16] animate-pulse"></span>
-            <span>Smart India Hackathon 2026 &middot; SIH26125</span>
-          </div>
-
           {/* Main Title using Anton SC font */}
           <h1 className="font-anton text-5xl sm:text-6xl lg:text-[76px] tracking-wide text-[#1A2E05] leading-[1.06] mb-6 uppercase">
             Trust, owned <br />
