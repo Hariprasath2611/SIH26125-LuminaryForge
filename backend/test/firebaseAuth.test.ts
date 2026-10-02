@@ -41,7 +41,6 @@ describe('Firebase Auth & Wallet Linking API', () => {
   });
 
   it('2. POST /v1/auth/link-wallet links SIWE signature to Firebase account', async () => {
-  }, 20000);
     // Request nonce
     const nonceRes = await request(app).get('/v1/auth/nonce');
     expect(nonceRes.status).toBe(200);
@@ -81,7 +80,7 @@ describe('Firebase Auth & Wallet Linking API', () => {
 
     expect(meRes.status).toBe(200);
     expect(meRes.body.walletAddress).toBe(testWallet.address.toLowerCase());
-  });
+  }, 20000);
 
   it('3. Duplicate wallet link to another account should return 409 Conflict', async () => {
     // First link to test-uid-123
