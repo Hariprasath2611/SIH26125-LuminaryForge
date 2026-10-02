@@ -1,0 +1,1 @@
+.parallax{position:relative;overflow:hidden;width:100%}.scroller{display:flex;white-space:nowrap;text-align:center;font-family:inherit;font-size:.875rem;font-weight:700;letter-spacing:-.01em;will-change:transform}.scroller span{flex-shrink:0;display:inline-flex;align-items:center}@media (min-width: 640px){.scroller{font-size:.95rem}}
