@@ -20,7 +20,7 @@ import fs from 'fs';
 };
 
 const app = express();
-const port = env.PORT;
+const port = env.PORT; // 3001 or env.PORT
 
 app.use(
   helmet({
