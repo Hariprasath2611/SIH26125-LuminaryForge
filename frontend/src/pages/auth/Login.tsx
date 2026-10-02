@@ -6,6 +6,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { Lock, Mail, AlertCircle, Loader2, Sparkles, User, School, Building2 } from 'lucide-react';
 import { PageMeta } from '../../components/PageMeta';
+import { QuickDemoLogin } from '../../components/auth/QuickDemoLogin';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
