@@ -93,7 +93,7 @@ export function createDemoConnector(privateKey: `0x${string}`) {
       id: 'demo-wallet',
       name: 'Bharosa Demo Signer',
       type: 'demoWallet',
-      async connect({ chainId } = {}) {
+      async connect({ chainId }: any = {}) {
         connected = true;
         const currentChainId = chainId || config.chains[0]?.id || 31337;
         return {
@@ -116,7 +116,7 @@ export function createDemoConnector(privateKey: `0x${string}`) {
       async getProvider() {
         return provider;
       },
-      async getClient({ chainId } = {}) {
+      async getClient({ chainId }: any = {}) {
         const chain = config.chains.find((c) => c.id === chainId) || config.chains[0];
         return createWalletClient({
           account: localAccount,
@@ -127,6 +127,6 @@ export function createDemoConnector(privateKey: `0x${string}`) {
       onAccountsChanged() {},
       onChainChanged() {},
       onDisconnect() {},
-    };
+    } as any;
   });
 }
