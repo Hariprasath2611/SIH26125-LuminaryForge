@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ScrollVelocity } from '../../components/common/ScrollVelocity';
 
 export function Hero() {
   const scrollToAbout = () => {
@@ -109,14 +110,29 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Bottom Capability Ticker */}
-      <div className="pt-16 sm:pt-24 flex flex-wrap items-center justify-between gap-4 sm:gap-6 text-xs sm:text-sm font-bold text-[#4D6B2A]">
-        <span className="hover:text-[#1A2E05] transition-colors cursor-default">W3C DIDs</span>
-        <span className="hover:text-[#1A2E05] transition-colors cursor-default">Verifiable Credentials</span>
-        <span className="hover:text-[#1A2E05] transition-colors cursor-default">Zero-Knowledge Proofs</span>
-        <span className="hover:text-[#1A2E05] transition-colors cursor-default">IPFS Storage</span>
-        <span className="hover:text-[#1A2E05] transition-colors cursor-default">Layer-2 Blockchain</span>
-        <span className="hover:text-[#1A2E05] transition-colors cursor-default">On-chain ABAC</span>
+      {/* Bottom Capability Ticker with React Bits ScrollVelocity */}
+      <div className="pt-16 sm:pt-24 border-t border-[#ECFCCB]/80 overflow-hidden">
+        <ScrollVelocity
+          texts={[
+            <span className="inline-flex items-center gap-6 sm:gap-10 text-xs sm:text-sm font-bold text-[#4D6B2A] tracking-wider uppercase">
+              <span className="hover:text-[#1A2E05] transition-colors cursor-pointer">W3C DIDs</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#84CC16]"></span>
+              <span className="hover:text-[#1A2E05] transition-colors cursor-pointer">Verifiable Credentials</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#84CC16]"></span>
+              <span className="hover:text-[#1A2E05] transition-colors cursor-pointer">Zero-Knowledge Proofs</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#84CC16]"></span>
+              <span className="hover:text-[#1A2E05] transition-colors cursor-pointer">IPFS Storage</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#84CC16]"></span>
+              <span className="hover:text-[#1A2E05] transition-colors cursor-pointer">Layer-2 Blockchain</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#84CC16]"></span>
+              <span className="hover:text-[#1A2E05] transition-colors cursor-pointer">On-chain ABAC</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#84CC16]"></span>
+            </span>
+          ]}
+          velocity={35}
+          numCopies={4}
+          className="text-[#4D6B2A]"
+        />
       </div>
     </section>
   );
