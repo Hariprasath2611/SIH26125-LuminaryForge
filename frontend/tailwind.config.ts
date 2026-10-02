@@ -42,7 +42,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["var(--font-inter)", "sans-serif"],
-        heading: ["var(--font-sora)", "sans-serif"],
+        heading: ["'Anton SC'", "var(--font-heading)", "sans-serif"],
       },
     },
   },
