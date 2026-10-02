@@ -54,18 +54,13 @@ async function main() {
   const registerDIDSafe = async (userSigner: any, name: string) => {
     const didHash = ethers.keccak256(ethers.toUtf8Bytes(`did:ethr:31337:${userSigner.address.toLowerCase()}`));
     try {
-      const record = await identityRegistry.getDID(didHash);
-      if (record.registeredAt === 0n || record.registeredAt === 0) {
-        const tx = await identityRegistry.connect(userSigner).registerDID(
-          didHash,
-          userSigner.address,
-          `bafkreididmetadata_${name.toLowerCase()}`
-        );
-        await tx.wait();
-        console.log(`[Seed-Demo] ✓ Registered DID for ${name}: ${didHash}`);
-      } else {
-        console.log(`[Seed-Demo] ✓ DID for ${name} already registered.`);
-      }
+      const tx = await identityRegistry.connect(userSigner).registerDID(
+        didHash,
+        userSigner.address,
+        `bafkreididmetadata_${name.toLowerCase()}`
+      );
+      await tx.wait();
+      console.log(`[Seed-Demo] ✓ Registered DID for ${name}: ${didHash}`);
     } catch (err: any) {
       if (err.message?.includes("DIDAlreadyRegistered") || err.message?.includes("ControllerAlreadyBound")) {
         console.log(`[Seed-Demo] ✓ DID for ${name} already registered.`);
@@ -138,52 +133,62 @@ async function main() {
   // -------------------------------------------------------------
   // 4. PRIYA SHARMA: Encrypted Certificate Asset & Access Grants
   // -------------------------------------------------------------
-  const sampleAssetHash = ethers.keccak256(ethers.toUtf8Bytes("B.Tech Degree in Computer Science & Engineering - Priya Sharma"));
+  let priyaAssetId: string = ethers.ZeroHash;
   try {
-    const isReg = await ownershipRegistry.isAssetRegistered(sampleAssetHash).catch(() => false);
-    if (!isReg) {
-      const mintTx = await ownershipRegistry.connect(priya).registerAsset(
-        sampleAssetHash,
-        "bafkreiciphertextpriyadegree01",
-        false
-      );
-      await mintTx.wait();
-      console.log(`[Seed-Demo] ✓ Priya registered encrypted certificate asset on OwnershipRegistry.`);
-    } else {
-      console.log(`[Seed-Demo] ✓ Priya's asset already registered.`);
+    const contentHash = ethers.keccak256(ethers.toUtf8Bytes("B.Tech Degree in Computer Science & Engineering - Priya Sharma"));
+    const tx = await ownershipRegistry.connect(priya).registerAsset(
+      "bafkreiciphertextpriyadegree01",
+      contentHash,
+      "bafkreibpriyametadata01",
+      false // non-soulbound
+    );
+    const receipt = await tx.wait();
+    // Retrieve emitted AssetRegistered event
+    for (const log of receipt?.logs || []) {
+      try {
+        const parsed = ownershipRegistry.interface.parseLog(log);
+        if (parsed?.name === "AssetRegistered") {
+          priyaAssetId = parsed.args.assetId;
+          break;
+        }
+      } catch {}
     }
+    console.log(`[Seed-Demo] ✓ Priya registered encrypted certificate asset: ${priyaAssetId}`);
   } catch (err: any) {
-    console.log(`[Seed-Demo] Asset notice:`, err.message?.split('\n')[0]);
+    console.log(`[Seed-Demo] Priya asset notice:`, err.message?.split('\n')[0]);
   }
 
   // -------------------------------------------------------------
   // 5. TECHCORP HR: Pending Request & Active Grant (expiring soon)
   // -------------------------------------------------------------
-  try {
-    const reqTx = await accessControl.connect(techCorp).requestAccess(
-      sampleAssetHash,
-      "VERIFIER",
-      "Technical Hiring Background Verification",
-      12 // 12 hours
-    );
-    await reqTx.wait();
-    console.log(`[Seed-Demo] ✓ TechCorp filed access request for Priya's credential.`);
-  } catch (err: any) {
-    // Already requested
-  }
+  if (priyaAssetId && priyaAssetId !== ethers.ZeroHash) {
+    try {
+      const reqTx = await accessControl.connect(techCorp).requestAccess(
+        priyaAssetId,
+        "VERIFIER",
+        "Technical Hiring Background Verification"
+      );
+      await reqTx.wait();
+      console.log(`[Seed-Demo] ✓ TechCorp filed access request for Priya's credential.`);
+    } catch (err: any) {
+      console.log(`[Seed-Demo] Request notice:`, err.message?.split('\n')[0]);
+    }
 
-  try {
-    const grantTx = await accessControl.connect(priya).grantAccess(
-      sampleAssetHash,
-      techCorp.address,
-      "VERIFIER",
-      now - 3600,         // started 1 hour ago
-      now + 2 * 3600      // expiring soon (in 2 hours)
-    );
-    await grantTx.wait();
-    console.log(`[Seed-Demo] ✓ Priya granted active access to TechCorp (expiring soon).`);
-  } catch (err: any) {
-    // Already granted
+    try {
+      const grantTx = await accessControl.connect(priya).grantAccess(
+        priyaAssetId,
+        techCorp.address,
+        "VERIFIER",
+        "Technical Hiring Background Verification",
+        now - 3600,         // started 1 hour ago
+        now + 2 * 3600,     // expiring soon (in 2 hours)
+        "bafkreibwrappedkeytechcorp01"
+      );
+      await grantTx.wait();
+      console.log(`[Seed-Demo] ✓ Priya granted active access to TechCorp (expiring soon).`);
+    } catch (err: any) {
+      console.log(`[Seed-Demo] Grant notice:`, err.message?.split('\n')[0]);
+    }
   }
 
   console.log(`\n========================================================================`);
