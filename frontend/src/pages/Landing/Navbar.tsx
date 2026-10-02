@@ -59,14 +59,14 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
         </Link>
 
         {/* Center Desktop Nav Links */}
-        <div className="hidden md:flex items-center space-x-9 lg:space-x-11">
+        <div className="hidden md:flex items-center space-x-8 lg:space-x-10">
           {NAV_ITEMS.map((item) => (
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className={`text-[15px] font-semibold transition-colors font-sans ${
+              className={`font-anton text-base sm:text-lg uppercase tracking-wide transition-colors ${
                 activeSection === item.id
-                  ? 'text-[#65A30D] font-bold'
+                  ? 'text-[#65A30D]'
                   : 'text-[#111827] hover:text-[#65A30D]'
               }`}
             >
@@ -79,7 +79,7 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
         <div className="hidden sm:flex items-center space-x-3">
           <Link
             to="/app"
-            className="inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-[#84CC16] hover:bg-[#72b510] text-[#111827] font-bold text-sm transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5"
+            className="inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-[#84CC16] hover:bg-[#72b510] text-[#111827] font-anton uppercase tracking-wider text-base transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5"
           >
             Launch App
           </Link>
@@ -89,13 +89,13 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
         <div className="md:hidden flex items-center space-x-2">
           <Link
             to="/app"
-            className="px-4 py-1.5 rounded-full bg-[#84CC16] text-[#1A2E05] font-bold text-xs uppercase"
+            className="px-4 py-1.5 rounded-full bg-[#84CC16] text-[#111827] font-anton tracking-wider text-xs uppercase"
           >
             App
           </Link>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-xl text-[#1A2E05] hover:bg-[#ECFCCB] transition-colors"
+            className="p-2 rounded-xl text-[#111827] hover:bg-[#ECFCCB] transition-colors"
             aria-label="Toggle mobile menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -110,10 +110,10 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold transition-colors ${
+              className={`w-full text-left px-4 py-2.5 rounded-xl font-anton text-lg uppercase tracking-wide transition-colors ${
                 activeSection === item.id
-                  ? 'bg-[#ECFCCB] text-[#1A2E05]'
-                  : 'text-[#1A2E05] hover:bg-[#F7FBEF]'
+                  ? 'bg-[#ECFCCB] text-[#65A30D]'
+                  : 'text-[#111827] hover:bg-[#F7FBEF]'
               }`}
             >
               {item.label}
@@ -123,7 +123,7 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
             <Link
               to="/app"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center py-3 rounded-full bg-[#84CC16] text-[#1A2E05] font-bold text-sm shadow-sm"
+              className="w-full flex items-center justify-center py-3 rounded-full bg-[#84CC16] text-[#111827] font-anton text-base uppercase tracking-wider shadow-sm"
             >
               Launch App
             </Link>
