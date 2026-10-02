@@ -4,10 +4,69 @@
 
 @font-face {
   font-family: 'Anton SC';
-  src: url('../assets/fonts/AntonSC-Regular.ttf') format('truetype');
+  src: url('/fonts/AntonSC-Regular.ttf') format('truetype'),
+       url('../assets/fonts/AntonSC-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes float-reverse {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+@keyframes pulse-ring {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.65;
+  }
+  50% {
+    transform: scale(1.025);
+    opacity: 0.9;
+  }
+}
+
+@keyframes spin-very-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-float {
+  animation: float-slow 4s ease-in-out infinite;
+}
+
+.animate-float-delayed-1 {
+  animation: float-slow 4.5s ease-in-out 1.2s infinite;
+}
+
+.animate-float-delayed-2 {
+  animation: float-reverse 5s ease-in-out 2.2s infinite;
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 6s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-very-slow 60s linear infinite;
 }
 
 :root {
