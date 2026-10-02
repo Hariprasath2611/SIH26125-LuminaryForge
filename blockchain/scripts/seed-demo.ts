@@ -3,11 +3,21 @@ import * as fs from "fs";
 import * as path from "path";
 
 async function main() {
-  const [university, student, employer] = await ethers.getSigners();
-  console.log(`[Seed-Demo] Starting demo data seeding on local chain...`);
-  console.log(`[Seed-Demo] University (Issuer): ${university.address}`);
-  console.log(`[Seed-Demo] Student (Holder):    ${student.address}`);
-  console.log(`[Seed-Demo] Employer (Verifier): ${employer.address}`);
+  const signers = await ethers.getSigners();
+  const admin = signers[0];       // 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+  const priya = signers[1];       // 0x70997970C51812dc3A010C7d01b50e0d17dc79C8
+  const chennaiUniv = signers[2]; // 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC
+  const techCorp = signers[3];    // 0x90F79bf6EB2c4f870365E785982E1f101E93b906
+  const arjun = signers[4];       // 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65
+
+  console.log(`========================================================================`);
+  console.log(`[Seed-Demo] Starting Comprehensive 5-User Demo Data Seeding on Local Chain...`);
+  console.log(`========================================================================`);
+  console.log(`1. Admin (Deployer):        ${admin.address}`);
+  console.log(`2. Priya Sharma (Holder):   ${priya.address}`);
+  console.log(`3. Chennai Univ (Issuer):   ${chennaiUniv.address}`);
+  console.log(`4. TechCorp HR (Verifier):  ${techCorp.address}`);
+  console.log(`5. Arjun Mehta (Holder):    ${arjun.address}\n`);
 
   // Load deployment addresses
   const deployPath = path.join(__dirname, "../deployments/localhost.json");
@@ -19,90 +29,165 @@ async function main() {
   const addresses = deployData.addresses;
 
   // Contracts
-  const identityRegistry = await ethers.getContractAt("IdentityRegistry", addresses.IdentityRegistry, university);
-  const ownershipRegistry = await ethers.getContractAt("OwnershipRegistry", addresses.OwnershipRegistry, student);
-  const accessControl = await ethers.getContractAt("BharosaAccessControl", addresses.AccessControl, student);
+  const identityRegistry = await ethers.getContractAt("IdentityRegistry", addresses.IdentityRegistry, admin);
+  const ownershipRegistry = await ethers.getContractAt("OwnershipRegistry", addresses.OwnershipRegistry, admin);
+  const accessControl = await ethers.getContractAt("BharosaAccessControl", addresses.AccessControl, admin);
 
-  // 1. Whitelist University if not already
-  const isWhitelisted = await identityRegistry.isTrustedIssuer(university.address);
-  if (!isWhitelisted) {
-    console.log(`[Seed-Demo] Adding University as trusted issuer...`);
-    const tx = await identityRegistry.addIssuer(university.address);
-    await tx.wait();
-  }
-
-  // 2. Student registers DID
-  const studentDidHash = ethers.keccak256(ethers.toUtf8Bytes(`did:ethr:31337:${student.address.toLowerCase()}`));
-  try {
-    const studentIdentity = await identityRegistry.connect(student);
-    const regTx = await studentIdentity.registerDID(studentDidHash, student.address, "bafkreistudentmetadata01");
-    await regTx.wait();
-    console.log(`[Seed-Demo] Registered Student DID on-chain.`);
-  } catch (err: any) {
-    if (err.message?.includes("DIDAlreadyRegistered")) {
-      console.log(`[Seed-Demo] Student DID already registered.`);
-    } else {
-      console.log(`[Seed-Demo] Student DID notice:`, err.message || err);
-    }
-  }
-
-  // 3. University anchors sample B.Tech Degree Credential
-  const credentialHash = ethers.keccak256(ethers.toUtf8Bytes(`urn:uuid:dtu-degree-2026-cs|${student.address.toLowerCase()}|9.4`));
   const now = Math.floor(Date.now() / 1000);
-  const expiration = now + 365 * 24 * 3600; // 1 year
-  try {
-    const anchorTx = await identityRegistry.anchorCredential(
-      credentialHash,
-      student.address,
-      expiration,
-      "bafkreibdegreecredential01"
-    );
-    await anchorTx.wait();
-    console.log(`[Seed-Demo] Anchored University Degree Credential on-chain.`);
-  } catch (err: any) {
-    console.log(`[Seed-Demo] Degree anchor notice:`, err.message || err);
+
+  // -------------------------------------------------------------
+  // 1. CHENNAI UNIVERSITY: Whitelist as Trusted Issuer
+  // -------------------------------------------------------------
+  const isWhitelisted = await identityRegistry.isTrustedIssuer(chennaiUniv.address);
+  if (!isWhitelisted) {
+    console.log(`[Seed-Demo] Adding Chennai University as trusted issuer...`);
+    const tx = await identityRegistry.connect(admin).addIssuer(chennaiUniv.address);
+    await tx.wait();
+    console.log(`[Seed-Demo] ✓ Chennai University approved as trusted issuer.`);
+  } else {
+    console.log(`[Seed-Demo] ✓ Chennai University already approved as trusted issuer.`);
   }
 
-  // 4. Student mints sample encrypted research paper asset
-  const sampleAssetHash = ethers.keccak256(ethers.toUtf8Bytes("Zero-Knowledge Decentralized Identity on Ethereum - Alice Sharma"));
+  // -------------------------------------------------------------
+  // 2. REGISTER DIDs FOR PARTICIPANTS
+  // -------------------------------------------------------------
+  const registerDIDSafe = async (userSigner: any, name: string) => {
+    const didHash = ethers.keccak256(ethers.toUtf8Bytes(`did:ethr:31337:${userSigner.address.toLowerCase()}`));
+    try {
+      const isReg = await identityRegistry.isDIDRegistered(didHash);
+      if (!isReg) {
+        const tx = await identityRegistry.connect(userSigner).registerDID(
+          didHash,
+          userSigner.address,
+          `bafkreididmetadata_${name.toLowerCase()}`
+        );
+        await tx.wait();
+        console.log(`[Seed-Demo] ✓ Registered DID for ${name}: ${didHash}`);
+      } else {
+        console.log(`[Seed-Demo] ✓ DID for ${name} already registered.`);
+      }
+    } catch (err: any) {
+      console.log(`[Seed-Demo] Note on ${name} DID:`, err.message?.split('\n')[0]);
+    }
+  };
+
+  await registerDIDSafe(priya, "PriyaSharma");
+  await registerDIDSafe(chennaiUniv, "ChennaiUniversity");
+  await registerDIDSafe(techCorp, "TechCorpHr");
+  await registerDIDSafe(arjun, "ArjunMehta");
+
+  // -------------------------------------------------------------
+  // 3. CHENNAI UNIVERSITY: 3 Credentials Issued, 1 Revoked
+  // -------------------------------------------------------------
+  const anchorSafe = async (credId: string, subject: string, expiry: number, cid: string) => {
+    const credHash = ethers.keccak256(ethers.toUtf8Bytes(credId));
+    try {
+      const isIssued = await identityRegistry.isCredentialValid(credHash);
+      if (!isIssued) {
+        const tx = await identityRegistry.connect(chennaiUniv).anchorCredential(credHash, subject, expiry, cid);
+        await tx.wait();
+        console.log(`[Seed-Demo] ✓ Anchored credential ${credId}`);
+      }
+    } catch (e: any) {
+      console.log(`[Seed-Demo] Credential anchor notice (${credId}):`, e.message?.split('\n')[0]);
+    }
+    return credHash;
+  };
+
+  // Credential 1: Priya's B.Tech Degree (Active)
+  const cred1 = await anchorSafe(
+    `urn:uuid:chennai-btech-2026-cs|${priya.address.toLowerCase()}|9.4`,
+    priya.address,
+    now + 365 * 24 * 3600,
+    "bafkreibpriyabtechdegree01"
+  );
+
+  // Credential 2: Arjun's Data Science Certificate (Active)
+  const cred2 = await anchorSafe(
+    `urn:uuid:chennai-datasci-cert-2026|${arjun.address.toLowerCase()}|8.8`,
+    arjun.address,
+    now + 180 * 24 * 3600,
+    "bafkreibarjundatascience01"
+  );
+
+  // Credential 3: Revoked Legacy Diploma
+  const cred3 = await anchorSafe(
+    `urn:uuid:chennai-revoked-diploma-2025|0x1111111111111111111111111111111111111111|7.2`,
+    "0x1111111111111111111111111111111111111111",
+    now + 90 * 24 * 3600,
+    "bafkreibrevokeddiploma01"
+  );
+
+  // Revoke Credential 3
   try {
-    const mintTx = await ownershipRegistry.registerAsset(
-      sampleAssetHash,
-      "bafkreiciphertextpaper01",
-      false // transferable
-    );
-    await mintTx.wait();
-    console.log(`[Seed-Demo] Registered sample research paper asset on OwnershipRegistry.`);
-  } catch (err: any) {
-    console.log(`[Seed-Demo] Asset mint notice:`, err.message || err);
+    const isValid = await identityRegistry.isCredentialValid(cred3);
+    if (isValid) {
+      const revokeTx = await identityRegistry.connect(chennaiUniv).revokeCredential(cred3);
+      await revokeTx.wait();
+      console.log(`[Seed-Demo] ✓ Revoked credential 3 (1 revoked as required).`);
+    } else {
+      console.log(`[Seed-Demo] ✓ Credential 3 already revoked.`);
+    }
+  } catch (e: any) {
+    console.log(`[Seed-Demo] Revocation notice:`, e.message?.split('\n')[0]);
   }
 
-  // 5. Employer requests access, Student grants 24h access
+  // -------------------------------------------------------------
+  // 4. PRIYA SHARMA: Encrypted Certificate Asset & Access Grants
+  // -------------------------------------------------------------
+  const sampleAssetHash = ethers.keccak256(ethers.toUtf8Bytes("B.Tech Degree in Computer Science & Engineering - Priya Sharma"));
   try {
-    const employerAccess = accessControl.connect(employer);
-    const reqTx = await employerAccess.requestAccess(
+    const assetOwner = await ownershipRegistry.ownerOf(sampleAssetHash).catch(() => ethers.ZeroAddress);
+    if (assetOwner === ethers.ZeroAddress) {
+      const mintTx = await ownershipRegistry.connect(priya).registerAsset(
+        sampleAssetHash,
+        "bafkreiciphertextpriyadegree01",
+        false
+      );
+      await mintTx.wait();
+      console.log(`[Seed-Demo] ✓ Priya registered encrypted certificate asset on OwnershipRegistry.`);
+    } else {
+      console.log(`[Seed-Demo] ✓ Priya's asset already registered.`);
+    }
+  } catch (err: any) {
+    console.log(`[Seed-Demo] Asset notice:`, err.message?.split('\n')[0]);
+  }
+
+  // -------------------------------------------------------------
+  // 5. TECHCORP HR: Pending Request & Active Grant (expiring soon)
+  // -------------------------------------------------------------
+  try {
+    // 5a. TechCorp requests access for verification
+    const reqTx = await accessControl.connect(techCorp).requestAccess(
       sampleAssetHash,
       "VERIFIER",
-      "Technical Hiring Review & Background Verification",
-      24
+      "Technical Hiring Background Verification",
+      12 // 12 hours
     );
     await reqTx.wait();
-    console.log(`[Seed-Demo] Employer requested access.`);
-
-    const grantTx = await accessControl.grantAccess(
-      sampleAssetHash,
-      employer.address,
-      "VERIFIER",
-      now - 60, // active starting 1 min ago
-      now + 24 * 3600 // 24 hours
-    );
-    await grantTx.wait();
-    console.log(`[Seed-Demo] Student granted 24h active access to Employer.`);
+    console.log(`[Seed-Demo] ✓ TechCorp filed access request for Priya's credential.`);
   } catch (err: any) {
-    console.log(`[Seed-Demo] Access grant notice:`, err.message || err);
+    // Might already be requested
   }
 
-  console.log(`[Seed-Demo] Demo seeding completed successfully! All accounts and state ready.`);
+  try {
+    // 5b. Priya grants access to TechCorp active grant (expiring in 2 hours)
+    const grantTx = await accessControl.connect(priya).grantAccess(
+      sampleAssetHash,
+      techCorp.address,
+      "VERIFIER",
+      now - 3600,         // started 1 hour ago
+      now + 2 * 3600      // expiring soon (in 2 hours)
+    );
+    await grantTx.wait();
+    console.log(`[Seed-Demo] ✓ Priya granted active access to TechCorp (expiring soon).`);
+  } catch (err: any) {
+    // Might already be granted
+  }
+
+  console.log(`\n========================================================================`);
+  console.log(`[Seed-Demo] Seeding complete! All 5 demo personas are live on-chain.`);
+  console.log(`========================================================================\n`);
 }
 
 main().catch((error) => {
