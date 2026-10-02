@@ -51,3 +51,33 @@ In the migrated React 18 + Vite architecture:
 - **WebAssembly Execution:** SnarkJS and Circom witness calculation require `'wasm-unsafe-eval'`, strictly restricted to `'self'` scripts.
 - **Worker Execution:** Dedicated ZK proof synthesis operates off-thread via `worker-src 'self' blob:`.
 - **Cache Strategy:** Static assets in `/assets/*` utilize immutable 1-year caching, while `index.html` enforces `Cache-Control: no-cache, no-store, must-revalidate` to ensure immediate route freshness and instant SPA upgrades.
+
+---
+
+## 5. User Flow State Machine & Route Gates
+
+Bharosa implements a multi-tiered gatekeeper architecture ensuring progressive sovereign onboarding:
+
+```
+Landing (public /) ──[Launch App]──► /app ──► /login (Firebase) ──► /connect-wallet (SIWE EIP-4361) ──► /onboarding (W3C DID) ──► /dashboard (AppLayout)
+```
+
+1. **Public Layer (`PublicLayout`):**
+   - Marketing Landing Page (`/`): High-conversion sovereign showcase, smooth scroll spy navigation, Anton SC typography, and interactive credential preview.
+   - Public Verifier (`/public-verify`, `/verify/:hash`): Zero-login cryptographic verification portal accessible to third-party employers and verifiers.
+2. **Auth Layer (`AuthLayout` + `AuthGate`):**
+   - Firebase Authentication with email/password, Google OAuth, and 3 evaluator one-click personas (Student, University Dean, Verifier Org).
+   - Mandatory email verification enforcement for standard accounts.
+3. **Cryptographic Key Gate (`WalletGate`):**
+   - Wagmi + RainbowKit multi-chain connection (Hardhat 31337, Polygon Amoy 80002, Arbitrum Sepolia 421614).
+   - EIP-4361 SIWE signature linking Ethereum wallet address to the authenticated Firebase account on backend Neon Postgres.
+   - Address mismatch detection and anti-phishing payload transparency.
+4. **Decentralized Identity Gate (`OnboardingGate`):**
+   - Mathematical key derivation via HKDF-SHA256.
+   - W3C DID document creation (`did:bharosa:<address>`) pinned to IPFS.
+   - Optional 3-guardian social recovery configuration.
+5. **App Shell (`AppLayout`):**
+   - Collapsible 264px sidebar with icon-rail mode and mobile drawer.
+   - Unified topbar with gasless sponsor toggle, live notification bell, network switcher, and user profile menu.
+   - Role-based portal routing (`RoleGate`) for accredited Issuers, Verifiers, and Protocol Administrators.
+

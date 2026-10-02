@@ -38,3 +38,14 @@ In the React 18 + Vite static architecture:
 - **Worker Sandboxing:** Zero-knowledge proof synthesis is executed inside dedicated web workers scoped via `worker-src 'self' blob:`, ensuring heavy elliptic curve computations cannot block the main thread and preventing UI freeze.
 - **Permissions-Policy:** Strict hardware lock-down (`camera=(), microphone=(), geolocation=()`) blocks unauthorized device sensor access.
 - **Frame Ancestors:** Set to `'none'` to unconditionally prevent clickjacking and framing attacks across all routes.
+
+---
+
+## 4. Hybrid Firebase & SIWE Cryptographic Identity Binding
+
+Bharosa bridges standard Web2 user management with non-custodial Web3 sovereignty through a zero-trust model:
+- **ID Token Verification:** In production, backend validates RS256 Firebase tokens using official Google public key sets via `firebase-admin`. In development/demo, mock tokens are verified against strict schema constraints.
+- **SIWE EIP-4361 Binding:** Wallets cannot be spoofed. Account linking requires an active, unexpired cryptographic SIWE signature generated from a backend nonce. The backend recovers the signer's public address on-chain and binds it immutably to the `Account` record.
+- **Wallet Mismatch Protection:** If a user logs into a Firebase account previously bound to wallet `0xA`, but their browser extension is currently set to wallet `0xB`, the frontend halts transactions and presents a clear anti-mismatch warning with an explicit unlinking path.
+- **Key Zeroization on Logout:** When a user logs out, the application purges local session tokens, unmounts Web3 wallet connectors, clears all in-memory cryptographic AES and wrapping keys, and wipes TanStack Query caches to prevent memory retention attacks.
+
