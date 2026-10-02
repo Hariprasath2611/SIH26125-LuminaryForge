@@ -39,10 +39,14 @@ const config: Config = {
       boxShadow: {
         lime: "0 4px 20px rgba(132, 204, 22, 0.12)",
         "lime-lg": "0 10px 30px rgba(132, 204, 22, 0.18)",
+        "lime-glow": "0 0 25px rgba(132, 204, 22, 0.35)",
+        "card": "0 2px 12px rgba(26, 46, 5, 0.04), 0 1px 3px rgba(26, 46, 5, 0.06)",
+        "card-hover": "0 12px 32px rgba(26, 46, 5, 0.08), 0 4px 12px rgba(132, 204, 22, 0.12)",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "sans-serif"],
-        heading: ["'Anton SC'", "var(--font-heading)", "sans-serif"],
+        sans: ["'Plus Jakarta Sans'", "'Inter'", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        heading: ["'Anton SC'", "sans-serif"],
+        anton: ["'Anton SC'", "sans-serif"],
       },
     },
   },

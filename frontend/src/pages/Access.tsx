@@ -348,7 +348,7 @@ export default function AccessControlPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto w-full p-4 md:p-8 space-y-8">
+    <div className="w-full space-y-6 sm:space-y-8">
       <PageMeta title="ABAC Access Control Delegation" description="Attribute-based access control with ECIES cryptographic key wrapping and time-bound grants." />
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border pb-6">

@@ -16,7 +16,7 @@ export default function RecoveryPage() {
   const [isFinalized, setIsFinalized] = useState(false);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
+    <div className="w-full space-y-6 sm:space-y-8">
       <PageMeta title="M-of-N Social Recovery" description="Guardian-based decentralized recovery for lost private keys with timelock protection." />
       {/* Header */}
       <div className="border-b border-lime-200 pb-6">

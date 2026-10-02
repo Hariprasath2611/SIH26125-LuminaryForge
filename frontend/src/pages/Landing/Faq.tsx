@@ -32,16 +32,16 @@ export function Faq() {
   };
 
   return (
-    <section id="faq" className="py-20 bg-[#F7FBEF] border-t border-[#ECFCCB]">
+    <section id="faq" className="py-20 sm:py-28 bg-[#F7FBEF] border-t border-[#ECFCCB]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-14">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#65A30D] bg-[#ECFCCB] px-3.5 py-1.5 rounded-full">
-            Knowledge Base
-          </span>
-          <h2 className="text-4xl font-anton text-[#1A2E05] uppercase tracking-wide mt-3 mb-3">
+        <div className="text-center mb-14 sm:mb-18">
+          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#65A30D] bg-[#ECFCCB] px-4 py-1.5 rounded-full mb-3 border border-[#D9F99D]">
+            <span>Knowledge Base</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-anton text-[#1A2E05] uppercase tracking-wide mb-3 leading-tight">
             Frequently Asked Questions
           </h2>
-          <p className="text-sm text-[#4D6B2A]">
+          <p className="text-sm sm:text-base text-[#4D6B2A] max-w-xl mx-auto">
             Answers to common questions regarding zero-knowledge cryptography, key recovery, and IPFS custody.
           </p>
         </div>
@@ -52,22 +52,28 @@ export function Faq() {
             return (
               <div
                 key={i}
-                className="bg-[#FFFFFF] border border-[#ECFCCB] rounded-2xl overflow-hidden shadow-xs transition-colors"
+                className={`bg-[#FFFFFF] rounded-2xl overflow-hidden shadow-xs transition-all border ${
+                  isOpen ? 'border-[#84CC16] ring-2 ring-[#84CC16]/20' : 'border-[#ECFCCB] hover:border-[#84CC16]/50'
+                }`}
               >
                 <button
                   onClick={() => toggle(i)}
-                  className="w-full p-5 text-left flex items-center justify-between hover:bg-[#F7FBEF] transition-colors"
+                  className="w-full p-5 sm:p-6 text-left flex items-center justify-between transition-colors gap-4"
                 >
-                  <span className="font-bold text-sm text-[#1A2E05] pr-4">{faq.q}</span>
-                  <ChevronDown
-                    className={`w-4 h-4 text-[#65A30D] shrink-0 transition-transform duration-200 ${
-                      isOpen ? 'rotate-180' : ''
-                    }`}
-                  />
+                  <span className="font-bold text-sm sm:text-base text-[#1A2E05] leading-snug">{faq.q}</span>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors ${
+                    isOpen ? 'bg-[#ECFCCB] text-[#1A2E05]' : 'bg-[#F7FBEF] text-[#65A30D]'
+                  }`}>
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform duration-200 ${
+                        isOpen ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </div>
                 </button>
                 {isOpen && (
-                  <div className="p-5 pt-0 text-xs sm:text-sm text-[#4D6B2A] leading-relaxed border-t border-[#F7FBEF]">
-                    {faq.a}
+                  <div className="px-5 sm:px-6 pb-6 pt-0 text-xs sm:text-sm text-[#4D6B2A] leading-relaxed border-t border-[#F7FBEF]">
+                    <div className="pt-3">{faq.a}</div>
                   </div>
                 )}
               </div>

@@ -176,7 +176,7 @@ export default function IssuerConsolePage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto w-full p-4 md:p-8 space-y-6">
+    <div className="w-full space-y-6 sm:space-y-8">
       <PageMeta title="Accredited Issuer Portal" description="Issue, sign with EIP-712, and anchor W3C Verifiable Credentials on Polygon Amoy." />
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-surface p-6 rounded-2xl border border-border">

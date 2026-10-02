@@ -415,7 +415,7 @@ export default function AssetsPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto w-full p-4 md:p-8 space-y-8">
+    <div className="w-full space-y-6 sm:space-y-8">
       <PageMeta title="Client-Encrypted Asset Vault" description="Browser AES-256-GCM encryption with IPFS pinning and smart contract ownership registry." />
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border pb-6">

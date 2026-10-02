@@ -46,7 +46,7 @@ export function AuthLayout() {
 
       {/* Footer */}
       <footer className="p-4 text-center text-xs text-[#4D6B2A] border-t border-[#D9EBB5]/50">
-        Bharosa Protocol · Smart India Hackathon 2026 · PS SIH26125 · Team LUMINARYFORGE
+        Bharosa Sovereign Trust Protocol · Production-Grade Cryptographic Identity
       </footer>
     </div>
   );

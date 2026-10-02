@@ -45,7 +45,7 @@ export function IdentityPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8 space-y-8">
+    <div className="w-full space-y-6 sm:space-y-8">
       <PageMeta
         title="Decentralized Identity Hub"
         description="Inspect, manage, and export your sovereign W3C Decentralized Identifier and cryptographic assertion keys."

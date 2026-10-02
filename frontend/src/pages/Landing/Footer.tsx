@@ -4,9 +4,9 @@ import { ShieldCheck, ExternalLink, Github, BookOpen, Activity } from 'lucide-re
 
 export function Footer() {
   return (
-    <footer className="bg-[#FFFFFF] border-t border-[#ECFCCB] py-14 text-xs text-[#4D6B2A]">
+    <footer className="bg-[#FFFFFF] border-t border-[#ECFCCB] py-14 sm:py-20 text-xs text-[#4D6B2A]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10 mb-12 sm:mb-16">
           {/* Brand Info */}
           <div className="md:col-span-1 space-y-4">
             <Link to="/" className="flex items-center space-x-3 group">

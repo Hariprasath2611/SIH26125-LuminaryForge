@@ -231,7 +231,7 @@ export default function ZKProofPage() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto w-full p-4 md:p-8 space-y-8">
+    <div className="w-full space-y-6 sm:space-y-8">
       <PageMeta title="Zero-Knowledge Predicate Prover" description="Circom 2 & SnarkJS Groth16 zero-knowledge proof generation and on-chain verification." />
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border pb-6">

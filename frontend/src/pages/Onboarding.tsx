@@ -108,7 +108,7 @@ export function OnboardingPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto w-full p-6 md:p-10 my-8">
+    <div className="max-w-2xl mx-auto w-full space-y-6 sm:space-y-8">
       <PageMeta
         title="Onboarding & Identity Setup"
         description="Connect wallet, generate self-sovereign DID keys, and anchor on Polygon blockchain."

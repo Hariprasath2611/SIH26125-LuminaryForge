@@ -78,18 +78,26 @@ h6,
 .btn-primary {
   background-color: var(--primary);
   color: #1A2E05; /* Dark text on lime for high contrast */
-  font-weight: 600;
+  font-weight: 700;
   padding: 0.625rem 1.25rem;
   border-radius: 0.75rem;
-  transition: all 150ms ease-in-out;
+  transition: all 180ms cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  box-shadow: 0 1px 3px rgba(132, 204, 22, 0.2);
 }
 
 .btn-primary:hover {
   background-color: var(--primary-hover);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(132, 204, 22, 0.35);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
 }
 
 .btn-primary:focus-visible {
@@ -100,11 +108,11 @@ h6,
 .btn-secondary {
   background-color: #FFFFFF;
   color: var(--text);
-  border: 1px solid var(--border);
-  font-weight: 500;
+  border: 1.5px solid var(--border);
+  font-weight: 600;
   padding: 0.625rem 1.25rem;
   border-radius: 0.75rem;
-  transition: all 150ms ease-in-out;
+  transition: all 180ms cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -114,16 +122,25 @@ h6,
 .btn-secondary:hover {
   background-color: var(--surface);
   border-color: var(--primary);
+  color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(132, 204, 22, 0.15);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
 }
 
 .card-bharosa {
   background-color: #FFFFFF;
   border: 1px solid var(--border);
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(132, 204, 22, 0.12);
-  transition: box-shadow 200ms ease;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(132, 204, 22, 0.08);
+  transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card-bharosa:hover {
-  box-shadow: 0 6px 24px rgba(132, 204, 22, 0.18);
+  border-color: #A3E635;
+  box-shadow: 0 8px 28px rgba(132, 204, 22, 0.16);
 }
+

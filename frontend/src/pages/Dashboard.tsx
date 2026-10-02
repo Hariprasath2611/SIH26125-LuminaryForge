@@ -63,7 +63,7 @@ export function DashboardPage() {
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto w-full p-4 md:p-8 space-y-8">
+    <div className="w-full space-y-6 sm:space-y-8">
       <PageMeta
         title="Identity & Asset Dashboard"
         description="Manage your cryptographic credentials, client-encrypted assets, and ABAC access permissions."

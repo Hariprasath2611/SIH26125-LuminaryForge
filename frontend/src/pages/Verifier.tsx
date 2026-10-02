@@ -27,7 +27,7 @@ export default function VerifierPortalPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8 space-y-8">
+    <div className="w-full space-y-6 sm:space-y-8">
       <PageMeta title="Verifier & Relying Party Portal" description="Request selective disclosures and verify zero-knowledge cryptographic proofs." />
       {/* Header */}
       <div className="border-b border-lime-200 pb-6">

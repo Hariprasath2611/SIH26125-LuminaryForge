@@ -55,17 +55,18 @@ const FEATURES = [
 
 export function Features() {
   return (
-    <section id="features" className="py-20 bg-[#FFFFFF]">
+    <section id="features" className="py-20 sm:py-28 bg-[#FFFFFF]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#65A30D] bg-[#ECFCCB] px-3.5 py-1.5 rounded-full">
-            Engineering & Security
-          </span>
-          <h2 className="text-4xl sm:text-5xl font-anton text-[#1A2E05] uppercase tracking-wide mt-3 mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-20">
+          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#65A30D] bg-[#ECFCCB] px-4 py-1.5 rounded-full mb-3 border border-[#D9F99D]">
+            <Sparkles className="w-3.5 h-3.5 text-[#65A30D]" />
+            <span>Engineering & Security</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-anton text-[#1A2E05] uppercase tracking-wide mb-4 leading-tight">
             Production-Grade Cryptographic Architecture
           </h2>
-          <p className="text-base text-[#4D6B2A] leading-relaxed">
+          <p className="text-sm sm:text-base text-[#4D6B2A] leading-relaxed max-w-2xl mx-auto">
             Every layer of Bharosa is hardened with mathematical guarantees, zero-trust primitives, and enterprise scalability.
           </p>
         </div>
@@ -77,21 +78,22 @@ export function Features() {
             return (
               <div
                 key={i}
-                className="p-6 rounded-3xl bg-[#F7FBEF] border border-[#ECFCCB] hover:border-[#84CC16] hover:bg-[#FFFFFF] transition-all hover:shadow-md group flex flex-col justify-between"
+                className="p-7 rounded-3xl bg-[#F7FBEF] border-2 border-[#ECFCCB] hover:border-[#84CC16] hover:bg-[#FFFFFF] transition-all hover:shadow-md hover:-translate-y-1 group flex flex-col justify-between h-full"
               >
                 <div>
                   <div className="w-12 h-12 rounded-2xl bg-[#FFFFFF] border border-[#ECFCCB] text-[#65A30D] group-hover:bg-[#84CC16] group-hover:text-[#1A2E05] flex items-center justify-center mb-5 transition-colors shadow-2xs">
                     <Icon className="w-6 h-6 transition-transform group-hover:scale-110" />
                   </div>
-                  <h3 className="font-anton text-lg text-[#1A2E05] uppercase tracking-wide mb-2">
+                  <h3 className="font-anton text-lg text-[#1A2E05] uppercase tracking-wide mb-2 leading-snug">
                     {f.title}
                   </h3>
-                  <p className="text-xs text-[#4D6B2A] leading-relaxed">
+                  <p className="text-xs sm:text-sm text-[#4D6B2A] leading-relaxed">
                     {f.desc}
                   </p>
                 </div>
-                <div className="mt-4 pt-3 border-t border-[#ECFCCB]/60 flex items-center text-[10px] font-bold text-[#65A30D] uppercase tracking-wider">
+                <div className="mt-5 pt-3 border-t border-[#ECFCCB]/60 flex items-center justify-between text-[10px] font-bold text-[#65A30D] uppercase tracking-wider">
                   <span>Cryptographic Primitive</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#84CC16]" />
                 </div>
               </div>
             );

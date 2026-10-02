@@ -95,7 +95,7 @@ export function Header() {
             </Link>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden xl:flex items-center gap-1.5 bg-[#F7FBEF] px-3 py-1.5 rounded-full border border-lime-200">
+            <nav className="hidden lg:flex items-center gap-1.5 bg-[#F7FBEF] px-3 py-1.5 rounded-full border border-lime-200">
               {PRIMARY_NAV.map((item) => {
                 const Icon = item.icon;
                 const isActive =
@@ -201,11 +201,11 @@ export function Header() {
                 />
               </div>
 
-              {/* Mobile / Tablet Menu Button (Visible < xl) */}
+              {/* Mobile / Tablet Menu Button (Visible < lg) */}
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="xl:hidden p-2 rounded-xl bg-[#F7FBEF] border border-lime-200 text-[#0C2518] hover:bg-[#ECFCCB] transition"
+                className="lg:hidden p-2 rounded-xl bg-[#F7FBEF] border border-lime-200 text-[#0C2518] hover:bg-[#ECFCCB] transition"
                 aria-label="Toggle Navigation Menu"
               >
                 {mobileMenuOpen ? <X className="w-5 h-5 text-[#0C2518]" /> : <Menu className="w-5 h-5 text-[#0C2518]" />}
@@ -216,7 +216,7 @@ export function Header() {
 
         {/* Mobile / Tablet Slide-Down Menu */}
         {mobileMenuOpen && (
-          <div className="xl:hidden border-t border-lime-200 bg-white px-4 pt-4 pb-6 space-y-4 max-h-[85vh] overflow-y-auto animate-in slide-in-from-top-2 duration-200">
+          <div className="lg:hidden border-t border-lime-200 bg-white px-4 pt-4 pb-6 space-y-4 max-h-[85vh] overflow-y-auto animate-in slide-in-from-top-2 duration-200">
             {/* Gasless Switch for Mobile */}
             <div className="flex items-center justify-between p-3 bg-[#F7FBEF] rounded-xl border border-lime-200">
               <div className="flex items-center gap-2">

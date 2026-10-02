@@ -442,7 +442,7 @@ export default function SecurityPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto w-full p-4 md:p-8 space-y-8">
+    <div className="w-full space-y-6 sm:space-y-8">
       <PageMeta title="Security Center & Emergency Freeze" description="Real-time threat monitoring and Quick-Lock smart contract emergency response." />
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border pb-6">

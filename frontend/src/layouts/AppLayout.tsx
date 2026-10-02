@@ -30,7 +30,7 @@ export function AppLayout() {
         <DemoModeBanner />
         <Topbar onOpenMobileMenu={() => setMobileOpen(true)} />
 
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto animate-in fade-in duration-150">
+        <main className="flex-1 px-4 sm:px-6 lg:px-8 py-6 sm:py-8 max-w-7xl w-full mx-auto animate-in fade-in duration-150">
           <Outlet />
         </main>
 
