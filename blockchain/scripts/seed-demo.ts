@@ -38,7 +38,7 @@ async function main() {
   // -------------------------------------------------------------
   // 1. CHENNAI UNIVERSITY: Whitelist as Trusted Issuer
   // -------------------------------------------------------------
-  const isWhitelisted = await identityRegistry.isTrustedIssuer(chennaiUniv.address);
+  const isWhitelisted = await identityRegistry.isIssuerTrusted(chennaiUniv.address);
   if (!isWhitelisted) {
     console.log(`[Seed-Demo] Adding Chennai University as trusted issuer...`);
     const tx = await identityRegistry.connect(admin).addIssuer(chennaiUniv.address);
@@ -54,8 +54,8 @@ async function main() {
   const registerDIDSafe = async (userSigner: any, name: string) => {
     const didHash = ethers.keccak256(ethers.toUtf8Bytes(`did:ethr:31337:${userSigner.address.toLowerCase()}`));
     try {
-      const isReg = await identityRegistry.isDIDRegistered(didHash);
-      if (!isReg) {
+      const record = await identityRegistry.getDID(didHash);
+      if (record.registeredAt === 0n || record.registeredAt === 0) {
         const tx = await identityRegistry.connect(userSigner).registerDID(
           didHash,
           userSigner.address,
@@ -67,7 +67,11 @@ async function main() {
         console.log(`[Seed-Demo] ✓ DID for ${name} already registered.`);
       }
     } catch (err: any) {
-      console.log(`[Seed-Demo] Note on ${name} DID:`, err.message?.split('\n')[0]);
+      if (err.message?.includes("DIDAlreadyRegistered") || err.message?.includes("ControllerAlreadyBound")) {
+        console.log(`[Seed-Demo] ✓ DID for ${name} already registered.`);
+      } else {
+        console.log(`[Seed-Demo] Note on ${name} DID:`, err.message?.split('\n')[0]);
+      }
     }
   };
 
@@ -79,17 +83,19 @@ async function main() {
   // -------------------------------------------------------------
   // 3. CHENNAI UNIVERSITY: 3 Credentials Issued, 1 Revoked
   // -------------------------------------------------------------
-  const anchorSafe = async (credId: string, subject: string, expiry: number, cid: string) => {
+  const anchorSafe = async (credId: string, subject: string, expiry: number) => {
     const credHash = ethers.keccak256(ethers.toUtf8Bytes(credId));
     try {
-      const isIssued = await identityRegistry.isCredentialValid(credHash);
-      if (!isIssued) {
-        const tx = await identityRegistry.connect(chennaiUniv).anchorCredential(credHash, subject, expiry, cid);
+      const verifyRes = await identityRegistry.verifyCredential(credHash);
+      if (!verifyRes.valid && !verifyRes.revoked) {
+        const tx = await identityRegistry.connect(chennaiUniv).anchorCredential(credHash, subject, expiry);
         await tx.wait();
         console.log(`[Seed-Demo] ✓ Anchored credential ${credId}`);
       }
     } catch (e: any) {
-      console.log(`[Seed-Demo] Credential anchor notice (${credId}):`, e.message?.split('\n')[0]);
+      if (!e.message?.includes("CredentialAlreadyAnchored")) {
+        console.log(`[Seed-Demo] Credential anchor notice (${credId}):`, e.message?.split('\n')[0]);
+      }
     }
     return credHash;
   };
@@ -98,30 +104,27 @@ async function main() {
   const cred1 = await anchorSafe(
     `urn:uuid:chennai-btech-2026-cs|${priya.address.toLowerCase()}|9.4`,
     priya.address,
-    now + 365 * 24 * 3600,
-    "bafkreibpriyabtechdegree01"
+    now + 365 * 24 * 3600
   );
 
   // Credential 2: Arjun's Data Science Certificate (Active)
   const cred2 = await anchorSafe(
     `urn:uuid:chennai-datasci-cert-2026|${arjun.address.toLowerCase()}|8.8`,
     arjun.address,
-    now + 180 * 24 * 3600,
-    "bafkreibarjundatascience01"
+    now + 180 * 24 * 3600
   );
 
   // Credential 3: Revoked Legacy Diploma
   const cred3 = await anchorSafe(
     `urn:uuid:chennai-revoked-diploma-2025|0x1111111111111111111111111111111111111111|7.2`,
     "0x1111111111111111111111111111111111111111",
-    now + 90 * 24 * 3600,
-    "bafkreibrevokeddiploma01"
+    now + 90 * 24 * 3600
   );
 
   // Revoke Credential 3
   try {
-    const isValid = await identityRegistry.isCredentialValid(cred3);
-    if (isValid) {
+    const verifyRes = await identityRegistry.verifyCredential(cred3);
+    if (!verifyRes.revoked) {
       const revokeTx = await identityRegistry.connect(chennaiUniv).revokeCredential(cred3);
       await revokeTx.wait();
       console.log(`[Seed-Demo] ✓ Revoked credential 3 (1 revoked as required).`);
@@ -137,8 +140,8 @@ async function main() {
   // -------------------------------------------------------------
   const sampleAssetHash = ethers.keccak256(ethers.toUtf8Bytes("B.Tech Degree in Computer Science & Engineering - Priya Sharma"));
   try {
-    const assetOwner = await ownershipRegistry.ownerOf(sampleAssetHash).catch(() => ethers.ZeroAddress);
-    if (assetOwner === ethers.ZeroAddress) {
+    const isReg = await ownershipRegistry.isAssetRegistered(sampleAssetHash).catch(() => false);
+    if (!isReg) {
       const mintTx = await ownershipRegistry.connect(priya).registerAsset(
         sampleAssetHash,
         "bafkreiciphertextpriyadegree01",
@@ -157,7 +160,6 @@ async function main() {
   // 5. TECHCORP HR: Pending Request & Active Grant (expiring soon)
   // -------------------------------------------------------------
   try {
-    // 5a. TechCorp requests access for verification
     const reqTx = await accessControl.connect(techCorp).requestAccess(
       sampleAssetHash,
       "VERIFIER",
@@ -167,11 +169,10 @@ async function main() {
     await reqTx.wait();
     console.log(`[Seed-Demo] ✓ TechCorp filed access request for Priya's credential.`);
   } catch (err: any) {
-    // Might already be requested
+    // Already requested
   }
 
   try {
-    // 5b. Priya grants access to TechCorp active grant (expiring in 2 hours)
     const grantTx = await accessControl.connect(priya).grantAccess(
       sampleAssetHash,
       techCorp.address,
@@ -182,7 +183,7 @@ async function main() {
     await grantTx.wait();
     console.log(`[Seed-Demo] ✓ Priya granted active access to TechCorp (expiring soon).`);
   } catch (err: any) {
-    // Might already be granted
+    // Already granted
   }
 
   console.log(`\n========================================================================`);
