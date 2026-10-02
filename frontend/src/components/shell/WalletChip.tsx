@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useAccount, useChainId, useSwitchChain } from 'wagmi';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
-import { Wallet, Copy, Check, ChevronDown, Network, ExternalLink } from 'lucide-react';
+import { useAuth } from '../../hooks/useAuth';
+import { Wallet, Copy, Check, ChevronDown, Network, Sparkles, ShieldCheck } from 'lucide-react';
 
 export function WalletChip() {
   const { address, isConnected } = useAccount();
+  const { isDemoUser, activeDemoAccount, user } = useAuth();
   const chainId = useChainId();
   const { switchChain, chains } = useSwitchChain();
   const { openConnectModal } = useConnectModal();
@@ -19,6 +21,39 @@ export function WalletChip() {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
+  // If in Demo Mode with active demo user, render dedicated Demo Wallet Chip
+  if (isDemoUser) {
+    const demoName = activeDemoAccount?.name || user?.displayName || 'Demo User';
+    const demoAddr = address || activeDemoAccount?.walletAddress || '';
+
+    return (
+      <div className="flex items-center space-x-1.5">
+        <div
+          onClick={copyAddress}
+          className="cursor-pointer group flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-[#ECFCCB] border border-[#84CC16] hover:bg-[#D9F99D] text-[#1A2E05] text-xs transition-all shadow-xs"
+          title={`Click to copy demo signer address (${demoAddr})`}
+        >
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#84CC16] opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#65A30D]"></span>
+          </span>
+          <span className="font-bold flex items-center gap-1 text-[11px]">
+            <Sparkles className="w-3 h-3 text-[#65A30D] fill-[#84CC16]" />
+            Demo Wallet: {demoName.split(' ')[0]}
+          </span>
+          <span className="hidden sm:inline font-mono text-[10px] text-[#4D6B2A]">
+            ({demoAddr ? `${demoAddr.slice(0, 4)}...${demoAddr.slice(-3)}` : ''})
+          </span>
+          {copied ? (
+            <Check className="w-3 h-3 text-[#65A30D]" />
+          ) : (
+            <Copy className="w-3 h-3 text-[#4D6B2A] group-hover:text-[#1A2E05] transition-colors" />
+          )}
+        </div>
+      </div>
+    );
+  }
 
   if (!isConnected || !address) {
     return (

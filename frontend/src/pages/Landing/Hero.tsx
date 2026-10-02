@@ -50,6 +50,16 @@ export function Hero() {
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1.5 transition-transform" />
             </Link>
 
+            {import.meta.env.VITE_DEMO_MODE === 'true' && (
+              <Link
+                to="/login"
+                className="inline-flex items-center justify-center px-6 py-3.5 rounded-2xl bg-[#ECFCCB] hover:bg-[#D9F99D] text-[#1A2E05] font-bold text-sm border border-[#84CC16] transition-colors shadow-xs"
+              >
+                <Sparkles className="w-4 h-4 mr-2 text-[#65A30D] fill-[#84CC16]" />
+                <span>Try the Demo</span>
+              </Link>
+            )}
+
             <Link
               to="/public-verify"
               className="inline-flex items-center justify-center px-6 py-3.5 rounded-2xl bg-[#FFFFFF] hover:bg-[#ECFCCB] text-[#1A2E05] font-bold text-sm border border-[#D9F99D] transition-colors shadow-xs"
