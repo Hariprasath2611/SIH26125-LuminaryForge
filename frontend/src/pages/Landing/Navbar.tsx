@@ -42,62 +42,49 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
+      className={`fixed top-0 left-0 right-0 z-50 bg-[#FFFFFF] transition-all duration-200 border-t-4 border-[#84CC16] ${
         scrolled
-          ? 'bg-[#FFFFFF]/95 backdrop-blur-md shadow-card border-b border-[#ECFCCB]'
-          : 'bg-[#FFFFFF] border-b border-[#ECFCCB]/80'
+          ? 'shadow-sm border-b border-[#ECFCCB]'
+          : 'border-b border-[#ECFCCB]/60'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Brand */}
-        <Link to="/" className="flex items-center space-x-3.5 group">
+        <Link to="/" className="flex items-center space-x-3 group">
           <img
             src="/logos/bharosa-mark.png"
             alt="Bharosa Logo"
-            className="w-10 h-10 object-contain transition-transform group-hover:scale-105"
+            className="w-9 h-9 sm:w-10 sm:h-10 object-contain transition-transform group-hover:scale-105"
           />
-          <div className="flex items-baseline gap-2">
-            <span className="font-anton text-2xl tracking-wide text-[#1A2E05] uppercase">
-              Bharosa
-            </span>
-            <span className="text-xs font-bold text-[#65A30D]">भरोसा</span>
-            <span className="hidden sm:inline-block text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-[#ECFCCB] text-[#1A2E05] border border-[#84CC16] tracking-wider uppercase ml-1">
-              Sovereign Identity
-            </span>
-          </div>
+          <span className="font-bold text-2xl tracking-tight text-[#1A2E05]">
+            Bharosa
+          </span>
         </Link>
 
-        {/* Desktop Nav Links */}
-        <div className="hidden md:flex items-center space-x-1.5 lg:space-x-2 bg-[#F7FBEF] px-3 py-1.5 rounded-full border border-[#ECFCCB]">
+        {/* Center Desktop Nav Links */}
+        <div className="hidden md:flex items-center space-x-8 lg:space-x-10">
           {NAV_ITEMS.map((item) => (
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-150 ${
+              className={`text-sm font-semibold transition-colors ${
                 activeSection === item.id
-                  ? 'bg-[#84CC16] text-[#1A2E05] shadow-xs'
-                  : 'text-[#4D6B2A] hover:text-[#1A2E05] hover:bg-[#ECFCCB]/60'
+                  ? 'text-[#65A30D] font-bold'
+                  : 'text-[#1A2E05] hover:text-[#65A30D]'
               }`}
             >
               {item.label}
             </button>
           ))}
-          <Link
-            to="/public-verify"
-            className="px-4 py-2 rounded-full text-xs font-bold text-[#4D6B2A] hover:text-[#1A2E05] hover:bg-[#ECFCCB]/60 transition-colors"
-          >
-            Public Verifier
-          </Link>
         </div>
 
         {/* Right CTA Button */}
         <div className="hidden sm:flex items-center space-x-3">
           <Link
             to="/app"
-            className="inline-flex items-center justify-center px-6 py-3 rounded-2xl bg-[#84CC16] hover:bg-[#65A30D] text-[#1A2E05] font-extrabold text-xs uppercase tracking-wider transition-all duration-200 shadow-sm hover:shadow-lime-glow hover:-translate-y-0.5 group"
+            className="inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-[#84CC16] hover:bg-[#72b510] text-[#1A2E05] font-bold text-sm transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5"
           >
-            <span>Launch App</span>
-            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+            Launch App
           </Link>
         </div>
 
@@ -105,13 +92,13 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
         <div className="md:hidden flex items-center space-x-2">
           <Link
             to="/app"
-            className="px-3.5 py-2 rounded-xl bg-[#84CC16] text-[#1A2E05] font-extrabold text-xs uppercase"
+            className="px-4 py-1.5 rounded-full bg-[#84CC16] text-[#1A2E05] font-bold text-xs uppercase"
           >
             App
           </Link>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2.5 rounded-xl text-[#4D6B2A] hover:text-[#1A2E05] hover:bg-[#ECFCCB] transition-colors"
+            className="p-2 rounded-xl text-[#1A2E05] hover:bg-[#ECFCCB] transition-colors"
             aria-label="Toggle mobile menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -121,34 +108,27 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#FFFFFF] border-b border-[#ECFCCB] px-5 pt-3 pb-7 space-y-2 shadow-card animate-in slide-in-from-top-2 duration-200">
+        <div className="md:hidden bg-[#FFFFFF] border-b border-[#ECFCCB] px-5 pt-3 pb-6 space-y-2 shadow-lg animate-in slide-in-from-top-2 duration-200">
           {NAV_ITEMS.map((item) => (
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className={`w-full text-left px-4 py-3 rounded-xl text-sm font-bold transition-colors ${
+              className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold transition-colors ${
                 activeSection === item.id
-                  ? 'bg-[#84CC16] text-[#1A2E05]'
-                  : 'text-[#4D6B2A] hover:bg-[#F7FBEF] hover:text-[#1A2E05]'
+                  ? 'bg-[#ECFCCB] text-[#1A2E05]'
+                  : 'text-[#1A2E05] hover:bg-[#F7FBEF]'
               }`}
             >
               {item.label}
             </button>
           ))}
-          <Link
-            to="/public-verify"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-4 py-3 rounded-xl text-sm font-bold text-[#4D6B2A] hover:bg-[#F7FBEF]"
-          >
-            Public Verifier
-          </Link>
-          <div className="pt-3">
+          <div className="pt-2">
             <Link
               to="/app"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center py-3.5 rounded-2xl bg-[#84CC16] text-[#1A2E05] font-extrabold text-sm uppercase tracking-wider shadow-sm"
+              className="w-full flex items-center justify-center py-3 rounded-full bg-[#84CC16] text-[#1A2E05] font-bold text-sm shadow-sm"
             >
-              Launch App <ArrowRight className="w-4 h-4 ml-2" />
+              Launch App
             </Link>
           </div>
         </div>
