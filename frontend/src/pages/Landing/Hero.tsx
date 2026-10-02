@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { ScrollVelocity } from '../../components/common/ScrollVelocity';
 
 export function Hero() {
-  const scrollToAbout = () => {
-    const el = document.getElementById('about');
+  const scrollToHowItWorks = () => {
+    const el = document.getElementById('how-it-works') || document.getElementById('about');
     if (el) {
       const navOffset = 80;
       const elementPosition = el.getBoundingClientRect().top;
@@ -91,7 +91,7 @@ export function Hero() {
 
             <button
               type="button"
-              onClick={scrollToAbout}
+              onClick={scrollToHowItWorks}
               className="inline-flex items-center justify-center px-7 py-3 rounded-full bg-[#FFFFFF] hover:bg-[#F9FAFB] text-[#1A2E05] font-semibold text-sm border border-neutral-300 transition-all duration-200 shadow-2xs hover:-translate-y-0.5 active:translate-y-0"
             >
               See how it works
