@@ -288,17 +288,12 @@ export const router = createBrowserRouter([
 
   // 7. 404 Fallback
   {
-    element: <PublicLayout />,
-    children: [
-      {
-        path: '*',
-        element: (
-          <Suspense fallback={<PageLoader />}>
-            <NotFound />
-          </Suspense>
-        ),
-      },
-    ],
+    path: '*',
+    element: (
+      <Suspense fallback={<PageLoader />}>
+        <NotFound />
+      </Suspense>
+    ),
   },
 ]);
 
