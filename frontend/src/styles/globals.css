@@ -69,6 +69,11 @@
   animation: spin-very-slow 60s linear infinite;
 }
 
+.bg-grid-dots {
+  background-image: radial-gradient(rgba(132, 204, 22, 0.28) 1.2px, transparent 1.2px);
+  background-size: 26px 26px;
+}
+
 :root {
   --font-heading: 'Anton SC', sans-serif;
   /* Strict Bharosa Light Palette */

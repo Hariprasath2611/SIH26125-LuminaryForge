@@ -47,8 +47,120 @@ export function About() {
   const [activeStep, setActiveStep] = useState(0);
 
   return (
-    <section id="about" className="py-20 sm:py-28 bg-[#FFFFFF] border-b border-[#ECFCCB]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" className="py-20 sm:py-28 bg-[#FFFFFF] bg-grid-dots border-b border-[#ECFCCB] relative overflow-hidden">
+      {/* Decorative Wireframe Hexagons */}
+      <svg
+        className="absolute top-16 right-10 w-16 h-16 text-[#84CC16]/25 pointer-events-none select-none"
+        viewBox="0 0 100 100"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.5"
+      >
+        <polygon points="50,5 92,27 92,73 50,95 8,73 8,27" />
+      </svg>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* SEE IT IN ACTION Section from Screenshot */}
+        <div className="mb-24 sm:mb-32">
+          <div className="text-left mb-10">
+            <span className="text-xs font-extrabold uppercase tracking-widest text-[#65A30D]">
+              SEE IT IN ACTION
+            </span>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-anton text-[#1A2E05] uppercase tracking-wide mt-2 mb-3">
+              A credential, verified in seconds.
+            </h2>
+            <p className="text-sm sm:text-base text-[#4D6B2A] max-w-2xl leading-relaxed">
+              The employer never calls the university. Every check runs against the blockchain, right in the browser.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            {/* Left 3-Step Timeline */}
+            <div className="lg:col-span-5 relative pl-2 sm:pl-4">
+              <div className="space-y-10 relative">
+                {/* Step 1 */}
+                <div className="flex items-start gap-4 relative">
+                  <div className="w-8 h-8 rounded-full bg-[#84CC16] text-[#1A2E05] font-bold text-sm flex items-center justify-center shrink-0 z-10 shadow-2xs">
+                    1
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-base text-[#1A2E05]">University issues</h3>
+                    <p className="text-xs sm:text-sm text-[#4D6B2A] mt-0.5">Chennai University signs a digital certificate.</p>
+                  </div>
+                </div>
+
+                {/* Vertical Connector Line 1 */}
+                <div className="absolute left-[15px] top-8 w-0.5 h-12 bg-[#84CC16]" />
+
+                {/* Step 2 */}
+                <div className="flex items-start gap-4 relative">
+                  <div className="w-8 h-8 rounded-full bg-[#84CC16] text-[#1A2E05] font-bold text-sm flex items-center justify-center shrink-0 z-10 shadow-2xs">
+                    2
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-base text-[#1A2E05]">Student owns</h3>
+                    <p className="text-xs sm:text-sm text-[#4D6B2A] mt-0.5">Priya keeps it encrypted in her own wallet.</p>
+                  </div>
+                </div>
+
+                {/* Vertical Connector Line 2 */}
+                <div className="absolute left-[15px] top-[96px] w-0.5 h-12 bg-[#84CC16]" />
+
+                {/* Step 3 */}
+                <div className="flex items-start gap-4 relative">
+                  <div className="w-8 h-8 rounded-full bg-[#84CC16] text-[#1A2E05] font-bold text-sm flex items-center justify-center shrink-0 z-10 shadow-2xs">
+                    3
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-base text-[#1A2E05]">Employer verifies</h3>
+                    <p className="text-xs sm:text-sm text-[#4D6B2A] mt-0.5">TechCorp HR checks it instantly, with her permission.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Verification Report Card */}
+            <div className="lg:col-span-7 relative pb-8 sm:pb-10">
+              <div className="bg-white rounded-3xl border border-[#ECFCCB] shadow-xl p-6 sm:p-8 max-w-lg mx-auto lg:mr-0 relative">
+                {/* Card Header */}
+                <div className="flex items-center justify-between pb-4 border-b border-[#ECFCCB]">
+                  <h4 className="font-bold text-base sm:text-lg text-[#1A2E05]">Verification report</h4>
+                  <span className="px-3 py-1 rounded-full bg-[#84CC16] text-[#1A2E05] font-bold text-xs">
+                    All checks passed
+                  </span>
+                </div>
+
+                {/* Checklist */}
+                <div className="divide-y divide-[#ECFCCB]/60 py-1">
+                  <div className="py-3 flex items-center gap-3 text-xs sm:text-sm font-semibold text-[#1A2E05]">
+                    <span className="w-5 h-5 rounded-full bg-[#ECFCCB] text-[#65A30D] flex items-center justify-center shrink-0 text-xs font-bold">✓</span>
+                    <span>Issuer signature is valid</span>
+                  </div>
+                  <div className="py-3 flex items-center gap-3 text-xs sm:text-sm font-semibold text-[#1A2E05]">
+                    <span className="w-5 h-5 rounded-full bg-[#ECFCCB] text-[#65A30D] flex items-center justify-center shrink-0 text-xs font-bold">✓</span>
+                    <span>Issuer is trusted on-chain</span>
+                  </div>
+                  <div className="py-3 flex items-center gap-3 text-xs sm:text-sm font-semibold text-[#1A2E05]">
+                    <span className="w-5 h-5 rounded-full bg-[#ECFCCB] text-[#65A30D] flex items-center justify-center shrink-0 text-xs font-bold">✓</span>
+                    <span>Hash matches the on-chain record</span>
+                  </div>
+                  <div className="py-3 flex items-center gap-3 text-xs sm:text-sm font-semibold text-[#1A2E05]">
+                    <span className="w-5 h-5 rounded-full bg-[#ECFCCB] text-[#65A30D] flex items-center justify-center shrink-0 text-xs font-bold">✓</span>
+                    <span>Not revoked or expired</span>
+                  </div>
+                </div>
+
+                {/* Overlapping Floating Card: Access Granted */}
+                <div className="absolute -bottom-6 -right-2 sm:-bottom-8 sm:-right-4 bg-white border border-[#ECFCCB] rounded-2xl p-4 shadow-xl max-w-[240px] text-left animate-float">
+                  <p className="font-bold text-xs text-[#1A2E05]">Access granted</p>
+                  <p className="text-[11px] text-[#4D6B2A] mt-0.5 font-medium">TechCorp HR &middot; Hiring verification</p>
+                  <p className="text-[10px] text-stone-400 mt-1">Expires in 7 days &middot; revoke anytime</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-20">
           <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#65A30D] bg-[#ECFCCB] px-4 py-1.5 rounded-full mb-3 border border-[#D9F99D]">
