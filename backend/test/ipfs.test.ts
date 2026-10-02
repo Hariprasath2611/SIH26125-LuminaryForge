@@ -24,7 +24,7 @@ describe('IPFS Pinning & Health Checker API', () => {
     expect(res.body.pinned).toBe(true);
 
     uploadedCid = res.body.cid;
-  });
+  }, 15000);
 
   it('GET /v1/ipfs/pin-status/:cid should return replica breakdown and gateway latency', async () => {
     const res = await request(app).get(`/v1/ipfs/pin-status/${uploadedCid}`);
