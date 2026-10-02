@@ -1,6 +1,9 @@
 allowBuilds:
+  '@firebase/util': true
   bufferutil: true
   esbuild: true
   keccak: true
+  protobufjs: true
   unrs-resolver: true
   utf-8-validate: true
+
