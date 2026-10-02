@@ -36,35 +36,86 @@ export type CacheClient = {
   del(key: string): Promise<number>;
 };
 
-let client: CacheClient;
+class ResilientCache implements CacheClient {
+  private inMemory = new InMemoryStore();
+  private redisClient: Redis | null = null;
+  private isConnected = false;
 
-const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379';
+  constructor() {
+    const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379';
 
-if (process.env.NODE_ENV === 'test') {
-  // Always use in-memory store in unit test environments
-  client = new InMemoryStore();
-} else {
-  try {
-    const redis = new Redis(redisUrl, {
-      maxRetriesPerRequest: 1,
-      retryStrategy(times) {
-        if (times > 3) {
-          logger.warn('[Redis] Connection failed, switching to in-memory fallback cache');
-          return null; // stop retrying and fallback
+    if (process.env.NODE_ENV !== 'test') {
+      try {
+        const r = new Redis(redisUrl, {
+          maxRetriesPerRequest: 1,
+          lazyConnect: true,
+          retryStrategy(times) {
+            if (times > 2) return null;
+            return Math.min(times * 100, 500);
+          },
+        });
+
+        r.on('connect', () => {
+          this.isConnected = true;
+          logger.info('[Redis] Connected successfully');
+        });
+
+        r.on('error', () => {
+          this.isConnected = false;
+        });
+
+        r.on('close', () => {
+          this.isConnected = false;
+        });
+
+        r.connect().catch(() => {
+          this.isConnected = false;
+          logger.info('[Redis] Standalone Redis not available, using in-memory fallback cache');
+        });
+
+        this.redisClient = r;
+      } catch (err) {
+        this.isConnected = false;
+        logger.info('[Redis] Using in-memory fallback cache');
+      }
+    }
+  }
+
+  async get(key: string): Promise<string | null> {
+    if (this.isConnected && this.redisClient) {
+      try {
+        return await this.redisClient.get(key);
+      } catch {
+        return this.inMemory.get(key);
+      }
+    }
+    return this.inMemory.get(key);
+  }
+
+  async set(key: string, value: string, mode?: string, duration?: number): Promise<string | null> {
+    if (this.isConnected && this.redisClient) {
+      try {
+        if (mode === 'EX' && duration) {
+          return await this.redisClient.set(key, value, 'EX', duration);
         }
-        return Math.min(times * 100, 1000);
-      },
-    });
+        return await this.redisClient.set(key, value);
+      } catch {
+        return this.inMemory.set(key, value, mode, duration);
+      }
+    }
+    return this.inMemory.set(key, value, mode, duration);
+  }
 
-    redis.on('error', (err) => {
-      logger.warn({ err: err.message }, '[Redis] Error occurred');
-    });
-
-    client = redis as unknown as CacheClient;
-  } catch (err) {
-    logger.warn('[Redis] Init failed, utilizing in-memory cache');
-    client = new InMemoryStore();
+  async del(key: string): Promise<number> {
+    if (this.isConnected && this.redisClient) {
+      try {
+        return await this.redisClient.del(key);
+      } catch {
+        return this.inMemory.del(key);
+      }
+    }
+    return this.inMemory.del(key);
   }
 }
 
-export const cache = client;
+export const cache: CacheClient = new ResilientCache();
