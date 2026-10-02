@@ -1,13 +1,13 @@
 # Platform Architecture Document
-**BHAROSA (भरोसा)** · Smart India Hackathon 2026 · PS SIH26125 · Team LUMINARYFORGE
+**BHAROSA (भरोसा)** · Enterprise Sovereign Identity & Cryptographic Asset Management
 
 ---
 
 ## 1. System Overview
 
 Bharosa is structured into three independent, decoupled projects:
-1. **`frontend/`**: Next.js 14 App Router client application with in-browser WebCrypto AES-256-GCM, ECIES secp256k1 key wrapping, and SnarkJS Groth16 ZK proving.
-2. **`backend/`**: Node.js 20 Express service providing SIWE authentication, gasless relayer paymaster, IPFS cluster pinning health monitor, and blockchain event indexer.
+1. **`frontend/`**: React 18 + Vite 5 + React Router v6 client application with dedicated Web Worker for Circom 2 / Groth16 ZK proving, in-browser WebCrypto AES-256-GCM, ECIES secp256k1 key wrapping, and TanStack Query state caching.
+2. **`backend/`**: Node.js 20 Express service providing SIWE authentication, gasless relayer paymaster, IPFS cluster pinning health monitor, blockchain event indexer, and optional production static hosting for `frontend/dist`.
 3. **`blockchain/`**: Hardhat workspace containing 6 Solidity ^0.8.24 smart contracts and Circom 2 ZK circuits.
 
 ---
@@ -21,7 +21,7 @@ The three projects communicate strictly through:
 
 ```mermaid
 graph TD
-    Browser[Browser / Next.js Frontend :3000] -->|HTTP / REST| API[Express Backend Helper :3001]
+    Browser[Browser / React 18 + Vite Frontend :3000] -->|HTTP / REST| API[Express Backend Helper :4000]
     Browser -->|JSON-RPC| Node[EVM Blockchain :8545]
     API -->|JSON-RPC| Node
     Browser -->|IPFS HTTP| Kubo[IPFS Kubo Gateway :5001]
@@ -40,4 +40,14 @@ graph TD
 | **Key Delegation** | ECIES (secp256k1) | File AES key wrapped using recipient's secp256k1 public key via ephemeral ECDH + HKDF-SHA256. |
 | **Verifiable Credentials** | W3C VC 1.1 + EIP-712 | Deterministic canonical subject hashing; signed via domain-separated EIP-712 typed data. |
 | **Access Control** | NIST SP 800-162 ABAC | Smart contract strictly enforces `notBefore <= block.timestamp <= expiresAt` and matching `role`. |
-| **Zero-Knowledge** | Circom 2 + Groth16 | BN254 curve pairing verification. Raw scores (e.g. CGPA 9.40) remain private in client memory. |
+| **Zero-Knowledge** | Circom 2 + Groth16 | BN254 curve pairing verification. Raw scores (e.g. CGPA 9.40) remain private in client memory and prove off-thread in a Web Worker. |
+
+---
+
+## 4. Content Security Policy (CSP) Architecture & Trade-Offs
+
+In the migrated React 18 + Vite architecture:
+- **Static SPA vs Dynamic SSR:** Because the frontend is compiled into static content-hashed bundles (`frontend/dist`), HTML templates are pre-rendered at build time rather than per-request dynamically generated. Consequently, dynamic per-request cryptographic nonces are replaced with hash-based and origin-restricted CSP rules.
+- **WebAssembly Execution:** SnarkJS and Circom witness calculation require `'wasm-unsafe-eval'`, strictly restricted to `'self'` scripts.
+- **Worker Execution:** Dedicated ZK proof synthesis operates off-thread via `worker-src 'self' blob:`.
+- **Cache Strategy:** Static assets in `/assets/*` utilize immutable 1-year caching, while `index.html` enforces `Cache-Control: no-cache, no-store, must-revalidate` to ensure immediate route freshness and instant SPA upgrades.

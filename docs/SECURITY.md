@@ -1,5 +1,5 @@
 # Platform Security Architecture
-**BHAROSA (भरोसा)** · Smart India Hackathon 2026 · PS SIH26125 · Team LUMINARYFORGE
+**BHAROSA (भरोसा)** · Enterprise Sovereign Self-Custody & Cryptographic Security
 
 ---
 
@@ -28,3 +28,13 @@ Bharosa follows the principle of **Zero-Trust Backend**:
 - **Reentrancy Protection:** All state-changing methods in `BharosaAccessControl.sol` and `OwnershipRegistry.sol` follow the Checks-Effects-Interactions pattern and OpenZeppelin `ReentrancyGuard`.
 - **Emergency Circuit Breaker:** Admin can pause `OwnershipRegistry.sol` during active threats, freezing transfers and token mints.
 - **Social Recovery Safety Timelock:** 48h (production) or 2 min (demo mode) timelock prevents malicious guardians from hijacking accounts without owner intervention.
+
+---
+
+## 3. Content Security Policy (CSP) & Web Worker Sandboxing
+
+In the React 18 + Vite static architecture:
+- **Static SPA Trade-Off:** Because the frontend is compiled into immutable static content bundles (`dist/assets/*.js`), dynamic per-request HTML generation nonces are not applicable. Instead, CSP strictly restricts `script-src` to `'self'` and `'wasm-unsafe-eval'` for Circom WebAssembly proof evaluation.
+- **Worker Sandboxing:** Zero-knowledge proof synthesis is executed inside dedicated web workers scoped via `worker-src 'self' blob:`, ensuring heavy elliptic curve computations cannot block the main thread and preventing UI freeze.
+- **Permissions-Policy:** Strict hardware lock-down (`camera=(), microphone=(), geolocation=()`) blocks unauthorized device sensor access.
+- **Frame Ancestors:** Set to `'none'` to unconditionally prevent clickjacking and framing attacks across all routes.
