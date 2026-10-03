@@ -31,8 +31,8 @@ export function QuickDemoLogin({ onSuccess, className = '' }: QuickDemoLoginProp
   const [loadingStep, setLoadingStep] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
 
-  // Dead-code elimination safeguard in production
-  if (import.meta.env.VITE_DEMO_MODE !== 'true') {
+  // Active unless explicitly disabled via VITE_DEMO_MODE='false'
+  if (import.meta.env.VITE_DEMO_MODE === 'false') {
     return null;
   }
 

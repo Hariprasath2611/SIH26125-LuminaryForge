@@ -81,7 +81,7 @@ export function UserMenu() {
     }
   };
 
-  const isDemoMode = import.meta.env.VITE_DEMO_MODE === 'true';
+  const isDemoMode = import.meta.env.VITE_DEMO_MODE !== 'false';
 
   return (
     <div className="relative" ref={menuRef}>

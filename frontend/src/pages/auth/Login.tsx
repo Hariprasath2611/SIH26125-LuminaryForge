@@ -24,7 +24,10 @@ export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = (location.state as any)?.from?.pathname || '/app';
+  const from =
+    (location.state as any)?.from?.pathname ||
+    new URLSearchParams(location.search).get('returnTo') ||
+    '/dashboard';
 
   const {
     register,
@@ -79,10 +82,11 @@ export default function Login() {
     setLoadingStep('Initializing demo session…');
     try {
       await signInWithDemo(demoId);
-      navigate('/dashboard', { replace: true });
+      const destination = (!from || from === '/app' || from === '/login') ? '/dashboard' : from;
+      navigate(destination, { replace: true });
     } catch (err: any) {
       console.error('[Login] Demo sign-in error:', err);
-      setAuthError(err?.message || 'Failed to initialize demo session. Ensure backend is running.');
+      setAuthError(err?.message || 'Failed to initialize demo session.');
       setLoadingDemo(null);
       setLoadingStep('');
     }
