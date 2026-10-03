@@ -228,11 +228,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     // Call backend POST /v1/demo/login to retrieve custom token and ensure DB account sync
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 2000);
       const res = await fetch(resolveApiUrl('/demo/login'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ demoUserId: found.id }),
-      });
+        signal: controller.signal,
+      }).finally(() => clearTimeout(timeoutId));
       if (res.ok) {
         const json = await res.json();
         if (json.customToken && !json.customToken.startsWith('demo-custom-jwt')) {
@@ -244,7 +247,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
       }
     } catch {
-      // Backend offline fallback in pure UI evaluation
+      // Backend offline fallback in pure UI evaluation (e.g. deployed web or offline judge evaluation)
     }
 
     // Clear React Query cache & in-memory keys
