@@ -36,9 +36,9 @@ export function NotFoundPage() {
           <source src="/videos/dino-chase.mp4" type="video/mp4" />
         </video>
 
-        {/* ================= CINEMATIC VIGNETTE & DARKENING OVERLAYS (Z-10) ================= */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/40 to-black/90 z-10 pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,rgba(0,0,0,0.85)_100%)] z-10 pointer-events-none" />
+        {/* ================= CINEMATIC VIGNETTE OVERLAYS (Z-10) ================= */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/75 z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.7)_100%)] z-10 pointer-events-none" />
 
         {/* ================= TOP HEADER: BRAND LOGO (Z-20) ================= */}
         <header className="relative z-20 shrink-0 pt-1">
