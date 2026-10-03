@@ -13,10 +13,11 @@ export interface DemoAccount {
   initials: string;
 }
 
-export const IS_DEMO_MODE = import.meta.env.VITE_DEMO_MODE === 'true';
+// Demo mode is enabled by default across all environments (including deployed web)
+// unless explicitly disabled with VITE_DEMO_MODE='false'
+export const IS_DEMO_MODE = import.meta.env.VITE_DEMO_MODE !== 'false';
 
-export const DEMO_USERS: DemoAccount[] = IS_DEMO_MODE
-  ? [
+export const DEMO_USERS: DemoAccount[] = [
   {
     id: 'priya',
     uid: 'demo-priya-sharma',
@@ -86,5 +87,5 @@ export const DEMO_USERS: DemoAccount[] = IS_DEMO_MODE
     walletAddress: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266',
     privateKey: '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80',
     initials: 'BA',
-  }
-] : [];
+  },
+];
