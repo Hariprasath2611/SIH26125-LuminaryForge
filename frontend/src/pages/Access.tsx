@@ -134,6 +134,37 @@ export default function AccessControlPage() {
   // Consent Receipt Modal
   const [activeConsentReceipt, setActiveConsentReceipt] = useState<any | null>(null);
 
+  // Copilot Intent Prefill Support
+  const [searchParams] = useSearchParams();
+  const location = useLocation();
+
+  useEffect(() => {
+    const prefill = (location.state as any)?.prefillGrant;
+    const granteeParam = searchParams.get('grantee') || prefill?.grantee;
+    if (granteeParam) {
+      const days = parseInt(searchParams.get('days') || prefill?.days || '7', 10);
+      const role = searchParams.get('role') || prefill?.role || 'VERIFIER';
+      const purpose = searchParams.get('purpose') || prefill?.purpose || 'Employment verification';
+      const assetId = searchParams.get('assetId') || prefill?.assetId || '0x4f8a129d5b78e3c4a16298dbfc10398457291a0c84918239048a12837f4819a1';
+
+      setSelectedRequest({
+        id: `copilot-prefill-${Date.now()}`,
+        assetId,
+        assetName: 'B.Tech Degree Certificate (Alice Sharma)',
+        requester: granteeParam.startsWith('0x') ? granteeParam : '0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc',
+        requesterName: granteeParam,
+        requesterPubkey: '0x02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5',
+        role,
+        purpose,
+        requestedDurationHours: days * 24,
+        requestedAt: new Date().toISOString(),
+        status: 'PENDING',
+      });
+      setGrantDurationHours(days * 24);
+      setActiveTab('requests');
+    }
+  }, [searchParams, location.state]);
+
   // Smart Contract Hook
   const { writeContractAsync } = useWriteContract();
 
