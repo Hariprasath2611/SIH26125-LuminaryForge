@@ -5,6 +5,7 @@ import { DinoChaseScene } from '../components/404/DinoChaseScene';
 
 export function NotFoundPage() {
   const navigate = useNavigate();
+  const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
 
   return (
@@ -79,13 +80,25 @@ export function NotFoundPage() {
           </div>
         </div>
 
-        {/* Bottom DeLorean, Time Portal & Dinosaur Illustration */}
+        {/* Bottom DeLorean, Time Portal & Dinosaur Animated Chase */}
         <div className="w-full flex items-end justify-center shrink min-h-0 pb-1">
-          <img
-            src="/images/404-time-travel.jpg"
-            alt="404 Time Travel DeLorean and Dinosaur"
-            className="max-h-[32vh] sm:max-h-[38vh] w-auto object-contain select-none pointer-events-none"
-          />
+          {!videoError && (
+            <video
+              src="/videos/dino-chase.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              onLoadedData={() => setVideoLoaded(true)}
+              onError={() => setVideoError(true)}
+              className={`max-h-[32vh] sm:max-h-[38vh] w-auto object-contain select-none pointer-events-none rounded-xl ${
+                videoLoaded ? 'block' : 'hidden'
+              }`}
+            />
+          )}
+
+          {/* High-speed vector animated chase scene (active when no video file is provided) */}
+          {!videoLoaded && <DinoChaseScene />}
         </div>
       </main>
     </>
