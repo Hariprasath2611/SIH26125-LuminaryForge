@@ -2,6 +2,7 @@ import { env, resolveApiUrl } from '@/config/env';
 import { PageMeta } from '@/components/PageMeta';
 
 import React, { useState, useEffect } from 'react';
+import { useSearchParams, useLocation } from 'react-router-dom';
 import { useAccount, useWriteContract } from 'wagmi';
 import {
   Key,
