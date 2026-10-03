@@ -14,7 +14,7 @@ import {
 import { auth, googleProvider } from '../lib/firebase';
 import { useDisconnect, useConnect } from 'wagmi';
 import { useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '../lib/api';
+import { apiClient, resolveApiUrl } from '../lib/api/client';
 import { DEMO_USERS, DemoAccount } from '../lib/demoAccounts';
 import { createDemoConnector } from '../lib/demoWallet';
 
@@ -228,7 +228,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     // Call backend POST /v1/demo/login to retrieve custom token and ensure DB account sync
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:4000/v1'}/demo/login`, {
+      const res = await fetch(resolveApiUrl('/demo/login'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ demoUserId: found.id }),
