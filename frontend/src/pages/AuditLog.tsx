@@ -1,4 +1,4 @@
-import { env } from '@/config/env';
+import { env, resolveApiUrl } from '@/config/env';
 import { PageMeta } from '@/components/PageMeta';
 
 import React, { useState, useEffect } from 'react';
@@ -25,7 +25,6 @@ export default function AuditLogPage() {
 
   const fetchEvents = async () => {
     setLoading(true);
-    const apiUrl = env.API_URL || 'http://localhost:4000';
     const params = new URLSearchParams({
       page: page.toString(),
       limit: '15',
@@ -35,7 +34,7 @@ export default function AuditLogPage() {
     if (searchActor.trim()) params.append('actor', searchActor.trim());
 
     try {
-      const res = await fetch(`${apiUrl}/v1/audit?${params.toString()}`);
+      const res = await fetch(resolveApiUrl(`/audit?${params.toString()}`));
       if (res.ok) {
         const data = await res.json();
         setEvents(data.events || []);
@@ -60,8 +59,7 @@ export default function AuditLogPage() {
   };
 
   const handleExportCSV = () => {
-    const apiUrl = env.API_URL || 'http://localhost:4000';
-    window.open(`${apiUrl}/v1/audit/export`, '_blank');
+    window.open(resolveApiUrl('/audit/export'), '_blank');
   };
 
   const getEventBadge = (type: string) => {

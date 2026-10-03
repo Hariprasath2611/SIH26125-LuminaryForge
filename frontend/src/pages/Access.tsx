@@ -1,4 +1,4 @@
-import { env } from '@/config/env';
+import { env, resolveApiUrl } from '@/config/env';
 import { PageMeta } from '@/components/PageMeta';
 
 import React, { useState, useEffect } from 'react';
@@ -140,8 +140,7 @@ export default function AccessControlPage() {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const apiUrl = env.API_URL || 'http://localhost:4000';
-        const res = await fetch(`${apiUrl}/v1/access/requests`);
+        const res = await fetch(resolveApiUrl('/access/requests'));
         if (res.ok) {
           const data = await res.json();
           if (Array.isArray(data) && data.length > 0) {
@@ -206,8 +205,7 @@ export default function AccessControlPage() {
       // 5. Generate Consent Receipt
       let consentReceiptData: any = null;
       try {
-        const apiUrl = env.API_URL || 'http://localhost:4000';
-        const res = await fetch(`${apiUrl}/v1/access/consent-receipt`, {
+        const res = await fetch(resolveApiUrl('/access/consent-receipt'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -305,8 +303,7 @@ export default function AccessControlPage() {
 
     try {
       const requesterAddr = address || '0x70997970c51812dc3a010c7d01b50e0d17dc79c8';
-      const apiUrl = env.API_URL || 'http://localhost:4000';
-      const res = await fetch(`${apiUrl}/v1/access/requests`, {
+      const res = await fetch(resolveApiUrl('/access/requests'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

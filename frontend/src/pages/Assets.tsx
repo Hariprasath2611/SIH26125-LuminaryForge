@@ -1,4 +1,4 @@
-import { env } from '@/config/env';
+import { env, resolveApiUrl } from '@/config/env';
 import { PageMeta } from '@/components/PageMeta';
 
 import React, { useState, useEffect } from 'react';
@@ -224,8 +224,7 @@ export default function AssetsPage() {
     setIsUploading(true);
 
     try {
-      const apiUrl = env.API_URL || 'http://localhost:4000';
-      const res = await fetch(`${apiUrl}/v1/ipfs/upload`, {
+      const res = await fetch(resolveApiUrl('/ipfs/upload'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -325,8 +324,7 @@ export default function AssetsPage() {
       // 1. Fetch ciphertext blob from IPFS / API
       let ciphertextBytesToDecrypt: Uint8Array;
       try {
-        const apiUrl = env.API_URL || 'http://localhost:4000';
-        const res = await fetch(`${apiUrl}/v1/ipfs/blob/${inspectAsset.cid}`);
+        const res = await fetch(resolveApiUrl(`/ipfs/blob/${inspectAsset.cid}`));
         if (res.ok) {
           const data = await res.json();
           const binary = window.atob(data.data);

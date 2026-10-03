@@ -17,7 +17,7 @@ import {
   Activity,
 } from 'lucide-react';
 import { formatDID } from '@/lib';
-import { env } from '@/config/env';
+import { env, resolveApiUrl } from '@/config/env';
 import { PageMeta } from '@/components/PageMeta';
 
 export function DashboardPage() {
@@ -44,9 +44,8 @@ export function DashboardPage() {
   };
 
   useEffect(() => {
-    const apiUrl = env.API_URL;
     // Fetch stats
-    fetch(`${apiUrl}/stats`)
+    fetch(resolveApiUrl('/stats'))
       .then((res) => res.json())
       .then((data) => {
         if (data) setStats((prev) => ({ ...prev, ...data }));
@@ -54,7 +53,7 @@ export function DashboardPage() {
       .catch(() => {});
 
     // Fetch audit events
-    fetch(`${apiUrl}/audit?limit=5`)
+    fetch(resolveApiUrl('/audit?limit=5'))
       .then((res) => res.json())
       .then((data) => {
         if (data?.events) setRecentEvents(data.events);

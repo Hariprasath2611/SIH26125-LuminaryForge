@@ -1,4 +1,4 @@
-import { env } from '@/config/env';
+import { env, resolveApiUrl } from '@/config/env';
 import { PageMeta } from '@/components/PageMeta';
 
 import React, { useState, useEffect } from 'react';
@@ -391,10 +391,9 @@ export default function SecurityPage() {
     setLockingInProgress(true);
 
     try {
-      const apiUrl = env.API_URL || 'http://localhost:4000';
       const target = address || '0x70997970C51812dc3A010C7d01b50e0d17dc79C8';
 
-      const res = await fetch(`${apiUrl}/v1/security/quick-lock`, {
+      const res = await fetch(resolveApiUrl('/security/quick-lock'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -414,8 +413,7 @@ export default function SecurityPage() {
   };
 
   const handleDownloadCSV = () => {
-    const apiUrl = env.API_URL || 'http://localhost:4000';
-    window.open(`${apiUrl}/v1/audit/export`, '_blank');
+    window.open(resolveApiUrl('/audit/export'), '_blank');
   };
 
   const handleDownloadSignedAuditJSON = () => {
