@@ -13,7 +13,7 @@ import {
   Loader2,
 } from 'lucide-react';
 import { formatDID, deriveWrappingKeypairFromSignature, createDIDDocument, defaultIpfsClient } from '@/lib';
-import { env } from '@/config/env';
+import { env, resolveApiUrl } from '@/config/env';
 import { PageMeta } from '@/components/PageMeta';
 import { useAuth } from '@/hooks/useAuth';
 
@@ -43,8 +43,7 @@ export function OnboardingPage() {
 
     try {
       // 1. Fetch SIWE Nonce from API
-      const apiUrl = env.API_URL;
-      const nonceRes = await fetch(`${apiUrl}/auth/nonce`);
+      const nonceRes = await fetch(resolveApiUrl('/auth/nonce'));
       if (!nonceRes.ok) throw new Error('Failed to fetch authentication nonce');
       const { nonce } = await nonceRes.json();
 
@@ -55,7 +54,7 @@ export function OnboardingPage() {
       const signature = await signMessageAsync({ message });
 
       // 4. Verify SIWE on backend
-      const verifyRes = await fetch(`${apiUrl}/auth/verify`, {
+      const verifyRes = await fetch(resolveApiUrl('/auth/verify'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message, signature }),
