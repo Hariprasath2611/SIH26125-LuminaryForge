@@ -4,12 +4,14 @@ import { Sidebar } from '../components/shell/Sidebar';
 import { Topbar } from '../components/shell/Topbar';
 import { StatusFooter } from '../components/StatusFooter';
 import { DemoModeBanner } from '../components/common/DemoModeBanner';
+import { CopilotButton, CopilotPanel } from '../components/copilot';
 
 export function AppLayout() {
   const [collapsed, setCollapsed] = useState<boolean>(() => {
     return localStorage.getItem('bharosa_sidebar_collapsed') === 'true';
   });
   const [mobileOpen, setMobileOpen] = useState<boolean>(false);
+  const [copilotOpen, setCopilotOpen] = useState<boolean>(false);
 
   useEffect(() => {
     localStorage.setItem('bharosa_sidebar_collapsed', String(collapsed));
@@ -36,8 +38,19 @@ export function AppLayout() {
 
         <StatusFooter />
       </div>
+
+      {/* Bharosa AI Copilot Floating Trigger & Slide-Over Panel */}
+      <CopilotButton
+        isOpen={copilotOpen}
+        onClick={() => setCopilotOpen((prev) => !prev)}
+      />
+      <CopilotPanel
+        isOpen={copilotOpen}
+        onClose={() => setCopilotOpen(false)}
+      />
     </div>
   );
 }
 
 export default AppLayout;
+
