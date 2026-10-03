@@ -11,6 +11,7 @@ Welcome! BHAROSA is built for zero-friction evaluation. You can run the entire p
 - **Hosted Demo Link:** [https://sih-26125-luminary-forge.vercel.app](https://sih-26125-luminary-forge.vercel.app)
 - **Backend API URL:** [https://sih26125-luminaryforge.onrender.com/v1](https://sih26125-luminaryforge.onrender.com/v1)
 - **Target Chains:** Polygon Amoy (`80002`) & Arbitrum Sepolia (`421614`)
+- **Bharosa Copilot (In-App AI):** Works offline in demo mode (`COPILOT_MODE=kb-only` or without API keys) using semantic knowledge-base retrieval. No external API keys needed to evaluate.
 
 ---
 
