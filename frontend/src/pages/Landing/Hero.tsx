@@ -121,52 +121,62 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Right Column: 3D Product-Animation Brand Film with Floating Badges */}
-          <div className="lg:col-span-6 flex items-center justify-center relative py-4 lg:py-6">
-            {/* 16:9 Widescreen 3D Brand Film Player Container */}
-            <div className="relative w-full max-w-lg lg:max-w-xl aspect-video rounded-3xl overflow-hidden border border-[#84CC16]/40 bg-[#F7FBEF] shadow-xl shadow-[#84CC16]/10 group transition-all duration-300 hover:shadow-2xl hover:shadow-[#84CC16]/20 hover:border-[#84CC16]/70">
-              {/* Seamless Studio Backdrop Glow */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#84CC16]/10 via-transparent to-[#F7FBEF]/60 pointer-events-none z-10" />
+          {/* Right Column: Circular Graphic with Hexagon & 3 Badges */}
+          <div className="lg:col-span-6 flex items-center justify-center relative py-6 lg:py-10">
+            {/* Outer Circular Container */}
+            <div className="relative w-72 h-72 sm:w-96 sm:h-96 md:w-[430px] md:h-[430px] rounded-full border-2 border-dashed border-[#84CC16]/60 bg-[#ECFCCB]/40 flex items-center justify-center">
+              {/* Spinning Subtle Dashed Ring */}
+              <div className="absolute inset-0 rounded-full border border-dashed border-[#84CC16]/30 animate-spin-slow pointer-events-none" />
 
-              {/* 3D Product-Animation Brand Film Video (Constant-speed tracking shot along lime path) */}
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                poster="/images/hero-brand-film-3d.jpg"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              >
-                <source src="/videos/hero-brand-film.webm" type="video/webm" />
-                <source src="/videos/hero-brand-film.mp4" type="video/mp4" />
-                {/* Fallback image if video is unsupported */}
-                <img
-                  src="/images/hero-brand-film-3d.jpg"
-                  alt="Minimal 3D product animation: lime-green shield seal, frosted glass cards, and glowing lime path"
-                  className="w-full h-full object-cover"
-                />
-              </video>
+              {/* Center Hexagon Shield Graphic matching user screenshot */}
+              <div className="w-48 h-48 sm:w-60 sm:h-60 flex items-center justify-center transition-transform hover:scale-105 duration-300 cursor-pointer">
+                <svg
+                  viewBox="0 0 200 200"
+                  className="w-full h-full drop-shadow-md select-none"
+                >
+                  {/* Outer Hexagon Border with Gap */}
+                  <polygon
+                    points="100,12 178,57 178,143 100,188 22,143 22,57"
+                    fill="none"
+                    stroke="#72B510"
+                    strokeWidth="8"
+                    strokeLinejoin="round"
+                  />
+                  {/* Inner Solid Hexagon */}
+                  <polygon
+                    points="100,26 166,64 166,136 100,174 34,136 34,64"
+                    fill="#84CC16"
+                    strokeLinejoin="round"
+                  />
+                  {/* Dark Center Checkmark */}
+                  <path
+                    d="M65 105 L88 128 L138 78"
+                    fill="none"
+                    stroke="#111827"
+                    strokeWidth="16"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
 
-              {/* Subtle glass reflection sheen */}
-              <div className="absolute inset-0 bg-gradient-to-b from-white/25 via-transparent to-transparent pointer-events-none z-10" />
-            </div>
+              {/* Floating Badge 1: Credential verified (Top-Left) */}
+              <div className="absolute top-6 left-0 sm:top-8 sm:-left-3 bg-[#FFFFFF] border border-[#ECFCCB] rounded-full px-4 py-2 shadow-md flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-[#111827] hover:scale-105 transition-transform duration-200 animate-float cursor-default">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#84CC16] shrink-0" />
+                <span>Credential verified</span>
+              </div>
 
-            {/* Floating Badge 1: Credential verified (Top-Left) */}
-            <div className="absolute -top-3 left-2 sm:-top-4 sm:left-4 bg-[#FFFFFF]/95 backdrop-blur-md border border-[#ECFCCB] rounded-full px-4 py-2 shadow-md flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-[#111827] hover:scale-105 transition-transform duration-200 animate-float cursor-default z-20">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#84CC16] shrink-0 shadow-xs" />
-              <span>Credential verified</span>
-            </div>
+              {/* Floating Badge 2: Hash matches on-chain (Right) */}
+              <div className="absolute top-[48%] -right-4 sm:-right-8 -translate-y-1/2 bg-[#FFFFFF] border border-[#ECFCCB] rounded-full px-4 py-2 shadow-md flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-[#111827] hover:scale-105 transition-transform duration-200 animate-float-delayed-1 cursor-default">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#84CC16] shrink-0" />
+                <span>Hash matches on-chain</span>
+              </div>
 
-            {/* Floating Badge 2: Hash matches on-chain (Right) */}
-            <div className="absolute top-[48%] -right-3 sm:-right-6 -translate-y-1/2 bg-[#FFFFFF]/95 backdrop-blur-md border border-[#ECFCCB] rounded-full px-4 py-2 shadow-md flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-[#111827] hover:scale-105 transition-transform duration-200 animate-float-delayed-1 cursor-default z-20">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#84CC16] shrink-0 shadow-xs" />
-              <span>Hash matches on-chain</span>
-            </div>
-
-            {/* Floating Badge 3: Access expires in 7 days (Bottom-Left) */}
-            <div className="absolute -bottom-3 left-2 sm:-bottom-4 sm:left-4 bg-[#FFFFFF]/95 backdrop-blur-md border border-[#ECFCCB] rounded-full px-4 py-2 shadow-md flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-[#111827] hover:scale-105 transition-transform duration-200 animate-float-delayed-2 cursor-default z-20">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#84CC16] shrink-0 shadow-xs" />
-              <span>Access expires in 7 days</span>
+              {/* Floating Badge 3: Access expires in 7 days (Bottom-Left) */}
+              <div className="absolute bottom-6 left-0 sm:bottom-10 sm:-left-2 bg-[#FFFFFF] border border-[#ECFCCB] rounded-full px-4 py-2 shadow-md flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-[#111827] hover:scale-105 transition-transform duration-200 animate-float-delayed-2 cursor-default">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#84CC16] shrink-0" />
+                <span>Access expires in 7 days</span>
+              </div>
             </div>
           </div>
         </div>
