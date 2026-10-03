@@ -1,0 +1,12 @@
+import{w as l}from"./core-Dchkc7s7.js";import"./vendor-web3-BetQD6p4.js";import"./vendor-react-B7X1oEVa.js";import"./vendor-query-BZEXoOgd.js";import"./events-C7AOfHCt.js";import"./index.es-Cm8dm4Ti.js";const a=l`<svg fill="none" viewBox="0 0 41 40">
+  <g clip-path="url(#a)">
+    <path fill="#000" d="M.8 0h40v40H.8z" />
+    <path
+      fill="#fff"
+      d="m22.63 18.46 7.14-8.3h-1.69l-6.2 7.2-4.96-7.2H11.2l7.5 10.9-7.5 8.71h1.7l6.55-7.61 5.23 7.61h5.72l-7.77-11.31Zm-9.13-7.03h2.6l11.98 17.13h-2.6L13.5 11.43Z"
+    />
+  </g>
+  <defs>
+    <clipPath id="a"><path fill="#fff" d="M.8 20a20 20 0 1 1 40 0 20 20 0 0 1-40 0Z" /></clipPath>
+  </defs>
+</svg>`;export{a as xSvg};
