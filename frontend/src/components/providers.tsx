@@ -28,8 +28,8 @@ export function Web3Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <WagmiProvider config={wagmiConfig} reconnectOnMount={false}>
-      <WagmiDeferredReconnect />
       <QueryClientProvider client={queryClient}>
+        <WagmiDeferredReconnect />
         <RainbowKitProvider
           theme={lightTheme({
             accentColor: '#84CC16',
