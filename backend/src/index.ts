@@ -10,6 +10,7 @@ import accessRoutes from './routes/access.routes';
 import relayerRoutes from './routes/relayer.routes';
 import securityRoutes from './routes/security.routes';
 import demoRoutes from './routes/demo.routes';
+import copilotRoutes from './copilot/copilot.routes';
 import { env } from './config/env';
 
 // Safety Check: Fail to boot if DEMO_MODE is on while chainId is mainnet
@@ -111,6 +112,7 @@ app.use(`${env.API_PREFIX}/assets`, assetRoutes);
 app.use(`${env.API_PREFIX}/access`, accessRoutes);
 app.use(`${env.API_PREFIX}/relayer`, relayerRoutes);
 app.use(`${env.API_PREFIX}/security`, securityRoutes);
+app.use(`${env.API_PREFIX}/copilot`, copilotRoutes);
 if (env.DEMO_MODE) {
   app.use(`${env.API_PREFIX}/demo`, demoRoutes);
 }

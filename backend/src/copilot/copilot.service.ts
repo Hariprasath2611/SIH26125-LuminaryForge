@@ -117,9 +117,10 @@ export class CopilotService {
             try {
               await prisma.auditEvent.create({
                 data: {
-                  eventType: 'COPILOT_MESSAGE' as any,
-                  caller: caller.walletAddress || `uid:${caller.uid}`,
-                  details: {
+                  eventType: 'COPILOT_MESSAGE',
+                  actor: caller.walletAddress || `uid:${caller.uid}`,
+                  target: body.context.route,
+                  payload: {
                     uid: caller.uid,
                     route: body.context.route,
                     role: caller.role,

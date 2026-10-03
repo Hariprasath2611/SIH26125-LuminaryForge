@@ -91,15 +91,15 @@ export async function executeCopilotTool(
       const grantCount = await prisma.accessGrant.count({
         where: {
           OR: [
-            { owner: { equals: wallet, mode: 'insensitive' } },
+            { asset: { owner: { equals: wallet, mode: 'insensitive' } } },
             { grantee: { equals: wallet, mode: 'insensitive' } },
           ],
-          active: true,
+          revoked: false,
         },
       });
 
       const reqCount = await prisma.accessRequest.count({
-        where: { requester: { equals: wallet, mode: 'insensitive' }, status: 'PENDING' },
+        where: { requester: { equals: wallet, mode: 'insensitive' }, fulfilled: false },
       });
 
       return {
@@ -166,15 +166,27 @@ export async function executeCopilotTool(
           id: true,
           assetId: true,
           requester: true,
-          requestedRole: true,
+          role: true,
           purpose: true,
-          durationDays: true,
-          status: true,
+          fulfilled: true,
           createdAt: true,
         },
       });
 
-      return { toolName, result: { requests } };
+      return {
+        toolName,
+        result: {
+          requests: requests.map((r) => ({
+            id: r.id,
+            assetId: r.assetId,
+            requester: r.requester,
+            role: r.role,
+            purpose: r.purpose,
+            status: r.fulfilled ? 'FULFILLED' : 'PENDING',
+            createdAt: r.createdAt,
+          })),
+        },
+      };
     }
 
     case 'list_my_grants': {
@@ -185,7 +197,7 @@ export async function executeCopilotTool(
       const grants = await prisma.accessGrant.findMany({
         where: {
           OR: [
-            { owner: { equals: wallet, mode: 'insensitive' } },
+            { asset: { owner: { equals: wallet, mode: 'insensitive' } } },
             { grantee: { equals: wallet, mode: 'insensitive' } },
           ],
         },
@@ -197,7 +209,7 @@ export async function executeCopilotTool(
           grantee: true,
           role: true,
           expiresAt: true,
-          active: true,
+          revoked: true,
           revokedAt: true,
         },
       });
