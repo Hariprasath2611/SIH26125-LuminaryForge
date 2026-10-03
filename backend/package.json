@@ -12,6 +12,7 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "reindex": "tsx src/workers/indexer.ts --reindex",
+    "copilot:index": "tsx src/scripts/index-kb.ts",
     "seed:demo": "tsx src/scripts/seed.ts",
     "test": "vitest run",
     "lint": "eslint src/ --ext .ts"
