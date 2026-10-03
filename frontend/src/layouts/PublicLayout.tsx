@@ -1,18 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Outlet, useLocation, Link } from 'react-router-dom';
 import { ShieldCheck, ArrowRight, ArrowLeft } from 'lucide-react';
 import { StatusFooter } from '../components/StatusFooter';
 import { DemoModeBanner } from '../components/common/DemoModeBanner';
+import { CopilotButton, CopilotPanel } from '../components/copilot';
 
 export function PublicLayout() {
   const { pathname } = useLocation();
   const isLanding = pathname === '/';
+  const [copilotOpen, setCopilotOpen] = useState<boolean>(false);
 
   if (isLanding) {
     return (
       <>
         <DemoModeBanner />
         <Outlet />
+        {/* Floating Copilot Button & Panel on Landing Page */}
+        <CopilotButton
+          isOpen={copilotOpen}
+          onClick={() => setCopilotOpen((prev) => !prev)}
+        />
+        <CopilotPanel
+          isOpen={copilotOpen}
+          onClose={() => setCopilotOpen(false)}
+        />
       </>
     );
   }
@@ -58,6 +69,16 @@ export function PublicLayout() {
       </main>
 
       <StatusFooter />
+
+      {/* Floating Copilot Button & Panel on Public Pages */}
+      <CopilotButton
+        isOpen={copilotOpen}
+        onClick={() => setCopilotOpen((prev) => !prev)}
+      />
+      <CopilotPanel
+        isOpen={copilotOpen}
+        onClose={() => setCopilotOpen(false)}
+      />
     </div>
   );
 }
