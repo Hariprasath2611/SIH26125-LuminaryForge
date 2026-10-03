@@ -50,6 +50,7 @@ app.use(
       },
     },
     crossOriginEmbedderPolicy: false,
+    crossOriginOpenerPolicy: { policy: 'same-origin-allow-popups' },
     referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
     hsts: { maxAge: 31536000, includeSubDomains: true, preload: true },
   })

@@ -1,3 +1,27 @@
+export function resolveApiUrl(endpoint: string, baseInput?: string): string {
+  const rawBase = baseInput ?? import.meta.env.VITE_API_URL ?? '/v1';
+  const base = rawBase.trim().replace(/\/+$/, '');
+  const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+
+  // If base already ends with /v1 and endpoint starts with /v1, prevent duplication
+  if (base.endsWith('/v1') && cleanEndpoint.startsWith('/v1/')) {
+    return `${base}${cleanEndpoint.slice(3)}`;
+  }
+
+  // If base does not end with /v1 and endpoint does not start with /v1
+  if (
+    !base.endsWith('/v1') &&
+    !cleanEndpoint.startsWith('/v1/') &&
+    !cleanEndpoint.startsWith('/healthz') &&
+    !cleanEndpoint.startsWith('/readyz') &&
+    !cleanEndpoint.startsWith('/docs')
+  ) {
+    return `${base}/v1${cleanEndpoint}`;
+  }
+
+  return `${base}${cleanEndpoint}`;
+}
+
 export interface BharosaApiClientConfig {
   baseUrl: string;
   accessToken?: string;
@@ -23,12 +47,16 @@ export class BharosaApiClient {
     this.getToken = provider;
   }
 
+  resolveUrl(endpoint: string): string {
+    return resolveApiUrl(endpoint, this.baseUrl);
+  }
+
   private async request<T = any>(
     endpoint: string,
     options: RequestInit = {},
     isRetry = false
   ): Promise<T> {
-    const url = `${this.baseUrl}${endpoint}`;
+    const url = this.resolveUrl(endpoint);
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
       ...(options.headers as Record<string, string>),
