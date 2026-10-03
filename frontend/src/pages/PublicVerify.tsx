@@ -14,7 +14,7 @@ import {
   computeCredentialHash,
   VerifiableCredential,
 } from '@/lib';
-import { env } from '@/config/env';
+import { env, resolveApiUrl } from '@/config/env';
 import { PageMeta } from '@/components/PageMeta';
 
 const SAMPLE_OFFICIAL_CREDENTIAL: VerifiableCredential = {
@@ -89,8 +89,7 @@ export function PublicVerifyPage() {
       // Optional backend confirmation
       let backendChecks = null;
       try {
-        const apiUrl = env.API_URL;
-        const res = await fetch(`${apiUrl}/verify/credential`, {
+        const res = await fetch(resolveApiUrl('/verify/credential'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(parsedVC),

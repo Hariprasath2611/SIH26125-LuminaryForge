@@ -9,7 +9,7 @@ interface SubsystemStatus {
   latencyMs: number;
 }
 
-import { env } from '../config/env';
+import { env, resolveApiUrl } from '../config/env';
 
 export function StatusFooter() {
   const [status, setStatus] = useState<SubsystemStatus>({
@@ -24,8 +24,7 @@ export function StatusFooter() {
   const checkHealth = async () => {
     const start = performance.now();
     try {
-      const apiUrl = env.API_URL;
-      const res = await fetch(`${apiUrl}/relayer/treasury`, { cache: 'no-store' });
+      const res = await fetch(resolveApiUrl('/relayer/treasury'), { cache: 'no-store' });
       const elapsed = Math.round(performance.now() - start);
       if (res.ok) {
         setStatus({
