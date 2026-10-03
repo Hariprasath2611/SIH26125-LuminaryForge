@@ -13,6 +13,31 @@ export const SuggestedPrompts: React.FC<SuggestedPromptsProps> = ({
   onSelectPrompt,
 }) => {
   const getPrompts = (): { label: string; query: string; icon: React.ReactNode }[] => {
+    if (route === '/' || route === '') {
+      return [
+        {
+          label: 'What is Bharosa?',
+          query: 'What is Bharosa and how does decentralized identity work?',
+          icon: <Sparkles className="w-3.5 h-3.5 text-lime-600" />,
+        },
+        {
+          label: 'How does ABAC access work?',
+          query: 'Explain how Attribute-Based Access Control works in Bharosa',
+          icon: <HelpCircle className="w-3.5 h-3.5 text-lime-600" />,
+        },
+        {
+          label: 'Explain zero-knowledge proofs',
+          query: 'Explain zero-knowledge proofs in simple terms',
+          icon: <Sparkles className="w-3.5 h-3.5 text-lime-600" />,
+        },
+        {
+          label: 'How do I get started?',
+          query: 'How do I register a DID and start using Bharosa?',
+          icon: <FileCheck className="w-3.5 h-3.5 text-lime-600" />,
+        },
+      ];
+    }
+
     if (route.includes('/access')) {
       return [
         {
