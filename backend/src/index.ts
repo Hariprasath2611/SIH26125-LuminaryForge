@@ -41,10 +41,18 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "'wasm-unsafe-eval'"],
-        styleSrc: ["'self'", "'unsafe-inline'"],
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "'wasm-unsafe-eval'",
+          'https://www.googletagmanager.com',
+          'https://apis.google.com',
+        ],
+        styleSrc: ["'self'", "'unsafe-inline'", 'https:'],
+        fontSrc: ["'self'", 'data:', 'https:'],
         imgSrc: ["'self'", 'data:', 'blob:', 'https:', 'ipfs:'],
         connectSrc: ["'self'", 'http:', 'https:', 'ws:', 'wss:'],
+        frameSrc: ["'self'", 'https://*.firebaseapp.com', 'https://accounts.google.com'],
         workerSrc: ["'self'", 'blob:'],
         frameAncestors: ["'none'"],
       },
