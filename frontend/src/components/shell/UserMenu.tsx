@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { useDisconnect } from 'wagmi';
 import { DEMO_USERS, DemoAccount } from '../../lib/demoAccounts';
+import { resolveApiUrl } from '../../lib/api/client';
 import {
   User,
   Shield,
@@ -71,7 +72,7 @@ export function UserMenu() {
   const handleResetDemoData = async () => {
     setResetting(true);
     try {
-      await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:4000/v1'}/demo/reset`, { method: 'POST' });
+      await fetch(resolveApiUrl('/demo/reset'), { method: 'POST' });
       await refreshAccount();
     } catch (e) {
       console.error('Demo reset failed:', e);

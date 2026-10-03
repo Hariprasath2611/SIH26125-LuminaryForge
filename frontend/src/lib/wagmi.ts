@@ -4,7 +4,12 @@ import { createConfig, http } from 'wagmi';
 import { hardhat, polygonAmoy, arbitrumSepolia } from 'wagmi/chains';
 import { env } from './env';
 
-const hasProjectId = Boolean(env.WALLETCONNECT_PROJECT_ID && env.WALLETCONNECT_PROJECT_ID.trim().length > 0);
+const isPlaceholderProjectId = env.WALLETCONNECT_PROJECT_ID === '3fcc6bba0f1de962dcbdae11bd9cee4d';
+const hasProjectId = Boolean(
+  env.WALLETCONNECT_PROJECT_ID &&
+  env.WALLETCONNECT_PROJECT_ID.trim().length > 0 &&
+  !isPlaceholderProjectId
+);
 
 export const wagmiConfig = hasProjectId
   ? getDefaultConfig({
