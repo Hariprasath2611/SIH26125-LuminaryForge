@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { PageMeta } from '../components/PageMeta';
+import { DinoChaseScene } from '../components/404/DinoChaseScene';
 
 export function NotFoundPage() {
   const navigate = useNavigate();
+  const [videoError, setVideoError] = useState(false);
 
   return (
     <>
