@@ -1,0 +1,139 @@
+/**
+ * Bharosa Design Tokens - Single Source of Truth
+ * Spaces-separated RGB format allows Tailwind alpha modifiers: rgb(var(--token) / <alpha-value>)
+ */
+
+:root,
+[data-theme="light"] {
+  /* Page & Surfaces */
+  --bg: 255 255 255;            /* #FFFFFF */
+  --surface: 247 251 239;       /* #F7FBEF */
+  --surface-2: 236 252 203;     /* #ECFCCB */
+  --surface-3: 255 255 255;     /* #FFFFFF */
+
+  /* Borders & Hairlines */
+  --border: 217 235 181;        /* #D9EBB5 */
+  --border-strong: 191 217 138; /* #BFD98A */
+
+  /* Foreground / Typography */
+  --fg: 26 46 5;                /* #1A2E05 */
+  --fg-muted: 77 107 42;        /* #4D6B2A */
+  --fg-subtle: 107 127 74;      /* #6B7F4A */
+
+  /* Primary Brand Lime */
+  --primary: 132 204 22;        /* #84CC16 */
+  --primary-hover: 101 163 13;  /* #65A30D */
+  --primary-soft: 163 230 53;   /* #A3E635 */
+  --on-primary: 26 46 5;        /* #1A2E05 - Always dark text on lime */
+
+  /* Interactive Elements */
+  --link: 77 124 15;            /* #4D7C0F */
+  --ring: 190 242 100;          /* #BEF264 */
+  --dot: 221 237 184;           /* #DDEDB8 */
+
+  /* Status Colors */
+  --status-success: 22 163 74;  /* #16A34A */
+  --status-warning: 245 158 11; /* #F59E0B */
+  --status-error: 220 38 38;    /* #DC2626 */
+  --status-info: 14 165 233;    /* #0EA5E9 */
+
+  /* Box Shadows */
+  --shadow-card: 0 4px 20px rgba(132, 204, 22, 0.08);
+  --shadow-card-hover: 0 14px 34px rgba(132, 204, 22, 0.24);
+  --shadow-glow: 0 8px 30px rgba(132, 204, 22, 0.25);
+
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  /* Page & Surfaces (Deep Obsidian Olive) */
+  --bg: 11 18 7;                /* #0B1207 */
+  --surface: 17 27 10;          /* #111B0A */
+  --surface-2: 23 36 14;        /* #17240E */
+  --surface-3: 30 46 18;        /* #1E2E12 */
+
+  /* Borders & Hairlines */
+  --border: 42 63 24;           /* #2A3F18 */
+  --border-strong: 58 85 36;    /* #3A5524 */
+
+  /* Foreground / Typography (WCAG AA High Contrast) */
+  --fg: 241 248 230;            /* #F1F8E6 */
+  --fg-muted: 168 191 138;      /* #A8BF8A */
+  --fg-subtle: 127 150 96;      /* #7F9660 */
+
+  /* Primary Brand Lime (Vibrant accent & glow) */
+  --primary: 132 204 22;        /* #84CC16 */
+  --primary-hover: 163 230 53;  /* #A3E635 */
+  --primary-soft: 190 242 100;  /* #BEF264 */
+  --on-primary: 11 18 7;        /* #0B1207 - High-contrast dark on lime */
+
+  /* Interactive Elements */
+  --link: 163 230 53;           /* #A3E635 */
+  --ring: 163 230 53;           /* #A3E635 */
+  --dot: 29 44 16;              /* #1D2C10 */
+
+  /* Status Colors */
+  --status-success: 74 222 128; /* #4ADE80 */
+  --status-warning: 251 191 36; /* #FBBF24 */
+  --status-error: 248 113 113;  /* #F87171 */
+  --status-info: 56 189 248;    /* #38BDF8 */
+
+  /* Box Shadows (Lime hairline outline + deep glow) */
+  --shadow-card: 0 0 0 1px rgba(132, 204, 22, 0.14), 0 4px 20px rgba(0, 0, 0, 0.5);
+  --shadow-card-hover: 0 0 0 1px rgba(132, 204, 22, 0.28), 0 14px 34px rgba(0, 0, 0, 0.7);
+  --shadow-glow: 0 0 25px rgba(132, 204, 22, 0.35);
+
+  color-scheme: dark;
+}
+
+/* Temporary 200ms transition during manual theme switches */
+html[data-theme-transition] *,
+html[data-theme-transition] *::before,
+html[data-theme-transition] *::after {
+  transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease, fill 200ms ease, stroke 200ms ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme-transition] *,
+  html[data-theme-transition] *::before,
+  html[data-theme-transition] *::after {
+    transition: none !important;
+  }
+}
+
+/* Chrome autofill fix in dark mode */
+[data-theme="dark"] input:-webkit-autofill,
+[data-theme="dark"] input:-webkit-autofill:hover, 
+[data-theme="dark"] input:-webkit-autofill:focus,
+[data-theme="dark"] textarea:-webkit-autofill,
+[data-theme="dark"] select:-webkit-autofill {
+  -webkit-text-fill-color: rgb(var(--fg)) !important;
+  -webkit-box-shadow: 0 0 0px 1000px rgb(var(--surface)) inset !important;
+  box-shadow: 0 0 0px 1000px rgb(var(--surface)) inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Selection colors */
+::selection {
+  background-color: rgba(132, 204, 22, 0.35);
+  color: rgb(var(--fg));
+}
+
+/* Print Styles: Always force Light Mode for official verification reports */
+@media print {
+  :root,
+  [data-theme="dark"] {
+    --bg: 255 255 255 !important;
+    --surface: 255 255 255 !important;
+    --surface-2: 245 245 245 !important;
+    --surface-3: 255 255 255 !important;
+    --border: 220 220 220 !important;
+    --border-strong: 180 180 180 !important;
+    --fg: 0 0 0 !important;
+    --fg-muted: 60 60 60 !important;
+    --fg-subtle: 100 100 100 !important;
+    --primary: 132 204 22 !important;
+    --on-primary: 0 0 0 !important;
+    color-scheme: light !important;
+  }
+}

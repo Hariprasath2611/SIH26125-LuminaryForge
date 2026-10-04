@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+@import "./tokens.css";
 @import "../components/copilot/copilot-seal.css";
+
 
 
 @font-face {
