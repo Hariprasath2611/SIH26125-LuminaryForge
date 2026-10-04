@@ -32,7 +32,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="pt-24 sm:pt-28 lg:pt-32 pb-0 bg-gradient-to-b from-[#FFFFFF] to-[#F7FBEF] relative overflow-hidden isolate"
+      className="pt-[74px] sm:pt-[78px] pb-0 bg-gradient-to-b from-[#FFFFFF] to-[#F7FBEF] relative overflow-hidden isolate min-h-screen flex flex-col justify-between"
     >
       {/* Background Decorative Layer */}
       <div
