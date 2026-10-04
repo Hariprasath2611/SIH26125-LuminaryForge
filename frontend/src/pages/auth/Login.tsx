@@ -7,6 +7,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { AlertCircle, Loader2 } from 'lucide-react';
 import { PageMeta } from '../../components/PageMeta';
 import { DEMO_USERS } from '../../lib/demoAccounts';
+import { LandingNavbar } from '../Landing/Navbar';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -99,24 +100,15 @@ export default function Login() {
         description="Sign in to your sovereign Bharosa identity account with Firebase or explore via instant demo login."
       />
 
-      <div className="min-h-screen w-full bg-white flex flex-col lg:grid lg:grid-cols-2 text-[#1A2E05]">
+      {/* Persistent Bharosa Navbar */}
+      <LandingNavbar activeSection="" />
+
+      <div className="min-h-screen w-full bg-white flex flex-col lg:grid lg:grid-cols-2 text-[#1A2E05] pt-[72px]">
         {/* ================= LEFT COLUMN: Welcome Back & Sign-In Form ================= */}
         <div className="flex-1 flex flex-col justify-between p-6 sm:p-10 lg:p-14 xl:p-16 max-w-xl mx-auto w-full">
           <div>
-            {/* Top Logo */}
-            <Link to="/" className="inline-flex items-center gap-2.5 group">
-              <img
-                src="/logos/bharosa-mark.png"
-                alt="Bharosa Logo"
-                className="w-9 h-9 object-contain transition-transform group-hover:scale-105"
-              />
-              <span className="font-extrabold text-2xl tracking-tight text-[#1A2E05]">
-                Bharosa
-              </span>
-            </Link>
-
             {/* Stepper */}
-            <div className="flex items-center gap-2 text-xs font-semibold text-[#1A2E05] mt-4 mb-8">
+            <div className="flex items-center gap-2 text-xs font-semibold text-[#1A2E05] mb-6">
               <span className="bg-[#84CC16] text-[#1A2E05] px-3 py-1 rounded-full font-bold">
                 1 Sign in
               </span>
