@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
 interface LandingNavbarProps {
-  activeSection: string;
+  activeSection?: string;
 }
 
 const NAV_ITEMS = [
@@ -13,9 +13,11 @@ const NAV_ITEMS = [
   { id: 'features', label: 'Features' },
 ];
 
-export function LandingNavbar({ activeSection }: LandingNavbarProps) {
+export function LandingNavbar({ activeSection = '' }: LandingNavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,31 +32,32 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (id: string) => {
+  const handleNavClick = (id: string) => {
     setMobileMenuOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      const navOffset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - navOffset;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
+    if (location.pathname === '/') {
+      const element = document.getElementById(id);
+      if (element) {
+        const navOffset = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        });
+        return;
+      }
     }
+    // Navigate from other pages (e.g. /login) back to landing page section
+    navigate(id === 'home' ? '/' : `/#${id}`);
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-[#D9EBB5] shadow-xs">
+    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-[#D9EBB5] shadow-xs">
       <div className="max-w-[1160px] mx-auto px-6 sm:px-8 flex items-center justify-between h-[72px]">
         {/* Brand Logo & Name */}
-        <a
-          href="#home"
-          onClick={(e) => {
-            e.preventDefault();
-            scrollToSection('home');
-          }}
-          className="flex items-center gap-2.5 font-extrabold text-[26px] tracking-tight text-[#1A2E05] hover:opacity-90 transition-opacity"
+        <button
+          onClick={() => handleNavClick('home')}
+          className="flex items-center gap-2.5 font-extrabold text-[26px] tracking-tight text-[#1A2E05] hover:opacity-90 transition-opacity cursor-pointer"
         >
           <svg
             viewBox="0 0 120 120"
@@ -84,14 +87,14 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
             />
           </svg>
           <span className="font-extrabold tracking-tight">Bharosa</span>
-        </a>
+        </button>
 
         {/* Center Desktop Links */}
         <div className="hidden md:flex items-center gap-8 font-bold text-base text-[#1A2E05]">
           {NAV_ITEMS.map((item) => (
             <button
               key={item.id}
-              onClick={() => scrollToSection(item.id)}
+              onClick={() => handleNavClick(item.id)}
               className={`cursor-pointer transition-colors duration-150 py-1 ${
                 activeSection === item.id
                   ? 'text-[#4D7C0F] border-b-2 border-[#84CC16]'
@@ -140,7 +143,7 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
           {NAV_ITEMS.map((item) => (
             <button
               key={item.id}
-              onClick={() => scrollToSection(item.id)}
+              onClick={() => handleNavClick(item.id)}
               className={`w-full text-left py-2 font-bold text-lg cursor-pointer ${
                 activeSection === item.id ? 'text-[#4D7C0F]' : 'text-[#1A2E05]'
               }`}
