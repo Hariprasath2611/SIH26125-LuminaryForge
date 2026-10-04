@@ -48,9 +48,9 @@ export function Features() {
     <section id="features" className="py-20 sm:py-28 lg:py-32 dots">
       <div className="max-w-[1160px] mx-auto px-6 sm:px-8">
         {/* Header */}
-        <div className="max-w-[720px] mb-12">
+        <div className="max-w-[720px] mb-14">
           <span className="eb">Features</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-[46px] leading-[1.12] tracking-tight font-extrabold text-[#1A2E05]">
+          <h2 className="text-3xl sm:text-4xl lg:text-[44px] leading-[1.22] sm:leading-[1.26] tracking-tight font-extrabold text-[#1A2E05] mt-2 mb-6">
             Everything you need to own your trust.
           </h2>
         </div>

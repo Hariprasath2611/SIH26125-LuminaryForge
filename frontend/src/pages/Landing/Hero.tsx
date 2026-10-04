@@ -141,13 +141,12 @@ export function Hero() {
 
           {/* Main Title with spacious, comfortable word and letter spacing */}
           <h1
-            className="in-anim font-extrabold text-[46px] sm:text-[62px] lg:text-[76px] leading-[1.06] tracking-tight text-[#1A2E05] mb-6"
+            className="in-anim font-extrabold text-[44px] sm:text-[60px] lg:text-[72px] leading-[1.18] sm:leading-[1.22] tracking-tight text-[#1A2E05] mb-8"
             style={{ animationDelay: '0.12s' }}
           >
-            Trust, owned
-            <br />
-            <span className="inline-block bg-[#84CC16] text-[#1A2E05] px-4 py-1.5 rounded-2xl text-[36px] sm:text-[46px] lg:text-[54px] font-extrabold tracking-tight mt-2 shadow-sm">
-              by you.
+            <span className="block mb-2.5 sm:mb-3.5">Trust, owned</span>
+            <span className="inline-flex items-center justify-center bg-[#84CC16] text-[#1A2E05] px-6 sm:px-8 lg:px-9 py-2.5 sm:py-3.5 lg:py-4 rounded-2xl sm:rounded-3xl text-[32px] sm:text-[42px] lg:text-[50px] font-extrabold tracking-wide shadow-sm leading-none">
+              by&nbsp;you.
             </span>
           </h1>
 

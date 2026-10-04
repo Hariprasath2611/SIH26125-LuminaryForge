@@ -345,7 +345,9 @@ h5,
 h6,
 .font-heading {
   font-family: 'Anton SC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  letter-spacing: 0.025em;
+  letter-spacing: 0.035em;
+  line-height: 1.22;
+  word-spacing: 0.06em;
 }
 
 

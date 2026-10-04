@@ -38,7 +38,7 @@ export function Faq() {
           <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#65A30D] bg-[#ECFCCB] px-4 py-1.5 rounded-full mb-3 border border-[#D9F99D]">
             <span>Knowledge Base</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-anton text-[#1A2E05] uppercase tracking-wide mb-3 leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-anton text-[#1A2E05] uppercase tracking-wide mt-2 mb-4 leading-[1.22] sm:leading-[1.26]">
             Frequently Asked Questions
           </h2>
           <p className="text-sm sm:text-base text-[#4D6B2A] max-w-xl mx-auto">

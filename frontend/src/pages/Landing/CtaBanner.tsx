@@ -38,7 +38,7 @@ export function CtaBanner() {
           </svg>
 
           {/* Banner Content */}
-          <h2 className="text-3xl sm:text-4xl lg:text-[46px] leading-[1.12] tracking-tight font-extrabold text-[#1A2E05] mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-[44px] leading-[1.22] sm:leading-[1.26] tracking-tight font-extrabold text-[#1A2E05] mb-5">
             Ready to own your identity?
           </h2>
           <p className="text-lg sm:text-[19px] text-[#1A2E05]/90 mb-8 max-w-xl mx-auto font-medium">
