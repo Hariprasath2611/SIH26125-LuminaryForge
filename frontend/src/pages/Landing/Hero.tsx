@@ -19,7 +19,7 @@ export function Hero() {
   const scrollToAbout = () => {
     const el = document.getElementById('about');
     if (el) {
-      const navOffset = 76;
+      const navOffset = 80;
       const elementPosition = el.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - navOffset;
       window.scrollTo({
@@ -32,7 +32,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="pt-20 pb-0 bg-gradient-to-b from-[#FFFFFF] to-[#F7FBEF] relative overflow-hidden isolate"
+      className="pt-14 sm:pt-16 lg:pt-20 pb-0 bg-gradient-to-b from-[#FFFFFF] to-[#F7FBEF] relative overflow-hidden isolate"
     >
       {/* Background Decorative Layer */}
       <div
@@ -131,29 +131,29 @@ export function Hero() {
       </div>
 
       {/* Main Content Container */}
-      <div className="max-w-[1160px] mx-auto px-6 sm:px-8 flex flex-wrap items-center justify-between gap-12">
+      <div className="max-w-[1160px] mx-auto px-6 sm:px-8 flex flex-wrap items-center justify-between gap-12 lg:gap-16">
         {/* Left Column: Headlines & Actions */}
-        <div className="flex-[1_1_460px] max-w-[600px]">
+        <div className="flex-[1_1_460px] max-w-[620px]">
           {/* Eyebrow Pill */}
-          <div className="in-anim inline-block bg-[#ECFCCB] border border-[#D9EBB5] rounded-full px-4.5 py-2 font-bold text-sm text-[#1A2E05] mb-6.5">
+          <div className="in-anim inline-block bg-[#ECFCCB] border border-[#D9EBB5] rounded-full px-5 py-2 font-bold text-sm text-[#1A2E05] mb-6 shadow-2xs">
             Smart India Hackathon 2026 · SIH26125
           </div>
 
-          {/* Main Title */}
+          {/* Main Title with spacious, comfortable word and letter spacing */}
           <h1
-            className="in-anim font-extrabold text-[52px] sm:text-[68px] lg:text-[77px] leading-[1.02] tracking-[-3px] text-[#1A2E05] mb-5.5"
+            className="in-anim font-extrabold text-[46px] sm:text-[62px] lg:text-[76px] leading-[1.06] tracking-tight text-[#1A2E05] mb-6"
             style={{ animationDelay: '0.12s' }}
           >
             Trust, owned
             <br />
-            <span className="inline-block bg-[#84CC16] text-[#1A2E05] px-3.5 py-1 rounded-[14px] text-[42px] sm:text-[50px] lg:text-[56px] tracking-[-2px] mt-1.5 shadow-sm">
+            <span className="inline-block bg-[#84CC16] text-[#1A2E05] px-4 py-1.5 rounded-2xl text-[36px] sm:text-[46px] lg:text-[54px] font-extrabold tracking-tight mt-2 shadow-sm">
               by you.
             </span>
           </h1>
 
-          {/* Description */}
+          {/* Description with readable line-height and relaxed spacing */}
           <p
-            className="in-anim text-lg sm:text-[20px] text-[#3F5A1E] leading-relaxed mb-8.5 font-medium"
+            className="in-anim text-lg sm:text-[20px] text-[#3F5A1E] leading-relaxed mb-8 max-w-xl font-medium tracking-normal"
             style={{ animationDelay: '0.26s' }}
           >
             Own your identity, prove it instantly to anyone, and share documents with full control.
@@ -162,7 +162,7 @@ export function Hero() {
 
           {/* Action Buttons */}
           <div
-            className="in-anim flex flex-wrap items-center gap-3.5"
+            className="in-anim flex flex-wrap items-center gap-4 mb-8"
             style={{ animationDelay: '0.4s' }}
           >
             <Link to="/app" className="btn-landing-primary">
@@ -179,10 +179,10 @@ export function Hero() {
 
           {/* Built for Pills */}
           <div
-            className="in-anim flex flex-wrap items-center gap-2.5 mt-8"
+            className="in-anim flex flex-wrap items-center gap-3"
             style={{ animationDelay: '0.52s' }}
           >
-            <span className="font-bold text-sm text-[#4D6B2A] mr-0.5">Built for</span>
+            <span className="font-bold text-sm text-[#4D6B2A] mr-1">Built for</span>
             <span className="pill-tag text-[#1A2E05]">Students</span>
             <span className="pill-tag text-[#1A2E05]">Universities</span>
             <span className="pill-tag text-[#1A2E05]">Employers</span>
@@ -191,7 +191,7 @@ export function Hero() {
 
         {/* Right Column: Hero Graphic with spinning ring & floating chips */}
         <div
-          className="in-anim relative flex-initial w-[360px] sm:w-[420px] max-w-full h-[400px] sm:h-[440px] mx-auto lg:mx-0"
+          className="in-anim relative flex-initial w-[360px] sm:w-[420px] max-w-full h-[380px] sm:h-[440px] mx-auto lg:mx-0"
           style={{ animationDelay: '0.3s' }}
         >
           {/* Inner Light Circle */}
@@ -210,7 +210,7 @@ export function Hero() {
             height="280"
             role="img"
             aria-label="Verified seal"
-            className="absolute left-[40px] sm:left-[70px] top-[60px] sm:top-[80px]"
+            className="absolute left-[40px] sm:left-[70px] top-[50px] sm:top-[80px]"
             style={{ animation: 'float 6s ease-in-out infinite' }}
           >
             <polygon
@@ -260,7 +260,7 @@ export function Hero() {
       </div>
 
       {/* Infinite Scrolling Marquee Track */}
-      <div className="mq" aria-label="Technologies">
+      <div className="mq mt-16 sm:mt-20 py-5 bg-white border-t border-b border-[#D9EBB5]" aria-label="Technologies">
         <div className="trk">
           {TRUST_TAGS.map((t, idx) => (
             <span key={`trk-1-${idx}`}>{t}</span>
