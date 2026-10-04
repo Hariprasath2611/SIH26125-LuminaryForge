@@ -1,49 +1,59 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShieldCheck, ArrowRight, FileCheck2 } from 'lucide-react';
 
 export function CtaBanner() {
   return (
-    <section className="py-16 sm:py-24 bg-[#FFFFFF]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-3xl bg-gradient-to-br from-[#84CC16] via-[#94D82D] to-[#A3E635] p-8 sm:p-14 lg:p-16 text-center overflow-hidden shadow-lg border border-[#65A30D]/20">
-          {/* Subtle background decoration */}
-          <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-[#ECFCCB]/50 blur-2xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-64 h-64 rounded-full bg-[#65A30D]/30 blur-2xl pointer-events-none" />
+    <section id="cta" className="pb-24 pt-2">
+      <div className="max-w-[1160px] mx-auto px-6 sm:px-8">
+        <div className="bg-[#84CC16] rounded-[32px] py-16 sm:py-20 px-8 sm:px-12 text-center relative overflow-hidden isolate shadow-lg">
+          {/* Decorative Wireframe Hexagons */}
+          <svg
+            viewBox="0 0 100 100"
+            width="220"
+            height="220"
+            aria-hidden="true"
+            className="absolute -left-[50px] -top-[60px] -z-10 pointer-events-none select-none opacity-60"
+          >
+            <polygon
+              points="50,4 93,27 93,73 50,96 7,73 7,27"
+              fill="none"
+              stroke="#FFFFFF"
+              strokeWidth="4"
+            />
+          </svg>
 
-          <div className="relative z-10 max-w-2xl mx-auto space-y-6">
-            <div className="w-16 h-16 rounded-2xl bg-[#1A2E05] text-[#84CC16] flex items-center justify-center mx-auto shadow-md">
-              <ShieldCheck className="w-9 h-9 stroke-[2.5]" />
-            </div>
+          <svg
+            viewBox="0 0 100 100"
+            width="180"
+            height="180"
+            aria-hidden="true"
+            className="absolute -right-[30px] -bottom-[50px] -z-10 pointer-events-none select-none opacity-70"
+          >
+            <polygon
+              points="50,4 93,27 93,73 50,96 7,73 7,27"
+              fill="#A3E635"
+              stroke="#FFFFFF"
+              strokeWidth="4"
+            />
+          </svg>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-anton text-[#1A2E05] uppercase tracking-wide leading-tight">
-              Ready to Own Your Cryptographic Identity?
-            </h2>
-
-            <p className="text-sm sm:text-base text-[#1A2E05]/90 font-medium max-w-lg mx-auto leading-relaxed">
-              Join thousands of individuals, universities, and accredited organizations verifying trust on Polygon.
-              Zero gas required.
-            </p>
-
-            <div className="flex flex-wrap items-center justify-center gap-4 pt-3">
-              <Link
-                to="/app"
-                className="inline-flex items-center justify-center px-8 py-4 rounded-2xl bg-[#1A2E05] hover:bg-[#254207] text-[#FFFFFF] font-bold text-sm uppercase tracking-wider transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 group"
-              >
-                <span>Launch App Now</span>
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1.5 transition-transform text-[#84CC16]" />
-              </Link>
-              <Link
-                to="/public-verify"
-                className="inline-flex items-center justify-center px-7 py-4 rounded-2xl bg-[#FFFFFF] hover:bg-[#F7FBEF] text-[#1A2E05] font-bold text-sm transition-all shadow-xs hover:shadow-md hover:-translate-y-0.5 border border-white"
-              >
-                <FileCheck2 className="w-4 h-4 mr-2 text-[#65A30D]" />
-                <span>Verify a Credential</span>
-              </Link>
-            </div>
-          </div>
+          {/* Banner Content */}
+          <h2 className="text-3xl sm:text-4xl lg:text-[46px] leading-[1.08] tracking-[-1.5px] font-extrabold text-[#1A2E05] mb-3.5">
+            Ready to own your identity?
+          </h2>
+          <p className="text-lg sm:text-[19px] text-[#1A2E05]/90 mb-8 max-w-xl mx-auto font-medium">
+            Create your Bharosa ID in minutes. Your keys, your credentials, your rules.
+          </p>
+          <Link
+            to="/app"
+            className="inline-flex items-center justify-center min-h-[48px] px-8 rounded-full font-bold text-base bg-[#1A2E05] hover:bg-black text-[#FFFFFF] shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200"
+          >
+            Launch App
+          </Link>
         </div>
       </div>
     </section>
   );
 }
+
+export default CtaBanner;
