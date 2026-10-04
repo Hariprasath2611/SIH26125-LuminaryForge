@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ShieldCheck, ArrowRight, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 interface LandingNavbarProps {
   activeSection: string;
@@ -9,19 +9,24 @@ interface LandingNavbarProps {
 const NAV_ITEMS = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
-  { id: 'why-us', label: 'Why us' },
+  { id: 'why', label: 'Why us' },
   { id: 'features', label: 'Features' },
 ];
 
 export function LandingNavbar({ activeSection }: LandingNavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalHeight > 0) {
+        const progress = Math.min(100, Math.max(0, (window.scrollY / totalHeight) * 100));
+        setScrollProgress(progress);
+      }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -29,7 +34,7 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
     setMobileMenuOpen(false);
     const element = document.getElementById(id);
     if (element) {
-      const navOffset = 80;
+      const navOffset = 76;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - navOffset;
       window.scrollTo({
@@ -40,34 +45,57 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
   };
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 bg-[#FFFFFF] transition-all duration-200 border-b-2 border-[#84CC16] ${
-        scrolled ? 'shadow-sm' : ''
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        {/* Brand */}
-        <Link to="/" className="flex items-center space-x-3 group">
-          <img
-            src="/logos/bharosa-mark.png"
-            alt="Bharosa Logo"
-            className="w-9 h-9 sm:w-10 sm:h-10 object-contain transition-transform group-hover:scale-105"
-          />
-          <span className="font-anton text-2xl sm:text-3xl tracking-wider text-[#111827] uppercase">
-            Bharosa
-          </span>
-        </Link>
+    <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#D9EBB5] transition-all">
+      <div className="max-w-[1160px] mx-auto px-6 sm:px-8 flex items-center justify-between h-[72px]">
+        {/* Brand Logo & Name */}
+        <a
+          href="#home"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToSection('home');
+          }}
+          className="flex items-center gap-2.5 font-extrabold text-[26px] tracking-tight text-[#1A2E05] hover:opacity-90 transition-opacity"
+        >
+          <svg
+            viewBox="0 0 120 120"
+            width="38"
+            height="38"
+            role="img"
+            aria-label="Bharosa logo"
+            className="shrink-0"
+          >
+            <polygon
+              points="60,8 105,34 105,86 60,112 15,86 15,34"
+              fill="none"
+              stroke="#65A30D"
+              strokeWidth="4"
+            />
+            <polygon
+              points="60,20 94.6,40 94.6,80 60,100 25.4,80 25.4,40"
+              fill="#84CC16"
+            />
+            <path
+              d="M41 61 L55 75 L81 46"
+              fill="none"
+              stroke="#1A2E05"
+              strokeWidth="9"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <span>Bharosa</span>
+        </a>
 
-        {/* Center Desktop Nav Links */}
-        <div className="hidden md:flex items-center space-x-8 lg:space-x-10">
+        {/* Center Desktop Links */}
+        <div className="hidden md:flex items-center gap-8 font-bold text-base text-[#1A2E05]">
           {NAV_ITEMS.map((item) => (
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className={`font-anton text-base sm:text-lg uppercase tracking-wide transition-colors ${
+              className={`cursor-pointer transition-colors ${
                 activeSection === item.id
-                  ? 'text-[#65A30D]'
-                  : 'text-[#111827] hover:text-[#65A30D]'
+                  ? 'text-[#4D7C0F]'
+                  : 'text-[#1A2E05] hover:text-[#4D7C0F]'
               }`}
             >
               {item.label}
@@ -76,26 +104,26 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
         </div>
 
         {/* Right CTA Button */}
-        <div className="hidden sm:flex items-center space-x-3">
+        <div className="hidden sm:flex items-center">
           <Link
             to="/app"
-            className="inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-[#84CC16] hover:bg-[#72b510] text-[#111827] font-anton uppercase tracking-wider text-base transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5"
+            className="btn-landing-primary"
           >
             Launch App
           </Link>
         </div>
 
-        {/* Mobile menu trigger */}
-        <div className="md:hidden flex items-center space-x-2">
+        {/* Mobile Hamburger Button */}
+        <div className="md:hidden flex items-center gap-2">
           <Link
             to="/app"
-            className="px-4 py-1.5 rounded-full bg-[#84CC16] text-[#111827] font-anton tracking-wider text-xs uppercase"
+            className="px-4 py-1.5 rounded-full bg-[#84CC16] text-[#1A2E05] font-bold text-xs uppercase"
           >
             App
           </Link>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-xl text-[#111827] hover:bg-[#ECFCCB] transition-colors"
+            className="p-2 text-[#1A2E05] hover:bg-[#F7FBEF] rounded-lg transition-colors cursor-pointer"
             aria-label="Toggle mobile menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -103,17 +131,23 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
         </div>
       </div>
 
+      {/* Top Scroll Indicator Progress Bar */}
+      <div
+        className="bar-scroll h-[4px] bg-[#84CC16] transition-all duration-75"
+        style={{ width: `${scrollProgress}%` }}
+      />
+
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#FFFFFF] border-b border-[#ECFCCB] px-5 pt-3 pb-6 space-y-2 shadow-lg animate-in slide-in-from-top-2 duration-200">
+        <div className="md:hidden bg-white border-b border-[#D9EBB5] px-6 py-4 space-y-3 animate-in slide-in-from-top-2 duration-150">
           {NAV_ITEMS.map((item) => (
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className={`w-full text-left px-4 py-2.5 rounded-xl font-anton text-lg uppercase tracking-wide transition-colors ${
+              className={`w-full text-left py-2 font-bold text-lg ${
                 activeSection === item.id
-                  ? 'bg-[#ECFCCB] text-[#65A30D]'
-                  : 'text-[#111827] hover:bg-[#F7FBEF]'
+                  ? 'text-[#4D7C0F]'
+                  : 'text-[#1A2E05]'
               }`}
             >
               {item.label}
@@ -123,14 +157,14 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
             <Link
               to="/app"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center py-3 rounded-full bg-[#84CC16] text-[#111827] font-anton text-base uppercase tracking-wider shadow-sm"
+              className="btn-landing-primary w-full"
             >
               Launch App
             </Link>
           </div>
         </div>
       )}
-    </nav>
+    </div>
   );
 }
 

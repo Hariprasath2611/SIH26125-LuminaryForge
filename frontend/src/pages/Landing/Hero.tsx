@@ -1,12 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ScrollVelocity } from '../../components/common/ScrollVelocity';
+
+const TRUST_TAGS = [
+  'W3C DIDs',
+  'Verifiable Credentials',
+  'Zero-Knowledge Proofs',
+  'IPFS Storage',
+  'Layer-2 Blockchain',
+  'On-chain ABAC',
+  'Polygon',
+  'Arbitrum',
+  'Solidity',
+  'Veramo',
+  'EIP-4337',
+];
 
 export function Hero() {
-  const scrollToHowItWorks = () => {
-    const el = document.getElementById('how-it-works') || document.getElementById('about');
+  const scrollToAbout = () => {
+    const el = document.getElementById('about');
     if (el) {
-      const navOffset = 80;
+      const navOffset = 76;
       const elementPosition = el.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - navOffset;
       window.scrollTo({
@@ -19,198 +32,243 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative pt-32 pb-14 sm:pt-36 sm:pb-16 lg:pt-40 lg:pb-20 w-full bg-[#FFFFFF] bg-grid-dots overflow-hidden"
+      className="pt-20 pb-0 bg-gradient-to-b from-[#FFFFFF] to-[#F7FBEF] relative overflow-hidden isolate"
     >
-      {/* Background Radial Glows */}
-      <div className="absolute top-1/3 -left-24 w-96 h-96 rounded-full bg-[#84CC16]/12 blur-3xl pointer-events-none" />
-      <div className="absolute top-1/4 right-0 w-[500px] h-[500px] rounded-full bg-[#84CC16]/15 blur-3xl pointer-events-none" />
-
-      {/* Decorative Wireframe Hexagons precisely matching the design */}
-      {/* 1. Wireframe Hexagon overlapping top-left badge */}
-      <svg
-        className="absolute top-24 left-[280px] sm:left-[320px] w-14 h-14 text-[#84CC16]/40 pointer-events-none select-none hidden sm:block animate-float"
-        viewBox="0 0 100 100"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.5"
+      {/* Background Decorative Layer */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 pointer-events-none select-none"
       >
-        <polygon points="50,5 92,27 92,73 50,95 8,73 8,27" />
-      </svg>
+        {/* Subtle Dots Pattern with Fade */}
+        <div
+          className="absolute inset-0 opacity-80"
+          style={{
+            backgroundImage: 'radial-gradient(#CFE6A0 1.6px, transparent 1.7px)',
+            backgroundSize: '30px 30px',
+            WebkitMaskImage: 'linear-gradient(#000, transparent 80%)',
+            maskImage: 'linear-gradient(#000, transparent 80%)',
+          }}
+        />
 
-      {/* 2. Wireframe Hexagon on the far left next to 'Trust' */}
-      <svg
-        className="absolute top-44 -left-4 sm:left-4 lg:left-8 w-16 h-16 text-[#84CC16]/40 pointer-events-none select-none animate-float-delayed-1"
-        viewBox="0 0 100 100"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.5"
-      >
-        <polygon points="50,5 92,27 92,73 50,95 8,73 8,27" />
-      </svg>
+        {/* Ambient Gradient Glows */}
+        <div
+          className="absolute w-[520px] h-[520px] rounded-full -left-[180px] top-[60px] opacity-80"
+          style={{
+            background: 'radial-gradient(#D9F99D, rgba(217,249,157,0) 70%)',
+          }}
+        />
+        <div
+          className="absolute w-[600px] h-[600px] rounded-full -right-[180px] top-[100px] opacity-50"
+          style={{
+            background: 'radial-gradient(#BEF264, rgba(190,242,100,0) 70%)',
+          }}
+        />
 
-      {/* 3. Wireframe Hexagon at top-right above the circle */}
-      <svg
-        className="absolute top-20 right-10 sm:right-24 lg:right-32 w-16 h-16 text-[#84CC16]/45 pointer-events-none select-none animate-float"
-        viewBox="0 0 100 100"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.5"
-      >
-        <polygon points="50,5 92,27 92,73 50,95 8,73 8,27" />
-      </svg>
+        {/* Floating Wireframe & Solid Decorative Hexagons */}
+        <svg
+          className="fh"
+          viewBox="0 0 100 100"
+          width="56"
+          height="56"
+          style={{ left: '5%', top: '170px' }}
+        >
+          <polygon
+            points="50,4 93,27 93,73 50,96 7,73 7,27"
+            fill="none"
+            stroke="#A3E635"
+            strokeWidth="5"
+            strokeLinejoin="round"
+          />
+        </svg>
 
-      {/* 4. Wireframe Hexagon at bottom-center near badges */}
-      <svg
-        className="absolute bottom-28 left-[45%] lg:left-[48%] w-11 h-11 text-[#84CC16]/40 pointer-events-none select-none hidden md:block animate-float-delayed-2"
-        viewBox="0 0 100 100"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.5"
-      >
-        <polygon points="50,5 92,27 92,73 50,95 8,73 8,27" />
-      </svg>
+        <svg
+          className="fh"
+          viewBox="0 0 100 100"
+          width="84"
+          height="84"
+          style={{ right: '6%', top: '110px', animationDelay: '1.5s' }}
+        >
+          <polygon
+            points="50,4 93,27 93,73 50,96 7,73 7,27"
+            fill="#D9F99D"
+            stroke="#A3E635"
+            strokeWidth="4"
+            strokeLinejoin="round"
+          />
+        </svg>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Column: Headlines & Actions */}
-          <div className="lg:col-span-6 text-left animate-in fade-in slide-in-from-bottom-2 duration-500">
+        <svg
+          className="fh"
+          viewBox="0 0 100 100"
+          width="40"
+          height="40"
+          style={{ left: '46%', top: '520px', animationDelay: '3s' }}
+        >
+          <polygon
+            points="50,4 93,27 93,73 50,96 7,73 7,27"
+            fill="none"
+            stroke="#84CC16"
+            strokeWidth="6"
+            strokeLinejoin="round"
+          />
+        </svg>
 
-            {/* Main Title with Anton SC font */}
-            <h1 className="font-anton text-5xl sm:text-6xl lg:text-[76px] tracking-wide text-[#111827] leading-[1.06] mb-6 uppercase">
-              Trust, owned <br />
-              <span className="inline-block bg-[#84CC16] text-[#111827] px-4 py-1 sm:px-6 sm:py-1.5 rounded-2xl sm:rounded-3xl mt-2 font-anton uppercase shadow-sm">
-                by you.
-              </span>
-            </h1>
+        <svg
+          className="fh"
+          viewBox="0 0 100 100"
+          width="64"
+          height="64"
+          style={{ left: '30%', top: '70px', animationDelay: '2.2s' }}
+        >
+          <polygon
+            points="50,4 93,27 93,73 50,96 7,73 7,27"
+            fill="#ECFCCB"
+            stroke="#D9EBB5"
+            strokeWidth="4"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </div>
 
-            {/* Description */}
-            <p className="text-base sm:text-lg text-[#374151] leading-relaxed max-w-lg mb-8 font-normal font-sans">
-              Own your identity, prove it instantly to anyone, and share documents with full control. No central database to breach, no certificate to forge.
-            </p>
-
-            {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4 mb-8">
-              <Link
-                to="/app"
-                className="inline-flex items-center justify-center px-7 py-3 rounded-full bg-[#84CC16] hover:bg-[#72b510] text-[#111827] font-bold text-sm transition-all duration-200 shadow-sm hover:shadow-md hover:scale-105 active:scale-100"
-              >
-                Launch App
-              </Link>
-
-              <button
-                type="button"
-                onClick={scrollToHowItWorks}
-                className="inline-flex items-center justify-center px-7 py-3 rounded-full bg-[#FFFFFF] hover:bg-[#F9FAFB] text-[#111827] font-semibold text-sm border-2 border-[#111827] transition-all duration-200 shadow-2xs hover:scale-105 active:scale-100"
-              >
-                See how it works
-              </button>
-            </div>
-
-            {/* "Built for" Row */}
-            <div className="flex flex-wrap items-center gap-2.5 text-xs text-[#4D6B2A]">
-              <span className="font-semibold text-stone-500 mr-1">Built for</span>
-              <span className="px-3.5 py-1.5 rounded-full bg-white border border-neutral-300 font-semibold text-[#111827] shadow-2xs">
-                Students
-              </span>
-              <span className="px-3.5 py-1.5 rounded-full bg-white border border-neutral-300 font-semibold text-[#111827] shadow-2xs">
-                Universities
-              </span>
-              <span className="px-3.5 py-1.5 rounded-full bg-white border border-neutral-300 font-semibold text-[#111827] shadow-2xs">
-                Employers
-              </span>
-            </div>
+      {/* Main Content Container */}
+      <div className="max-w-[1160px] mx-auto px-6 sm:px-8 flex flex-wrap items-center justify-between gap-12">
+        {/* Left Column: Headlines & Actions */}
+        <div className="flex-[1_1_460px] max-w-[600px]">
+          {/* Eyebrow Pill */}
+          <div className="in-anim inline-block bg-[#ECFCCB] border border-[#D9EBB5] rounded-full px-4.5 py-2 font-bold text-sm text-[#1A2E05] mb-6.5">
+            Smart India Hackathon 2026 · SIH26125
           </div>
 
-          {/* Right Column: Circular Graphic with Hexagon & 3 Badges */}
-          <div className="lg:col-span-6 flex items-center justify-center relative py-6 lg:py-10">
-            {/* Outer Circular Container */}
-            <div className="relative w-72 h-72 sm:w-96 sm:h-96 md:w-[430px] md:h-[430px] rounded-full border-2 border-dashed border-[#84CC16]/60 bg-[#ECFCCB]/40 flex items-center justify-center">
-              {/* Spinning Subtle Dashed Ring */}
-              <div className="absolute inset-0 rounded-full border border-dashed border-[#84CC16]/30 animate-spin-slow pointer-events-none" />
+          {/* Main Title */}
+          <h1
+            className="in-anim font-extrabold text-[52px] sm:text-[68px] lg:text-[77px] leading-[1.02] tracking-[-3px] text-[#1A2E05] mb-5.5"
+            style={{ animationDelay: '0.12s' }}
+          >
+            Trust, owned
+            <br />
+            <span className="inline-block bg-[#84CC16] text-[#1A2E05] px-3.5 py-1 rounded-[14px] text-[42px] sm:text-[50px] lg:text-[56px] tracking-[-2px] mt-1.5 shadow-sm">
+              by you.
+            </span>
+          </h1>
 
-              {/* Center Hexagon Shield Graphic matching user screenshot */}
-              <div className="w-48 h-48 sm:w-60 sm:h-60 flex items-center justify-center transition-transform hover:scale-105 duration-300 cursor-pointer">
-                <svg
-                  viewBox="0 0 200 200"
-                  className="w-full h-full drop-shadow-md select-none"
-                >
-                  {/* Outer Hexagon Border with Gap */}
-                  <polygon
-                    points="100,12 178,57 178,143 100,188 22,143 22,57"
-                    fill="none"
-                    stroke="#72B510"
-                    strokeWidth="8"
-                    strokeLinejoin="round"
-                  />
-                  {/* Inner Solid Hexagon */}
-                  <polygon
-                    points="100,26 166,64 166,136 100,174 34,136 34,64"
-                    fill="#84CC16"
-                    strokeLinejoin="round"
-                  />
-                  {/* Dark Center Checkmark */}
-                  <path
-                    d="M65 105 L88 128 L138 78"
-                    fill="none"
-                    stroke="#111827"
-                    strokeWidth="16"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
+          {/* Description */}
+          <p
+            className="in-anim text-lg sm:text-[20px] text-[#3F5A1E] leading-relaxed mb-8.5 font-medium"
+            style={{ animationDelay: '0.26s' }}
+          >
+            Own your identity, prove it instantly to anyone, and share documents with full control.
+            No central database to breach, no certificate to forge.
+          </p>
 
-              {/* Floating Badge 1: Credential verified (Top-Left) */}
-              <div className="absolute top-6 left-0 sm:top-8 sm:-left-3 bg-[#FFFFFF] border border-[#ECFCCB] rounded-full px-4 py-2 shadow-md flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-[#111827] hover:scale-105 transition-transform duration-200 animate-float cursor-default">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#84CC16] shrink-0" />
-                <span>Credential verified</span>
-              </div>
+          {/* Action Buttons */}
+          <div
+            className="in-anim flex flex-wrap items-center gap-3.5"
+            style={{ animationDelay: '0.4s' }}
+          >
+            <Link to="/app" className="btn-landing-primary">
+              Launch App
+            </Link>
+            <button
+              type="button"
+              onClick={scrollToAbout}
+              className="btn-landing-outline cursor-pointer"
+            >
+              See how it works
+            </button>
+          </div>
 
-              {/* Floating Badge 2: Hash matches on-chain (Right) */}
-              <div className="absolute top-[48%] -right-4 sm:-right-8 -translate-y-1/2 bg-[#FFFFFF] border border-[#ECFCCB] rounded-full px-4 py-2 shadow-md flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-[#111827] hover:scale-105 transition-transform duration-200 animate-float-delayed-1 cursor-default">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#84CC16] shrink-0" />
-                <span>Hash matches on-chain</span>
-              </div>
+          {/* Built for Pills */}
+          <div
+            className="in-anim flex flex-wrap items-center gap-2.5 mt-8"
+            style={{ animationDelay: '0.52s' }}
+          >
+            <span className="font-bold text-sm text-[#4D6B2A] mr-0.5">Built for</span>
+            <span className="pill-tag text-[#1A2E05]">Students</span>
+            <span className="pill-tag text-[#1A2E05]">Universities</span>
+            <span className="pill-tag text-[#1A2E05]">Employers</span>
+          </div>
+        </div>
 
-              {/* Floating Badge 3: Access expires in 7 days (Bottom-Left) */}
-              <div className="absolute bottom-6 left-0 sm:bottom-10 sm:-left-2 bg-[#FFFFFF] border border-[#ECFCCB] rounded-full px-4 py-2 shadow-md flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-[#111827] hover:scale-105 transition-transform duration-200 animate-float-delayed-2 cursor-default">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#84CC16] shrink-0" />
-                <span>Access expires in 7 days</span>
-              </div>
-            </div>
+        {/* Right Column: Hero Graphic with spinning ring & floating chips */}
+        <div
+          className="in-anim relative flex-initial w-[360px] sm:w-[420px] max-w-full h-[400px] sm:h-[440px] mx-auto lg:mx-0"
+          style={{ animationDelay: '0.3s' }}
+        >
+          {/* Inner Light Circle */}
+          <div className="absolute inset-5 rounded-full bg-[#ECFCCB]" />
+
+          {/* Outer Dashed Ring with Spin Animation */}
+          <div
+            className="absolute inset-0 rounded-full border-2 border-dashed border-[#A3E635]"
+            style={{ animation: 'spin 40s linear infinite' }}
+          />
+
+          {/* Center Hexagonal Shield Emblem */}
+          <svg
+            viewBox="0 0 120 120"
+            width="280"
+            height="280"
+            role="img"
+            aria-label="Verified seal"
+            className="absolute left-[40px] sm:left-[70px] top-[60px] sm:top-[80px]"
+            style={{ animation: 'float 6s ease-in-out infinite' }}
+          >
+            <polygon
+              points="60,8 105,34 105,86 60,112 15,86 15,34"
+              fill="none"
+              stroke="#65A30D"
+              strokeWidth="3"
+            />
+            <polygon
+              points="60,20 94.6,40 94.6,80 60,100 25.4,80 25.4,40"
+              fill="#84CC16"
+            />
+            <path
+              d="M41 61 L55 75 L81 46"
+              fill="none"
+              stroke="#1A2E05"
+              strokeWidth="9"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+
+          {/* Floating Chip 1: Credential verified */}
+          <div className="chip top-6 -left-3 sm:-left-4">
+            <i className="dt" />
+            <span>Credential verified</span>
+          </div>
+
+          {/* Floating Chip 2: Hash matches on-chain */}
+          <div
+            className="chip top-[180px] sm:top-[190px] -right-4 sm:-right-6"
+            style={{ animationDelay: '1.2s' }}
+          >
+            <i className="dt" />
+            <span>Hash matches on-chain</span>
+          </div>
+
+          {/* Floating Chip 3: Access expires in 7 days */}
+          <div
+            className="chip bottom-6 sm:bottom-7 left-1 sm:left-2"
+            style={{ animationDelay: '2.1s' }}
+          >
+            <i className="dt" />
+            <span>Access expires in 7 days</span>
           </div>
         </div>
       </div>
 
-      {/* Bottom Capability Ticker with React Bits ScrollVelocity */}
-      <div className="pt-16 sm:pt-20 overflow-hidden">
-        <ScrollVelocity
-          texts={[
-            <span className="inline-flex items-center gap-8 sm:gap-12 font-anton text-base sm:text-lg tracking-wider text-[#111827] uppercase">
-              <span className="flex items-center gap-2.5">
-                <span className="flex gap-1 text-[#84CC16] font-sans font-extrabold text-lg">• •</span> W3C DIDs
-              </span>
-              <span className="flex items-center gap-2.5">
-                <span className="flex gap-1 text-[#84CC16] font-sans font-extrabold text-lg">• •</span> Verifiable Credentials
-              </span>
-              <span className="flex items-center gap-2.5">
-                <span className="flex gap-1 text-[#84CC16] font-sans font-extrabold text-lg">• •</span> Zero-Knowledge Proofs
-              </span>
-              <span className="flex items-center gap-2.5">
-                <span className="flex gap-1 text-[#84CC16] font-sans font-extrabold text-lg">• •</span> IPFS Storage
-              </span>
-              <span className="flex items-center gap-2.5">
-                <span className="flex gap-1 text-[#84CC16] font-sans font-extrabold text-lg">• •</span> Layer-2 Blockchain
-              </span>
-              <span className="flex items-center gap-2.5">
-                <span className="flex gap-1 text-[#84CC16] font-sans font-extrabold text-lg">• •</span> On-chain ABAC
-              </span>
-            </span>
-          ]}
-          velocity={35}
-          numCopies={4}
-          className="text-[#111827]"
-        />
+      {/* Infinite Scrolling Marquee Track */}
+      <div className="mq" aria-label="Technologies">
+        <div className="trk">
+          {TRUST_TAGS.map((t, idx) => (
+            <span key={`trk-1-${idx}`}>{t}</span>
+          ))}
+          {TRUST_TAGS.map((t, idx) => (
+            <span key={`trk-2-${idx}`}>{t}</span>
+          ))}
+        </div>
       </div>
     </section>
   );
