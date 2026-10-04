@@ -44,12 +44,12 @@ const STEPS = [
 
 export function About() {
   return (
-    <section id="about" className="py-24 sm:py-28 dots">
+    <section id="about" className="py-20 sm:py-28 lg:py-32 dots">
       <div className="max-w-[1160px] mx-auto px-6 sm:px-8">
         {/* About Header */}
         <div className="max-w-[720px] mb-12">
           <span className="eb">About</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-[46px] leading-[1.08] tracking-[-1.5px] font-extrabold text-[#1A2E05] mb-4.5">
+          <h2 className="text-3xl sm:text-4xl lg:text-[46px] leading-[1.12] tracking-tight font-extrabold text-[#1A2E05] mb-5">
             Identity today is broken.
           </h2>
           <p className="text-lg sm:text-[19px] text-[#3F5A1E] leading-relaxed">
@@ -59,19 +59,19 @@ export function About() {
         </div>
 
         {/* 4 Problem Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5.5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {PROBLEMS.map((pb, idx) => (
-            <div key={idx} className="card-landing">
-              <div className="font-extrabold text-xl text-[#1A2E05] mb-2">{pb.t}</div>
+            <div key={idx} className="card-landing p-7">
+              <div className="font-extrabold text-xl text-[#1A2E05] mb-2.5">{pb.t}</div>
               <p className="text-[#4D6B2A] text-sm sm:text-[15px] leading-relaxed">{pb.d}</p>
             </div>
           ))}
         </div>
 
         {/* How It Works Header */}
-        <div className="mt-24 mb-9">
+        <div className="mt-24 mb-10">
           <span className="eb">How it works</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-[46px] leading-[1.08] tracking-[-1.5px] font-extrabold text-[#1A2E05] m-0">
+          <h2 className="text-3xl sm:text-4xl lg:text-[46px] leading-[1.12] tracking-tight font-extrabold text-[#1A2E05] m-0">
             Four steps. No middlemen.
           </h2>
         </div>
@@ -83,9 +83,9 @@ export function About() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
             {STEPS.map((s, idx) => (
-              <div key={idx} className="bg-transparent">
+              <div key={idx} className="bg-transparent pt-1">
                 <div className="hx relative shadow-xs">{s.n}</div>
-                <div className="font-extrabold text-xl sm:text-[21px] text-[#1A2E05] mb-1.5">
+                <div className="font-extrabold text-xl sm:text-[21px] text-[#1A2E05] mb-2">
                   {s.t}
                 </div>
                 <p className="text-[#4D6B2A] text-sm sm:text-[15px] leading-relaxed">{s.d}</p>
