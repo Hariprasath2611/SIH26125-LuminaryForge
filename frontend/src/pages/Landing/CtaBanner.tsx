@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export function CtaBanner() {
   return (
-    <section id="cta" className="pb-24 pt-2">
+    <section id="cta" className="pb-28 pt-6">
       <div className="max-w-[1160px] mx-auto px-6 sm:px-8">
         <div className="bg-[#84CC16] rounded-[32px] py-16 sm:py-20 px-8 sm:px-12 text-center relative overflow-hidden isolate shadow-lg">
           {/* Decorative Wireframe Hexagons */}
@@ -38,7 +38,7 @@ export function CtaBanner() {
           </svg>
 
           {/* Banner Content */}
-          <h2 className="text-3xl sm:text-4xl lg:text-[46px] leading-[1.08] tracking-[-1.5px] font-extrabold text-[#1A2E05] mb-3.5">
+          <h2 className="text-3xl sm:text-4xl lg:text-[46px] leading-[1.12] tracking-tight font-extrabold text-[#1A2E05] mb-4">
             Ready to own your identity?
           </h2>
           <p className="text-lg sm:text-[19px] text-[#1A2E05]/90 mb-8 max-w-xl mx-auto font-medium">
@@ -46,7 +46,7 @@ export function CtaBanner() {
           </p>
           <Link
             to="/app"
-            className="inline-flex items-center justify-center min-h-[48px] px-8 rounded-full font-bold text-base bg-[#1A2E05] hover:bg-black text-[#FFFFFF] shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200"
+            className="inline-flex items-center justify-center min-h-[48px] px-8 rounded-full font-bold text-base bg-[#1A2E05] hover:bg-black text-[#FFFFFF] shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
           >
             Launch App
           </Link>
