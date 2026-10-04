@@ -83,11 +83,11 @@ export function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobileOpen }: 
   };
 
   const navContent = (
-    <div className="flex flex-col h-full justify-between bg-surface border-r border-line select-none transition-colors">
+    <div className="flex flex-col h-full justify-between bg-[#FFFFFF] border-r border-[#ECFCCB] select-none">
       {/* Top Section */}
       <div>
         {/* Brand Header */}
-        <div className="flex items-center justify-between px-4 h-16 border-b border-line">
+        <div className="flex items-center justify-between px-4 h-16 border-b border-[#F7FBEF]">
           <div className="flex items-center space-x-3 overflow-hidden">
             <img
               src="/logos/bharosa-mark.png"
@@ -97,10 +97,10 @@ export function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobileOpen }: 
             {!collapsed && (
               <div className="overflow-hidden">
                 <div className="flex items-center space-x-1.5">
-                  <span className="font-anton text-xl tracking-wider text-fg uppercase">Bharosa</span>
+                  <span className="font-anton text-xl tracking-wider text-[#1A2E05] uppercase">Bharosa</span>
                 </div>
                 <div className="flex items-center space-x-1">
-                  <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-primary-soft text-primary uppercase tracking-wider">
+                  <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-[#ECFCCB] text-[#4D6B2A] uppercase tracking-wider">
                     {persona}
                   </span>
                 </div>
@@ -111,7 +111,7 @@ export function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobileOpen }: 
           {/* Desktop collapse toggle */}
           <button
             onClick={() => setCollapsed(!collapsed)}
-            className="hidden md:flex items-center justify-center w-7 h-7 rounded-lg text-fg-muted hover:text-fg hover:bg-surface-2 transition-colors"
+            className="hidden md:flex items-center justify-center w-7 h-7 rounded-lg text-[#4D6B2A] hover:text-[#1A2E05] hover:bg-[#F7FBEF] transition-colors"
             title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
             {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
@@ -129,8 +129,8 @@ export function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobileOpen }: 
                 className={({ isActive }) =>
                   `flex items-center px-3 py-2 rounded-xl text-xs font-semibold transition-all group relative ${
                     isActive
-                      ? 'bg-primary-soft text-fg shadow-xs font-bold'
-                      : 'text-fg-muted hover:text-fg hover:bg-surface-2'
+                      ? 'bg-[#ECFCCB] text-[#1A2E05] shadow-xs'
+                      : 'text-[#4D6B2A] hover:text-[#1A2E05] hover:bg-[#F7FBEF]'
                   }`
                 }
                 title={collapsed ? item.label : undefined}
@@ -139,11 +139,11 @@ export function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobileOpen }: 
                   <>
                     {/* Active left indicator bar */}
                     {isActive && (
-                      <span className="absolute left-0 top-1.5 bottom-1.5 w-1 bg-primary rounded-r-full" />
+                      <span className="absolute left-0 top-1.5 bottom-1.5 w-1 bg-[#84CC16] rounded-r-full" />
                     )}
                     <Icon
                       className={`w-4 h-4 shrink-0 transition-transform group-hover:scale-110 ${
-                        isActive ? 'text-primary' : 'text-fg-muted'
+                        isActive ? 'text-[#65A30D]' : 'text-[#8BA868]'
                       } ${collapsed ? 'mx-auto' : 'mr-3'}`}
                     />
                     {!collapsed && <span className="truncate">{item.label}</span>}
@@ -156,11 +156,11 @@ export function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobileOpen }: 
           {/* Portals divider */}
           <div className="pt-3 pb-1">
             {!collapsed ? (
-              <p className="px-3 text-[10px] font-bold text-fg-subtle uppercase tracking-wider">
+              <p className="px-3 text-[10px] font-bold text-[#8BA868] uppercase tracking-wider">
                 Portals & Ecosystem
               </p>
             ) : (
-              <hr className="border-line my-2 mx-2" />
+              <hr className="border-[#ECFCCB] my-2 mx-2" />
             )}
           </div>
 
@@ -173,8 +173,8 @@ export function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobileOpen }: 
                 className={({ isActive }) =>
                   `flex items-center px-3 py-2 rounded-xl text-xs font-semibold transition-all group relative ${
                     isActive
-                      ? 'bg-primary-soft text-fg shadow-xs font-bold'
-                      : 'text-fg-muted hover:text-fg hover:bg-surface-2'
+                      ? 'bg-[#ECFCCB] text-[#1A2E05] shadow-xs'
+                      : 'text-[#4D6B2A] hover:text-[#1A2E05] hover:bg-[#F7FBEF]'
                   }`
                 }
                 title={collapsed ? item.label : undefined}
@@ -182,11 +182,11 @@ export function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobileOpen }: 
                 {({ isActive }) => (
                   <>
                     {isActive && (
-                      <span className="absolute left-0 top-1.5 bottom-1.5 w-1 bg-primary rounded-r-full" />
+                      <span className="absolute left-0 top-1.5 bottom-1.5 w-1 bg-[#84CC16] rounded-r-full" />
                     )}
                     <Icon
                       className={`w-4 h-4 shrink-0 transition-transform group-hover:scale-110 ${
-                        isActive ? 'text-primary' : 'text-fg-muted'
+                        isActive ? 'text-[#65A30D]' : 'text-[#8BA868]'
                       } ${collapsed ? 'mx-auto' : 'mr-3'}`}
                     />
                     {!collapsed && <span className="truncate">{item.label}</span>}
@@ -199,42 +199,42 @@ export function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobileOpen }: 
       </div>
 
       {/* Bottom Area */}
-      <div className="p-3 border-t border-line space-y-2">
+      <div className="p-3 border-t border-[#F7FBEF] space-y-2">
         {/* Network status badge */}
         {!collapsed ? (
-          <div className="px-2.5 py-1.5 rounded-xl bg-surface-2 border border-line flex items-center justify-between text-[11px] text-fg-muted">
+          <div className="px-2.5 py-1.5 rounded-xl bg-[#F7FBEF] border border-[#ECFCCB] flex items-center justify-between text-[11px] text-[#4D6B2A]">
             <div className="flex items-center space-x-1.5">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#84CC16] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#65A30D]"></span>
               </span>
-              <span className="font-semibold text-fg">
+              <span className="font-semibold text-[#1A2E05]">
                 {chainId === 31337 ? 'Hardhat Node' : 'Polygon Amoy'}
               </span>
             </div>
             {Boolean(blockNumber) ? (
-              <span className="font-mono text-[10px] text-primary">#{blockNumber!.toString()}</span>
+              <span className="font-mono text-[10px] text-[#65A30D]">#{blockNumber!.toString()}</span>
             ) : null}
           </div>
         ) : (
           <div className="flex justify-center" title="Network Online">
             <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#84CC16] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#65A30D]"></span>
             </span>
           </div>
         )}
 
         {/* User Card */}
-        <div className="flex items-center justify-between p-2 rounded-xl bg-surface-2 border border-line">
+        <div className="flex items-center justify-between p-2 rounded-xl bg-[#FFFFFF] border border-[#ECFCCB]">
           <div className="flex items-center space-x-2.5 overflow-hidden">
-            <div className="w-8 h-8 rounded-full bg-primary text-on-primary font-bold text-xs flex items-center justify-center shrink-0">
+            <div className="w-8 h-8 rounded-full bg-[#84CC16] text-[#1A2E05] font-bold text-xs flex items-center justify-center shrink-0">
               {initials}
             </div>
             {!collapsed && (
               <div className="overflow-hidden">
-                <p className="text-xs font-bold text-fg truncate">{userDisplayName}</p>
-                <p className="text-[10px] text-fg-muted truncate font-mono">
+                <p className="text-xs font-bold text-[#1A2E05] truncate">{userDisplayName}</p>
+                <p className="text-[10px] text-[#4D6B2A] truncate font-mono">
                   {account?.walletAddress
                     ? `${account.walletAddress.slice(0, 6)}...${account.walletAddress.slice(-4)}`
                     : user?.email}
@@ -246,7 +246,7 @@ export function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobileOpen }: 
           {!collapsed && (
             <button
               onClick={() => signOut()}
-              className="p-1.5 text-fg-muted hover:text-status-danger hover:bg-status-danger/10 rounded-lg transition-colors"
+              className="p-1.5 text-[#4D6B2A] hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
               title="Sign Out"
             >
               <LogOut className="w-4 h-4" />
@@ -273,7 +273,7 @@ export function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobileOpen }: 
         <div className="fixed inset-0 z-50 md:hidden flex">
           {/* Backdrop */}
           <div
-            className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"
+            className="fixed inset-0 bg-[#1A2E05]/40 backdrop-blur-xs transition-opacity"
             onClick={() => setMobileOpen(false)}
           />
 

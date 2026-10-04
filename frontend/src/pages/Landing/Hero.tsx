@@ -32,7 +32,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="pt-24 sm:pt-28 lg:pt-32 pb-0 bg-gradient-to-b from-bg to-surface relative overflow-hidden isolate transition-colors"
+      className="pt-24 sm:pt-28 lg:pt-32 pb-0 bg-gradient-to-b from-[#FFFFFF] to-[#F7FBEF] relative overflow-hidden isolate"
     >
       {/* Background Decorative Layer */}
       <div
@@ -43,7 +43,7 @@ export function Hero() {
         <div
           className="absolute inset-0 opacity-80"
           style={{
-            backgroundImage: 'radial-gradient(rgb(var(--dot)) 1.6px, transparent 1.7px)',
+            backgroundImage: 'radial-gradient(#CFE6A0 1.6px, transparent 1.7px)',
             backgroundSize: '30px 30px',
             WebkitMaskImage: 'linear-gradient(#000, transparent 80%)',
             maskImage: 'linear-gradient(#000, transparent 80%)',
@@ -52,15 +52,15 @@ export function Hero() {
 
         {/* Ambient Gradient Glows */}
         <div
-          className="absolute w-[520px] h-[520px] rounded-full -left-[180px] top-[60px] opacity-40 dark:opacity-20"
+          className="absolute w-[520px] h-[520px] rounded-full -left-[180px] top-[60px] opacity-80"
           style={{
-            background: 'radial-gradient(rgb(var(--primary)), rgba(132,204,22,0) 70%)',
+            background: 'radial-gradient(#D9F99D, rgba(217,249,157,0) 70%)',
           }}
         />
         <div
-          className="absolute w-[600px] h-[600px] rounded-full -right-[180px] top-[100px] opacity-30 dark:opacity-15"
+          className="absolute w-[600px] h-[600px] rounded-full -right-[180px] top-[100px] opacity-50"
           style={{
-            background: 'radial-gradient(rgb(var(--primary-hover)), rgba(101,163,13,0) 70%)',
+            background: 'radial-gradient(#BEF264, rgba(190,242,100,0) 70%)',
           }}
         />
 
@@ -75,7 +75,7 @@ export function Hero() {
           <polygon
             points="50,4 93,27 93,73 50,96 7,73 7,27"
             fill="none"
-            stroke="rgb(var(--primary))"
+            stroke="#A3E635"
             strokeWidth="5"
             strokeLinejoin="round"
           />
@@ -90,8 +90,8 @@ export function Hero() {
         >
           <polygon
             points="50,4 93,27 93,73 50,96 7,73 7,27"
-            fill="rgba(var(--primary), 0.2)"
-            stroke="rgb(var(--primary))"
+            fill="#D9F99D"
+            stroke="#A3E635"
             strokeWidth="4"
             strokeLinejoin="round"
           />
@@ -107,7 +107,7 @@ export function Hero() {
           <polygon
             points="50,4 93,27 93,73 50,96 7,73 7,27"
             fill="none"
-            stroke="rgb(var(--primary))"
+            stroke="#84CC16"
             strokeWidth="6"
             strokeLinejoin="round"
           />
@@ -122,8 +122,8 @@ export function Hero() {
         >
           <polygon
             points="50,4 93,27 93,73 50,96 7,73 7,27"
-            fill="rgb(var(--primary-soft))"
-            stroke="rgb(var(--border))"
+            fill="#ECFCCB"
+            stroke="#D9EBB5"
             strokeWidth="4"
             strokeLinejoin="round"
           />
@@ -135,25 +135,25 @@ export function Hero() {
         {/* Left Column: Headlines & Actions */}
         <div className="flex-[1_1_460px] max-w-[620px]">
           {/* Eyebrow Pill */}
-          <div className="in-anim inline-block bg-primary-soft border border-primary/30 rounded-full px-5 py-2 font-bold text-sm text-fg mb-6 shadow-2xs">
+          <div className="in-anim inline-block bg-[#ECFCCB] border border-[#D9EBB5] rounded-full px-5 py-2 font-bold text-sm text-[#1A2E05] mb-6 shadow-2xs">
             Smart India Hackathon 2026 · SIH26125
           </div>
 
           {/* Main Title with spacious, comfortable word and letter spacing */}
           <h1
-            className="in-anim font-extrabold text-[46px] sm:text-[62px] lg:text-[76px] leading-[1.06] tracking-tight text-fg mb-6"
+            className="in-anim font-extrabold text-[46px] sm:text-[62px] lg:text-[76px] leading-[1.06] tracking-tight text-[#1A2E05] mb-6"
             style={{ animationDelay: '0.12s' }}
           >
             Trust, owned
             <br />
-            <span className="inline-block bg-primary text-on-primary px-4 py-1.5 rounded-2xl text-[36px] sm:text-[46px] lg:text-[54px] font-extrabold tracking-tight mt-2 shadow-sm">
+            <span className="inline-block bg-[#84CC16] text-[#1A2E05] px-4 py-1.5 rounded-2xl text-[36px] sm:text-[46px] lg:text-[54px] font-extrabold tracking-tight mt-2 shadow-sm">
               by you.
             </span>
           </h1>
 
           {/* Description with readable line-height and relaxed spacing */}
           <p
-            className="in-anim text-lg sm:text-[20px] text-fg-muted leading-relaxed mb-8 max-w-xl font-medium tracking-normal"
+            className="in-anim text-lg sm:text-[20px] text-[#3F5A1E] leading-relaxed mb-8 max-w-xl font-medium tracking-normal"
             style={{ animationDelay: '0.26s' }}
           >
             Own your identity, prove it instantly to anyone, and share documents with full control.
@@ -182,10 +182,10 @@ export function Hero() {
             className="in-anim flex flex-wrap items-center gap-3"
             style={{ animationDelay: '0.52s' }}
           >
-            <span className="font-bold text-sm text-fg-muted mr-1">Built for</span>
-            <span className="pill-tag text-fg">Students</span>
-            <span className="pill-tag text-fg">Universities</span>
-            <span className="pill-tag text-fg">Employers</span>
+            <span className="font-bold text-sm text-[#4D6B2A] mr-1">Built for</span>
+            <span className="pill-tag text-[#1A2E05]">Students</span>
+            <span className="pill-tag text-[#1A2E05]">Universities</span>
+            <span className="pill-tag text-[#1A2E05]">Employers</span>
           </div>
         </div>
 
@@ -195,11 +195,11 @@ export function Hero() {
           style={{ animationDelay: '0.3s' }}
         >
           {/* Inner Light Circle */}
-          <div className="absolute inset-5 rounded-full bg-primary-soft" />
+          <div className="absolute inset-5 rounded-full bg-[#ECFCCB]" />
 
           {/* Outer Dashed Ring with Spin Animation */}
           <div
-            className="absolute inset-0 rounded-full border-2 border-dashed border-primary/40"
+            className="absolute inset-0 rounded-full border-2 border-dashed border-[#A3E635]"
             style={{ animation: 'spin 40s linear infinite' }}
           />
 
@@ -216,17 +216,17 @@ export function Hero() {
             <polygon
               points="60,8 105,34 105,86 60,112 15,86 15,34"
               fill="none"
-              stroke="rgb(var(--primary-hover))"
+              stroke="#65A30D"
               strokeWidth="3"
             />
             <polygon
               points="60,20 94.6,40 94.6,80 60,100 25.4,80 25.4,40"
-              fill="rgb(var(--primary))"
+              fill="#84CC16"
             />
             <path
               d="M41 61 L55 75 L81 46"
               fill="none"
-              stroke="rgb(var(--on-primary))"
+              stroke="#1A2E05"
               strokeWidth="9"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -260,7 +260,7 @@ export function Hero() {
       </div>
 
       {/* Infinite Scrolling Marquee Track */}
-      <div className="mq mt-16 sm:mt-20 py-5 bg-surface border-t border-b border-line" aria-label="Technologies">
+      <div className="mq mt-16 sm:mt-20 py-5 bg-white border-t border-b border-[#D9EBB5]" aria-label="Technologies">
         <div className="trk">
           {TRUST_TAGS.map((t, idx) => (
             <span key={`trk-1-${idx}`}>{t}</span>

@@ -103,34 +103,34 @@ export default function Login() {
       {/* Persistent Bharosa Navbar */}
       <LandingNavbar activeSection="" />
 
-      <div className="min-h-screen w-full bg-bg flex flex-col lg:grid lg:grid-cols-2 text-fg pt-[72px] transition-colors">
+      <div className="min-h-screen w-full bg-white flex flex-col lg:grid lg:grid-cols-2 text-[#1A2E05] pt-[72px]">
         {/* ================= LEFT COLUMN: Welcome Back & Sign-In Form ================= */}
         <div className="flex-1 flex flex-col justify-between p-6 sm:p-10 lg:p-14 xl:p-16 max-w-xl mx-auto w-full">
           <div>
             {/* Stepper */}
-            <div className="flex items-center gap-2 text-xs font-semibold mb-6">
-              <span className="bg-primary text-on-primary px-3 py-1 rounded-full font-bold">
+            <div className="flex items-center gap-2 text-xs font-semibold text-[#1A2E05] mb-6">
+              <span className="bg-[#84CC16] text-[#1A2E05] px-3 py-1 rounded-full font-bold">
                 1 Sign in
               </span>
-              <span className="text-fg-subtle">›</span>
-              <span className="text-fg-muted">2 Connect wallet</span>
-              <span className="text-fg-subtle">›</span>
-              <span className="text-fg-muted">3 Dashboard</span>
+              <span className="text-stone-400">›</span>
+              <span className="text-[#4D6B2A]">2 Connect wallet</span>
+              <span className="text-stone-400">›</span>
+              <span className="text-[#4D6B2A]">3 Dashboard</span>
             </div>
 
             {/* Header */}
             <div className="mb-6">
-              <h1 className="!font-sans font-extrabold text-3xl sm:text-4xl text-fg tracking-tight mb-2">
+              <h1 className="!font-sans font-extrabold text-3xl sm:text-4xl text-[#1A2E05] tracking-tight mb-2">
                 Welcome back
               </h1>
-              <p className="text-xs sm:text-sm text-fg-muted">
+              <p className="text-xs sm:text-sm text-[#4D6B2A]">
                 Sign in to your Bharosa account.
               </p>
             </div>
 
             {/* Auth Error Banner */}
             {authError && (
-              <div className="mb-4 p-3 bg-status-danger/10 border border-status-danger/30 rounded-xl flex items-start gap-2.5 text-xs text-status-danger animate-in fade-in">
+              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl flex items-start gap-2.5 text-xs text-[#DC2626] animate-in fade-in">
                 <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
                 <span>{authError}</span>
               </div>
@@ -141,7 +141,7 @@ export default function Login() {
               type="button"
               onClick={handleGoogleSignIn}
               disabled={submitting || !!loadingDemo}
-              className="w-full py-3 px-4 rounded-2xl border border-line bg-surface hover:bg-surface-2 flex items-center justify-center gap-3 text-xs sm:text-sm font-semibold text-fg transition-all shadow-2xs hover:shadow-xs disabled:opacity-50"
+              className="w-full py-3 px-4 rounded-2xl border border-neutral-300 hover:bg-neutral-50 flex items-center justify-center gap-3 text-xs sm:text-sm font-semibold text-[#1A2E05] transition-all shadow-2xs hover:shadow-xs disabled:opacity-50"
             >
               <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
                 <path
@@ -167,47 +167,47 @@ export default function Login() {
             {/* Divider */}
             <div className="relative my-6 text-center">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-line" />
+                <div className="w-full border-t border-neutral-200" />
               </div>
-              <div className="relative flex justify-center text-xs text-fg-muted">
-                <span className="bg-bg px-3 font-medium">or use email</span>
+              <div className="relative flex justify-center text-xs text-[#6B7280]">
+                <span className="bg-white px-3 font-medium">or use email</span>
               </div>
             </div>
 
             {/* Email + Password Form */}
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-fg">Email</label>
+                <label className="text-xs font-bold text-[#1A2E05]">Email</label>
                 <input
                   type="email"
                   {...register('email')}
                   placeholder="you@example.com"
-                  className={`w-full px-4 py-3 rounded-2xl border text-xs sm:text-sm text-fg placeholder:text-fg-subtle focus:outline-none focus:ring-2 focus:ring-primary transition bg-surface ${
-                    errors.email ? 'border-status-danger' : 'border-line'
+                  className={`w-full px-4 py-3 rounded-2xl border text-xs sm:text-sm text-[#1A2E05] placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#84CC16] transition bg-white ${
+                    errors.email ? 'border-red-500' : 'border-neutral-300'
                   }`}
                 />
                 {errors.email && (
-                  <p className="text-[11px] text-status-danger font-medium">{errors.email.message}</p>
+                  <p className="text-[11px] text-red-600 font-medium">{errors.email.message}</p>
                 )}
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-fg">Password</label>
+                <label className="text-xs font-bold text-[#1A2E05]">Password</label>
                 <input
                   type="password"
                   {...register('password')}
                   placeholder="Enter your password"
-                  className={`w-full px-4 py-3 rounded-2xl border text-xs sm:text-sm text-fg placeholder:text-fg-subtle focus:outline-none focus:ring-2 focus:ring-primary transition bg-surface ${
-                    errors.password ? 'border-status-danger' : 'border-line'
+                  className={`w-full px-4 py-3 rounded-2xl border text-xs sm:text-sm text-[#1A2E05] placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#84CC16] transition bg-white ${
+                    errors.password ? 'border-red-500' : 'border-neutral-300'
                   }`}
                 />
                 {errors.password && (
-                  <p className="text-[11px] text-status-danger font-medium">{errors.password.message}</p>
+                  <p className="text-[11px] text-red-600 font-medium">{errors.password.message}</p>
                 )}
                 <div className="flex justify-end pt-0.5">
                   <Link
                     to="/forgot-password"
-                    className="text-xs font-bold text-fg hover:text-primary transition-colors"
+                    className="text-xs font-bold text-[#1A2E05] hover:underline"
                   >
                     Forgot password?
                   </Link>
@@ -217,7 +217,7 @@ export default function Login() {
               <button
                 type="submit"
                 disabled={submitting || !!loadingDemo}
-                className="w-full py-3.5 rounded-2xl bg-primary hover:bg-primary-hover text-on-primary font-bold text-sm transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 mt-5 flex items-center justify-center gap-2 disabled:opacity-60"
+                className="w-full py-3.5 rounded-2xl bg-[#84CC16] hover:bg-[#72b510] text-[#1A2E05] font-bold text-sm transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 mt-5 flex items-center justify-center gap-2 disabled:opacity-60"
               >
                 {submitting ? (
                   <>
@@ -229,25 +229,25 @@ export default function Login() {
               </button>
             </form>
 
-            <div className="text-center text-xs text-fg-muted mt-5">
+            <div className="text-center text-xs text-[#1A2E05] mt-5">
               New to Bharosa?{' '}
-              <Link to="/signup" className="font-bold underline text-primary hover:text-primary-hover">
+              <Link to="/signup" className="font-bold underline text-[#1A2E05]">
                 Create an account
               </Link>
             </div>
           </div>
 
           {/* Bottom Footnote */}
-          <p className="text-[11px] text-fg-subtle text-center max-w-xs sm:max-w-sm mx-auto mt-8 sm:mt-12 leading-relaxed">
+          <p className="text-[11px] text-[#6B7280] text-center max-w-xs sm:max-w-sm mx-auto mt-8 sm:mt-12 leading-relaxed">
             Signing in only opens the app. Your identity, keys and credentials stay in your own wallet.
           </p>
         </div>
 
         {/* ================= RIGHT COLUMN: Quick Demo Login ================= */}
-        <div className="bg-surface border-t lg:border-t-0 lg:border-l border-line flex flex-col justify-center p-6 sm:p-10 lg:p-14 xl:p-16 relative overflow-hidden transition-colors">
+        <div className="bg-[#F6FCED] border-t lg:border-t-0 lg:border-l border-[#ECFCCB] flex flex-col justify-center p-6 sm:p-10 lg:p-14 xl:p-16 relative overflow-hidden">
           {/* Decorative Watermark Hexagon in Top Right */}
           <svg
-            className="absolute -top-12 -right-12 w-64 h-64 text-primary/20 pointer-events-none select-none"
+            className="absolute -top-12 -right-12 w-64 h-64 text-[#84CC16]/25 pointer-events-none select-none"
             viewBox="0 0 100 100"
             fill="none"
             stroke="currentColor"
@@ -259,25 +259,25 @@ export default function Login() {
           <div className="max-w-lg mx-auto w-full relative z-10">
             {/* Demo Mode Badge */}
             <div className="mb-4">
-              <span className="inline-block px-3 py-1 rounded-full bg-primary-soft text-primary text-[11px] font-extrabold tracking-wider uppercase border border-primary/20">
+              <span className="inline-block px-3 py-1 rounded-full bg-[#ECFCCB] text-[#1A2E05] text-[11px] font-extrabold tracking-wider uppercase">
                 DEMO MODE
               </span>
             </div>
 
             {/* Header */}
             <div className="mb-6">
-              <h2 className="!font-sans font-extrabold text-3xl sm:text-4xl text-fg tracking-tight mb-2">
+              <h2 className="!font-sans font-extrabold text-3xl sm:text-4xl text-[#1A2E05] tracking-tight mb-2">
                 Quick demo login
               </h2>
-              <p className="text-xs sm:text-sm text-fg-muted leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#4D6B2A] leading-relaxed">
                 Pick a sample user to explore Bharosa instantly. No wallet connection needed.
               </p>
             </div>
 
             {/* Loading indicator for demo login */}
             {loadingDemo && (
-              <div className="mb-4 p-3.5 rounded-2xl bg-surface-2 border border-primary flex items-center justify-center gap-3 text-xs font-semibold text-fg shadow-xs animate-in fade-in">
-                <Loader2 className="w-4 h-4 animate-spin text-primary" />
+              <div className="mb-4 p-3.5 rounded-2xl bg-white border border-[#84CC16] flex items-center justify-center gap-3 text-xs font-semibold text-[#1A2E05] shadow-xs animate-in fade-in">
+                <Loader2 className="w-4 h-4 animate-spin text-[#84CC16]" />
                 <span>{loadingStep || 'Signing in with sample credentials…'}</span>
               </div>
             )}
@@ -289,23 +289,23 @@ export default function Login() {
                   key={user.id}
                   onClick={() => handleDemoClick(user.id)}
                   disabled={submitting || !!loadingDemo}
-                  className="w-full p-3.5 sm:p-4 rounded-2xl bg-surface-2 border border-line hover:border-primary transition-all duration-200 shadow-2xs hover:shadow-sm flex items-center justify-between gap-3 text-left group disabled:opacity-50"
+                  className="w-full p-3.5 sm:p-4 rounded-2xl bg-white border border-[#ECFCCB] hover:border-[#84CC16] transition-all duration-200 shadow-2xs hover:shadow-sm flex items-center justify-between gap-3 text-left group disabled:opacity-50"
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-10 h-10 rounded-full bg-primary text-on-primary font-bold text-xs sm:text-sm flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
+                    <div className="w-10 h-10 rounded-full bg-[#84CC16] text-[#1A2E05] font-bold text-xs sm:text-sm flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
                       {user.initials}
                     </div>
                     <div className="min-w-0">
-                      <p className="text-sm font-bold text-fg group-hover:text-primary transition-colors truncate">
+                      <p className="text-sm font-bold text-[#1A2E05] group-hover:text-[#65A30D] transition-colors truncate">
                         {user.name}
                       </p>
-                      <p className="text-xs text-fg-muted truncate">
+                      <p className="text-xs text-[#4D6B2A] truncate">
                         {user.subtitle || user.description}
                       </p>
                     </div>
                   </div>
 
-                  <span className="text-xs font-semibold px-3 py-1 rounded-full bg-primary-soft text-fg shrink-0 border border-primary/10">
+                  <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[#ECFCCB] text-[#1A2E05] shrink-0">
                     {user.badge || user.role}
                   </span>
                 </button>
@@ -313,7 +313,7 @@ export default function Login() {
             </div>
 
             {/* Explanatory Subtext */}
-            <p className="text-xs text-fg-muted mt-6 leading-relaxed">
+            <p className="text-xs text-[#4D6B2A] mt-6 leading-relaxed">
               Demo accounts use a built-in test wallet on a test network. Real accounts connect their own wallet after sign-in.
             </p>
           </div>

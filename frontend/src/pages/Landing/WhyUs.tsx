@@ -40,15 +40,15 @@ const WINS = [
 
 export function WhyUs() {
   return (
-    <section id="why" className="py-20 sm:py-28 lg:py-32 bg-surface transition-colors">
+    <section id="why" className="py-20 sm:py-28 lg:py-32 bg-[#F7FBEF]">
       <div className="max-w-[1160px] mx-auto px-6 sm:px-8">
         {/* Section Header */}
         <div className="max-w-[720px] mb-12">
           <span className="eb">Why us</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-[46px] leading-[1.12] tracking-tight font-extrabold text-fg mb-5">
+          <h2 className="text-3xl sm:text-4xl lg:text-[46px] leading-[1.12] tracking-tight font-extrabold text-[#1A2E05] mb-5">
             Why Bharosa?
           </h2>
-          <p className="text-lg sm:text-[19px] text-fg-muted leading-relaxed">
+          <p className="text-lg sm:text-[19px] text-[#3F5A1E] leading-relaxed">
             Same goal as today's systems, built on a different foundation.
           </p>
         </div>
@@ -57,14 +57,14 @@ export function WhyUs() {
         <div className="space-y-4">
           {COMPARISON_ROWS.map((r, idx) => (
             <div key={idx} className="row-compare p-6 sm:p-7">
-              <div className="font-extrabold text-lg sm:text-[19px] text-fg">
+              <div className="font-extrabold text-lg sm:text-[19px] text-[#1A2E05]">
                 {r.k}
               </div>
-              <div className="text-fg-muted text-sm sm:text-base">
-                <span className="font-semibold text-fg-subtle">Traditional:</span> {r.a}
+              <div className="text-[#6B7F4A] text-sm sm:text-base">
+                <span className="font-semibold text-stone-500">Traditional:</span> {r.a}
               </div>
-              <div className="font-bold text-fg text-sm sm:text-base flex items-center flex-wrap gap-2.5">
-                <span className="bg-primary text-on-primary rounded-lg px-2.5 py-1 text-xs font-extrabold shadow-2xs">
+              <div className="font-bold text-[#1A2E05] text-sm sm:text-base flex items-center flex-wrap gap-2.5">
+                <span className="bg-[#84CC16] text-[#1A2E05] rounded-lg px-2.5 py-1 text-xs font-extrabold shadow-2xs">
                   Bharosa
                 </span>
                 <span>{r.b}</span>
@@ -78,12 +78,12 @@ export function WhyUs() {
           {WINS.map((w, idx) => (
             <div
               key={idx}
-              className="card-landing bg-surface-2 shadow-xs hover:shadow-md transition-all p-7 sm:p-8"
+              className="card-landing bg-white shadow-xs hover:shadow-md transition-all p-7 sm:p-8"
             >
-              <div className="font-extrabold text-xl sm:text-[22px] text-fg mb-2.5">
+              <div className="font-extrabold text-xl sm:text-[22px] text-[#1A2E05] mb-2.5">
                 {w.t}
               </div>
-              <p className="text-fg-muted text-sm sm:text-[15px] leading-relaxed">
+              <p className="text-[#4D6B2A] text-sm sm:text-[15px] leading-relaxed">
                 {w.d}
               </p>
             </div>

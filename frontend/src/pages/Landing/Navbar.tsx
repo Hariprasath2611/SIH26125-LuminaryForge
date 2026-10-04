@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
-import { ThemeToggle } from '../../components/ThemeToggle';
-import { Logo } from '../../components/common/Logo';
 
 interface LandingNavbarProps {
   activeSection?: string;
@@ -54,26 +52,53 @@ export function LandingNavbar({ activeSection = '' }: LandingNavbarProps) {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-surface-3/95 backdrop-blur-md border-b border-line shadow-xs transition-colors duration-200">
+    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-[#D9EBB5] shadow-xs">
       <div className="max-w-[1160px] mx-auto px-6 sm:px-8 flex items-center justify-between h-[72px]">
         {/* Brand Logo & Name */}
         <button
           onClick={() => handleNavClick('home')}
-          className="flex items-center gap-2.5 font-extrabold text-[26px] tracking-tight text-fg hover:opacity-90 transition-opacity cursor-pointer group"
+          className="flex items-center gap-2.5 font-extrabold text-[26px] tracking-tight text-[#1A2E05] hover:opacity-90 transition-opacity cursor-pointer"
         >
-          <Logo size={38} showText={true} />
+          <svg
+            viewBox="0 0 120 120"
+            width="38"
+            height="38"
+            role="img"
+            aria-label="Bharosa logo"
+            className="shrink-0"
+          >
+            <polygon
+              points="60,8 105,34 105,86 60,112 15,86 15,34"
+              fill="none"
+              stroke="#65A30D"
+              strokeWidth="4"
+            />
+            <polygon
+              points="60,20 94.6,40 94.6,80 60,100 25.4,80 25.4,40"
+              fill="#84CC16"
+            />
+            <path
+              d="M41 61 L55 75 L81 46"
+              fill="none"
+              stroke="#1A2E05"
+              strokeWidth="9"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <span className="font-extrabold tracking-tight">Bharosa</span>
         </button>
 
         {/* Center Desktop Links */}
-        <div className="hidden md:flex items-center gap-8 font-bold text-base text-fg">
+        <div className="hidden md:flex items-center gap-8 font-bold text-base text-[#1A2E05]">
           {NAV_ITEMS.map((item) => (
             <button
               key={item.id}
               onClick={() => handleNavClick(item.id)}
               className={`cursor-pointer transition-colors duration-150 py-1 ${
                 activeSection === item.id
-                  ? 'text-primary-hover border-b-2 border-primary'
-                  : 'text-fg hover:text-primary-hover'
+                  ? 'text-[#4D7C0F] border-b-2 border-[#84CC16]'
+                  : 'text-[#1A2E05] hover:text-[#4D7C0F]'
               }`}
             >
               {item.label}
@@ -81,26 +106,24 @@ export function LandingNavbar({ activeSection = '' }: LandingNavbarProps) {
           ))}
         </div>
 
-        {/* Right Controls: ThemeToggle + Launch App */}
-        <div className="hidden sm:flex items-center gap-3">
-          <ThemeToggle />
+        {/* Right CTA Button */}
+        <div className="hidden sm:flex items-center">
           <Link to="/app" className="btn-landing-primary">
             Launch App
           </Link>
         </div>
 
-        {/* Mobile Hamburger Button & ThemeToggle */}
+        {/* Mobile Hamburger Button */}
         <div className="md:hidden flex items-center gap-2">
-          <ThemeToggle />
           <Link
             to="/app"
-            className="px-3.5 py-1.5 rounded-full bg-primary text-on-primary font-bold text-xs uppercase"
+            className="px-4 py-1.5 rounded-full bg-[#84CC16] text-[#1A2E05] font-bold text-xs uppercase"
           >
             App
           </Link>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-fg hover:bg-surface rounded-lg transition-colors cursor-pointer"
+            className="p-2 text-[#1A2E05] hover:bg-[#F7FBEF] rounded-lg transition-colors cursor-pointer"
             aria-label="Toggle mobile menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -110,29 +133,29 @@ export function LandingNavbar({ activeSection = '' }: LandingNavbarProps) {
 
       {/* Top Scroll Indicator Progress Bar */}
       <div
-        className="h-[3px] bg-primary transition-all duration-75"
+        className="h-[3px] bg-[#84CC16] transition-all duration-75"
         style={{ width: `${scrollProgress}%` }}
       />
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-surface-3 border-b border-line px-6 py-4 space-y-3 animate-in slide-in-from-top-2 duration-150 shadow-md">
+        <div className="md:hidden bg-white border-b border-[#D9EBB5] px-6 py-4 space-y-3 animate-in slide-in-from-top-2 duration-150 shadow-md">
           {NAV_ITEMS.map((item) => (
             <button
               key={item.id}
               onClick={() => handleNavClick(item.id)}
               className={`w-full text-left py-2 font-bold text-lg cursor-pointer ${
-                activeSection === item.id ? 'text-primary-hover' : 'text-fg'
+                activeSection === item.id ? 'text-[#4D7C0F]' : 'text-[#1A2E05]'
               }`}
             >
               {item.label}
             </button>
           ))}
-          <div className="pt-2 flex flex-col gap-2">
+          <div className="pt-2">
             <Link
               to="/app"
               onClick={() => setMobileMenuOpen(false)}
-              className="btn-landing-primary w-full text-center"
+              className="btn-landing-primary w-full"
             >
               Launch App
             </Link>

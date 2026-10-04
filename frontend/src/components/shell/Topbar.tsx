@@ -4,7 +4,6 @@ import { Menu, Zap, Sparkles, ShieldCheck } from 'lucide-react';
 import { WalletChip } from './WalletChip';
 import { UserMenu } from './UserMenu';
 import { NotificationsBell } from './NotificationsBell';
-import { ThemeToggle } from '../ThemeToggle';
 
 interface TopbarProps {
   onOpenMobileMenu: () => void;
@@ -38,22 +37,22 @@ export function Topbar({ onOpenMobileMenu }: TopbarProps) {
   };
 
   return (
-    <header className="sticky top-0 z-20 h-16 bg-surface/90 backdrop-blur-md border-b border-line px-4 sm:px-6 flex items-center justify-between transition-colors">
+    <header className="sticky top-0 z-20 h-16 bg-[#FFFFFF]/90 backdrop-blur-md border-b border-[#ECFCCB] px-4 sm:px-6 flex items-center justify-between">
       {/* Left: Mobile trigger & Page title */}
       <div className="flex items-center space-x-3">
         <button
           onClick={onOpenMobileMenu}
-          className="md:hidden p-2 rounded-xl text-fg-muted hover:text-fg hover:bg-surface-2 transition-colors"
+          className="md:hidden p-2 rounded-xl text-[#4D6B2A] hover:text-[#1A2E05] hover:bg-[#ECFCCB] transition-colors"
           aria-label="Open navigation drawer"
         >
           <Menu className="w-5 h-5" />
         </button>
 
         <div>
-          <h1 className="font-anton text-lg sm:text-xl tracking-wide text-fg uppercase leading-tight">
+          <h1 className="font-anton text-lg sm:text-xl tracking-wide text-[#1A2E05] uppercase leading-tight">
             {routeInfo.title}
           </h1>
-          <p className="hidden sm:block text-[11px] text-fg-muted font-medium leading-none">
+          <p className="hidden sm:block text-[11px] text-[#4D6B2A] font-medium leading-none">
             {routeInfo.subtitle}
           </p>
         </div>
@@ -66,17 +65,14 @@ export function Topbar({ onOpenMobileMenu }: TopbarProps) {
           onClick={() => setGaslessActive(!gaslessActive)}
           className={`hidden lg:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
             gaslessActive
-              ? 'bg-primary-soft text-fg border-primary/30'
-              : 'bg-surface-2 text-fg-muted border-line'
+              ? 'bg-[#ECFCCB] text-[#1A2E05] border-[#84CC16]'
+              : 'bg-stone-100 text-stone-500 border-stone-200'
           }`}
           title="Sponsored transactions via EIP-2771 Forwarder"
         >
-          <Zap className={`w-3.5 h-3.5 ${gaslessActive ? 'text-primary fill-primary' : 'text-fg-subtle'}`} />
+          <Zap className={`w-3.5 h-3.5 ${gaslessActive ? 'text-[#65A30D] fill-[#84CC16]' : 'text-stone-400'}`} />
           <span>{gaslessActive ? 'Gasless Active' : 'Self-Pay Gas'}</span>
         </button>
-
-        {/* Theme Toggle Button */}
-        <ThemeToggle />
 
         {/* Notifications */}
         <NotificationsBell />

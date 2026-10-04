@@ -45,12 +45,12 @@ const FEATURES = [
 
 export function Features() {
   return (
-    <section id="features" className="py-20 sm:py-28 lg:py-32 dots transition-colors">
+    <section id="features" className="py-20 sm:py-28 lg:py-32 dots">
       <div className="max-w-[1160px] mx-auto px-6 sm:px-8">
         {/* Header */}
         <div className="max-w-[720px] mb-12">
           <span className="eb">Features</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-[46px] leading-[1.12] tracking-tight font-extrabold text-fg">
+          <h2 className="text-3xl sm:text-4xl lg:text-[46px] leading-[1.12] tracking-tight font-extrabold text-[#1A2E05]">
             Everything you need to own your trust.
           </h2>
         </div>
@@ -60,8 +60,8 @@ export function Features() {
           {FEATURES.map((f, idx) => (
             <div key={idx} className="card-landing p-7">
               <div className="hx shadow-2xs mb-4">{f.n}</div>
-              <div className="font-extrabold text-xl text-fg mb-2.5">{f.t}</div>
-              <p className="text-fg-muted text-sm sm:text-[15px] leading-relaxed">{f.d}</p>
+              <div className="font-extrabold text-xl text-[#1A2E05] mb-2.5">{f.t}</div>
+              <p className="text-[#4D6B2A] text-sm sm:text-[15px] leading-relaxed">{f.d}</p>
             </div>
           ))}
         </div>

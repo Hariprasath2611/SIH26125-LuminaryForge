@@ -3,9 +3,7 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
-@import "./tokens.css";
 @import "../components/copilot/copilot-seal.css";
-
 
 
 @font-face {
@@ -118,12 +116,12 @@
 }
 
 .bg-grid-dots {
-  background-image: radial-gradient(rgba(var(--primary), 0.28) 1.2px, transparent 1.2px);
+  background-image: radial-gradient(rgba(132, 204, 22, 0.28) 1.2px, transparent 1.2px);
   background-size: 26px 26px;
 }
 
 .dots {
-  background-image: radial-gradient(rgb(var(--dot)) 1.5px, transparent 1.6px);
+  background-image: radial-gradient(#DDEDB8 1.5px, transparent 1.6px);
   background-size: 30px 30px;
 }
 
@@ -133,7 +131,7 @@
   font-size: 14px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: rgb(var(--primary));
+  color: #4D7C0F;
   margin-bottom: 14px;
 }
 
@@ -146,15 +144,15 @@
   border-radius: 999px;
   font-weight: 700;
   font-size: 16px;
-  background: rgb(var(--primary));
-  color: rgb(var(--on-primary));
-  box-shadow: 0 8px 24px rgba(var(--primary), 0.38);
+  background: #84CC16;
+  color: #1A2E05;
+  box-shadow: 0 8px 24px rgba(132, 204, 22, 0.38);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .btn-landing-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(var(--primary), 0.45);
+  box-shadow: 0 12px 28px rgba(132, 204, 22, 0.45);
 }
 
 .btn-landing-outline {
@@ -166,21 +164,21 @@
   border-radius: 999px;
   font-weight: 700;
   font-size: 16px;
-  border: 2px solid rgb(var(--primary));
-  background: rgb(var(--surface));
-  color: rgb(var(--fg));
-  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  border: 2px solid #84CC16;
+  background: #FFFFFF;
+  color: #1A2E05;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .btn-landing-outline:hover {
   transform: translateY(-2px);
-  background: rgb(var(--surface-2));
+  background: #F7FBEF;
 }
 
 .hx {
   width: 48px;
   height: 52px;
-  background: rgb(var(--primary));
+  background: #84CC16;
   clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
   display: flex;
   align-items: center;
@@ -188,12 +186,12 @@
   font-weight: 800;
   font-size: 16px;
   margin-bottom: 18px;
-  color: rgb(var(--on-primary));
+  color: #1A2E05;
 }
 
 .card-landing {
-  background: rgb(var(--surface));
-  border: 1px solid rgb(var(--border));
+  background: #F7FBEF;
+  border: 1px solid #D9EBB5;
   border-radius: 20px;
   padding: 28px;
   transition: transform 0.25s, box-shadow 0.25s;
@@ -201,13 +199,13 @@
 
 .card-landing:hover {
   transform: translateY(-6px);
-  box-shadow: 0 14px 34px rgba(var(--primary), 0.24);
+  box-shadow: 0 14px 34px rgba(132, 204, 22, 0.24);
 }
 
 .chip {
   position: absolute;
-  background: rgb(var(--surface));
-  border: 1px solid rgb(var(--border));
+  background: #FFFFFF;
+  border: 1px solid #D9EBB5;
   border-radius: 14px;
   padding: 12px 16px;
   font-weight: 700;
@@ -215,8 +213,7 @@
   display: flex;
   gap: 10px;
   align-items: center;
-  color: rgb(var(--fg));
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 28px rgba(26, 46, 5, 0.10);
   animation: float 5s ease-in-out infinite;
 }
 
@@ -224,7 +221,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: rgb(var(--primary));
+  background: #84CC16;
   display: block;
 }
 
@@ -238,16 +235,16 @@
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 12px 28px;
   padding: 22px 26px;
-  background: rgb(var(--surface));
-  border: 1px solid rgb(var(--border));
+  background: #F7FBEF;
+  border: 1px solid #D9EBB5;
   border-radius: 18px;
   margin-bottom: 14px;
   align-items: center;
 }
 
 .pill-tag {
-  background: rgb(var(--surface));
-  border: 1px solid rgb(var(--border));
+  background: #FFFFFF;
+  border: 1px solid #D9EBB5;
   border-radius: 999px;
   padding: 7px 16px;
   font-weight: 700;
@@ -258,9 +255,9 @@
   overflow: hidden;
   margin-top: 72px;
   padding: 20px 0;
-  background: rgb(var(--surface));
-  border-top: 1px solid rgb(var(--border));
-  border-bottom: 1px solid rgb(var(--border));
+  background: #FFFFFF;
+  border-top: 1px solid #D9EBB5;
+  border-bottom: 1px solid #D9EBB5;
 }
 
 .trk {
@@ -277,14 +274,14 @@
   white-space: nowrap;
   font-weight: 800;
   font-size: 18px;
-  color: rgb(var(--fg-muted));
+  color: #3F5A1E;
 }
 
 .trk span::before {
   content: '';
   width: 13px;
   height: 14px;
-  background: rgb(var(--primary));
+  background: #84CC16;
   clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
 }
 
@@ -297,11 +294,38 @@
 }
 
 
+:root {
+  --font-heading: 'Anton SC', sans-serif;
+  /* Strict Bharosa Light Palette */
+  --bg: #FFFFFF;
+  --surface: #F7FBEF;
+  --surface-2: #ECFCCB;
+  --primary: #84CC16;
+  --primary-hover: #65A30D;
+  --primary-soft: #A3E635;
+  --ring: #BEF264;
+  --text: #1A2E05;
+  --text-muted: #4D6B2A;
+  --border: #D9EBB5;
+
+  /* Status Tokens */
+  --status-success: #16A34A;
+  --status-warning: #F59E0B;
+  --status-error: #DC2626;
+  --status-info: #0EA5E9;
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
-  background-color: rgb(var(--bg));
-  color: rgb(var(--fg));
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
   min-height: 100vh;
   margin: 0;
   padding: 0;
