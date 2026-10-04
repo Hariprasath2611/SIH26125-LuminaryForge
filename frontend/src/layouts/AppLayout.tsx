@@ -18,7 +18,7 @@ export function AppLayout() {
   }, [collapsed]);
 
   return (
-    <div className="min-h-screen flex bg-[#F7FBEF] text-[#1A2E05]">
+    <div className="min-h-screen flex bg-bg text-fg transition-colors">
       {/* Sidebar (Desktop Sticky + Mobile Drawer) */}
       <Sidebar
         collapsed={collapsed}

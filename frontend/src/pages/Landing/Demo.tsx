@@ -30,15 +30,15 @@ const CHECKS = [
 
 export function Demo() {
   return (
-    <section id="demo" className="py-20 sm:py-28 lg:py-32 dots">
+    <section id="demo" className="py-20 sm:py-28 lg:py-32 dots transition-colors">
       <div className="max-w-[1160px] mx-auto px-6 sm:px-8 flex flex-wrap items-center justify-between gap-12 lg:gap-16">
         {/* Left Column: Flow Timeline */}
         <div className="flex-[1_1_400px] max-w-[520px]">
           <span className="eb">See it in action</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-[46px] leading-[1.12] tracking-tight font-extrabold text-[#1A2E05] mb-5">
+          <h2 className="text-3xl sm:text-4xl lg:text-[46px] leading-[1.12] tracking-tight font-extrabold text-fg mb-5">
             A credential, verified in seconds.
           </h2>
-          <p className="text-lg sm:text-[19px] text-[#3F5A1E] leading-relaxed mb-8 max-w-lg font-medium">
+          <p className="text-lg sm:text-[19px] text-fg-muted leading-relaxed mb-8 max-w-lg font-medium">
             The employer never calls the university. Every check runs against the blockchain, right in the browser.
           </p>
 
@@ -51,14 +51,14 @@ export function Demo() {
                   </div>
                   {f.h !== '0px' && (
                     <div
-                      className="w-[3px] bg-[#A3E635] my-1 rounded-full"
+                      className="w-[3px] bg-primary my-1 rounded-full opacity-70"
                       style={{ height: f.h }}
                     />
                   )}
                 </div>
                 <div className="pb-3 pt-0.5">
-                  <div className="font-extrabold text-lg text-[#1A2E05]">{f.t}</div>
-                  <p className="text-sm sm:text-[15px] text-[#4D6B2A] mt-1 leading-relaxed">
+                  <div className="font-extrabold text-lg text-fg">{f.t}</div>
+                  <p className="text-sm sm:text-[15px] text-fg-muted mt-1 leading-relaxed">
                     {f.d}
                   </p>
                 </div>
@@ -69,10 +69,10 @@ export function Demo() {
 
         {/* Right Column: Verification Report Card & Floating Chip */}
         <div className="flex-[1_1_420px] max-w-[520px] relative pb-20 w-full">
-          <div className="bg-white border border-[#D9EBB5] rounded-3xl p-7 sm:p-9 shadow-[0_24px_60px_rgba(101,163,13,0.18)]">
+          <div className="bg-surface border border-line rounded-3xl p-7 sm:p-9 shadow-card transition-colors">
             <div className="flex justify-between items-center mb-5">
-              <div className="font-extrabold text-xl text-[#1A2E05]">Verification report</div>
-              <span className="bg-[#84CC16] text-[#1A2E05] rounded-full px-4 py-1.5 font-extrabold text-[13px] shadow-2xs">
+              <div className="font-extrabold text-xl text-fg">Verification report</div>
+              <span className="bg-primary text-on-primary rounded-full px-4 py-1.5 font-extrabold text-[13px] shadow-2xs">
                 All checks passed
               </span>
             </div>
@@ -80,30 +80,30 @@ export function Demo() {
             {CHECKS.map((c, idx) => (
               <div
                 key={idx}
-                className="flex items-center gap-4 py-3.5 border-t border-[#E7F2CF]"
+                className="flex items-center gap-4 py-3.5 border-t border-line"
               >
-                <span className="flex-none w-7 h-7 rounded-full bg-[#ECFCCB] flex items-center justify-center shadow-3xs">
+                <span className="flex-none w-7 h-7 rounded-full bg-primary-soft flex items-center justify-center shadow-3xs">
                   <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
                     <path
                       d="M5 12.5l4.5 4.5L19 7.5"
                       fill="none"
-                      stroke="#1A2E05"
+                      stroke="rgb(var(--primary))"
                       strokeWidth="3"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
                   </svg>
                 </span>
-                <span className="font-bold text-[#1A2E05] text-sm sm:text-base">{c}</span>
+                <span className="font-bold text-fg text-sm sm:text-base">{c}</span>
               </div>
             ))}
           </div>
 
           {/* Access Granted Floating Chip */}
           <div className="chip -right-3.5 bottom-0 flex-col items-start gap-1 p-4 sm:p-5 shadow-lg">
-            <span className="font-extrabold text-base text-[#1A2E05]">Access granted</span>
-            <span className="text-sm text-[#4D6B2A] font-medium">TechCorp HR · Hiring verification</span>
-            <span className="text-[13px] text-[#4D6B2A] font-semibold">Expires in 7 days · revoke anytime</span>
+            <span className="font-extrabold text-base text-fg">Access granted</span>
+            <span className="text-sm text-fg-muted font-medium">TechCorp HR · Hiring verification</span>
+            <span className="text-[13px] text-fg-muted font-semibold">Expires in 7 days · revoke anytime</span>
           </div>
         </div>
       </div>
