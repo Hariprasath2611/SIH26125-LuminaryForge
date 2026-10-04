@@ -15,20 +15,7 @@ const NAV_ITEMS = [
 
 export function LandingNavbar({ activeSection }: LandingNavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalHeight > 0) {
-        const progress = Math.min(100, Math.max(0, (window.scrollY / totalHeight) * 100));
-        setScrollProgress(progress);
-      }
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const scrollToSection = (id: string) => {
     setMobileMenuOpen(false);
@@ -130,12 +117,6 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
         </div>
       </div>
 
-      {/* Top Scroll Indicator Progress Bar */}
-      <div
-        className="bar-scroll h-[4px] bg-[#84CC16] transition-all duration-75"
-        style={{ width: `${scrollProgress}%` }}
-      />
-
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-b border-[#D9EBB5] px-6 py-4 space-y-3 animate-in slide-in-from-top-2 duration-150">
@@ -143,7 +124,7 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className={`w-full text-left py-2 font-bold text-lg ${
+              className={`w-full text-left py-2 font-bold text-lg cursor-pointer ${
                 activeSection === item.id
                   ? 'text-[#4D7C0F]'
                   : 'text-[#1A2E05]'
@@ -163,7 +144,7 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
           </div>
         </div>
       )}
-    </div>
+    </header>
   );
 }
 
