@@ -146,7 +146,7 @@ export default function ConnectWallet() {
         title="Connect & Link Wallet | Bharosa Protocol"
         description="Link your Web3 cryptographic key to your secure decentralized identity profile."
       />
-      <div className="min-h-screen bg-[#F7FBEF] text-[#1A2E05] flex flex-col justify-between p-4 sm:p-6 lg:p-8">
+      <div className="min-h-screen bg-bg text-fg flex flex-col justify-between p-4 sm:p-6 lg:p-8 transition-colors">
         {/* Top Navbar */}
         <header className="max-w-4xl w-full mx-auto flex items-center justify-between py-4">
           <Link to="/" className="flex items-center space-x-3 group">
@@ -156,8 +156,8 @@ export default function ConnectWallet() {
               className="w-10 h-10 object-contain transition-transform group-hover:scale-105"
             />
             <div>
-              <span className="font-anton text-2xl tracking-wide text-[#1A2E05] uppercase">Bharosa</span>
-              <span className="hidden sm:inline-block ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-[#ECFCCB] text-[#4D6B2A]">
+              <span className="font-anton text-2xl tracking-wide text-fg uppercase">Bharosa</span>
+              <span className="hidden sm:inline-block ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary-soft text-primary">
                 Key Gate
               </span>
             </div>
@@ -166,7 +166,7 @@ export default function ConnectWallet() {
           <div className="flex items-center space-x-3">
             <button
               onClick={() => signOut()}
-              className="inline-flex items-center text-xs font-medium text-[#4D6B2A] hover:text-[#1A2E05] px-3 py-1.5 rounded-lg border border-[#D9F99D] hover:bg-[#ECFCCB] transition-colors"
+              className="inline-flex items-center text-xs font-medium text-fg-muted hover:text-fg px-3 py-1.5 rounded-lg border border-line hover:bg-surface-2 transition-colors"
             >
               <LogOut className="w-3.5 h-3.5 mr-1.5" /> Sign Out
             </button>
@@ -176,16 +176,16 @@ export default function ConnectWallet() {
         {/* Main Content Area */}
         <main className="max-w-3xl w-full mx-auto my-6 flex-1 flex flex-col items-center justify-center">
           {/* 4-Step Stepper */}
-          <div className="w-full mb-8 bg-[#FFFFFF] border border-[#ECFCCB] rounded-2xl p-4 sm:p-6 shadow-sm">
+          <div className="w-full mb-8 bg-surface border border-line rounded-2xl p-4 sm:p-6 shadow-sm transition-colors">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {/* Step 1 */}
               <div className="flex items-center space-x-2.5">
-                <div className="w-7 h-7 rounded-full bg-[#84CC16] text-[#1A2E05] flex items-center justify-center text-xs font-bold shrink-0">
+                <div className="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center text-xs font-bold shrink-0">
                   ✓
                 </div>
                 <div className="overflow-hidden">
-                  <p className="text-[11px] font-semibold text-[#65A30D] uppercase tracking-wider">Step 1</p>
-                  <p className="text-xs font-medium text-[#1A2E05] truncate">Account Signed In</p>
+                  <p className="text-[11px] font-semibold text-primary uppercase tracking-wider">Step 1</p>
+                  <p className="text-xs font-medium text-fg truncate">Account Signed In</p>
                 </div>
               </div>
 
@@ -194,15 +194,15 @@ export default function ConnectWallet() {
                 <div
                   className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
                     step2Complete
-                      ? 'bg-[#84CC16] text-[#1A2E05]'
-                      : 'bg-[#ECFCCB] text-[#4D6B2A]'
+                      ? 'bg-primary text-on-primary'
+                      : 'bg-primary-soft text-primary'
                   }`}
                 >
                   {step2Complete ? '✓' : '2'}
                 </div>
                 <div className="overflow-hidden">
-                  <p className="text-[11px] font-semibold text-[#65A30D] uppercase tracking-wider">Step 2</p>
-                  <p className="text-xs font-medium text-[#1A2E05] truncate">Connect Wallet</p>
+                  <p className="text-[11px] font-semibold text-primary uppercase tracking-wider">Step 2</p>
+                  <p className="text-xs font-medium text-fg truncate">Connect Wallet</p>
                 </div>
               </div>
 
@@ -211,17 +211,17 @@ export default function ConnectWallet() {
                 <div
                   className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
                     step3Complete
-                      ? 'bg-[#84CC16] text-[#1A2E05]'
+                      ? 'bg-primary text-on-primary'
                       : step2Complete
-                      ? 'bg-[#84CC16]/20 text-[#65A30D] ring-2 ring-[#84CC16]'
-                      : 'bg-[#F2F7E4] text-[#8BA868]'
+                      ? 'bg-primary-soft text-primary ring-2 ring-primary'
+                      : 'bg-surface-2 text-fg-subtle'
                   }`}
                 >
                   {step3Complete ? '✓' : '3'}
                 </div>
                 <div className="overflow-hidden">
-                  <p className="text-[11px] font-semibold text-[#65A30D] uppercase tracking-wider">Step 3</p>
-                  <p className="text-xs font-medium text-[#1A2E05] truncate">Link Cryptographic Key</p>
+                  <p className="text-[11px] font-semibold text-primary uppercase tracking-wider">Step 3</p>
+                  <p className="text-xs font-medium text-fg truncate">Link Cryptographic Key</p>
                 </div>
               </div>
 
@@ -230,15 +230,15 @@ export default function ConnectWallet() {
                 <div
                   className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
                     step4Complete
-                      ? 'bg-[#84CC16] text-[#1A2E05]'
-                      : 'bg-[#F2F7E4] text-[#8BA868]'
+                      ? 'bg-primary text-on-primary'
+                      : 'bg-surface-2 text-fg-subtle'
                   }`}
                 >
                   {step4Complete ? '✓' : '4'}
                 </div>
                 <div className="overflow-hidden">
-                  <p className="text-[11px] font-semibold text-[#65A30D] uppercase tracking-wider">Step 4</p>
-                  <p className="text-xs font-medium text-[#1A2E05] truncate">DID & Onboarding</p>
+                  <p className="text-[11px] font-semibold text-primary uppercase tracking-wider">Step 4</p>
+                  <p className="text-xs font-medium text-fg truncate">DID & Onboarding</p>
                 </div>
               </div>
             </div>
@@ -246,8 +246,8 @@ export default function ConnectWallet() {
 
           {/* Error Banner */}
           {error && (
-            <div className="w-full mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-800 text-sm flex items-start space-x-3">
-              <AlertTriangle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+            <div className="w-full mb-6 p-4 rounded-xl bg-status-danger/10 border border-status-danger/30 text-status-danger text-sm flex items-start space-x-3">
+              <AlertTriangle className="w-5 h-5 text-status-danger shrink-0 mt-0.5" />
               <div className="flex-1">
                 <p className="font-semibold">Authentication Issue</p>
                 <p className="text-xs mt-0.5">{error}</p>
@@ -256,33 +256,33 @@ export default function ConnectWallet() {
           )}
 
           {/* Main Card */}
-          <div className="w-full bg-[#FFFFFF] border border-[#ECFCCB] rounded-3xl p-6 sm:p-10 shadow-sm">
+          <div className="w-full bg-surface border border-line rounded-3xl p-6 sm:p-10 shadow-sm transition-colors">
             {/* Header info */}
             <div className="text-center max-w-lg mx-auto mb-8">
-              <div className="w-14 h-14 rounded-2xl bg-[#ECFCCB] text-[#65A30D] flex items-center justify-center mx-auto mb-4">
+              <div className="w-14 h-14 rounded-2xl bg-primary-soft text-primary flex items-center justify-center mx-auto mb-4">
                 <KeyRound className="w-7 h-7" />
               </div>
-              <h1 className="text-3xl font-bold font-anton text-[#1A2E05] uppercase tracking-wide">
+              <h1 className="text-3xl font-bold font-anton text-fg uppercase tracking-wide">
                 Link Cryptographic Key
               </h1>
-              <p className="text-sm text-[#4D6B2A] mt-2">
+              <p className="text-sm text-fg-muted mt-2">
                 Connect your Web3 Ethereum wallet and sign a zero-cost cryptographic proof to link your identity to
-                account <span className="font-semibold text-[#1A2E05]">{user?.email || 'Authenticated User'}</span>.
+                account <span className="font-semibold text-fg">{user?.email || 'Authenticated User'}</span>.
               </p>
             </div>
 
             {/* Profile Bar */}
-            <div className="p-4 rounded-2xl bg-[#F7FBEF] border border-[#ECFCCB] flex flex-wrap items-center justify-between gap-4 mb-6">
+            <div className="p-4 rounded-2xl bg-surface-2 border border-line flex flex-wrap items-center justify-between gap-4 mb-6">
               <div>
-                <p className="text-xs text-[#4D6B2A] font-medium">Logged in via Firebase</p>
-                <p className="text-sm font-semibold text-[#1A2E05]">{user?.email}</p>
+                <p className="text-xs text-fg-muted font-medium">Logged in via Firebase</p>
+                <p className="text-sm font-semibold text-fg">{user?.email}</p>
               </div>
               <div className="flex items-center space-x-2">
-                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#ECFCCB] text-[#4D6B2A] uppercase tracking-wider">
+                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-primary-soft text-primary uppercase tracking-wider">
                   Persona: {account?.persona || 'HOLDER'}
                 </span>
                 {isDemoUser && (
-                  <span className="text-xs font-semibold px-2 py-1 rounded-full bg-[#84CC16] text-[#1A2E05]">
+                  <span className="text-xs font-semibold px-2 py-1 rounded-full bg-primary text-on-primary font-bold">
                     Demo Profile
                   </span>
                 )}
@@ -291,24 +291,24 @@ export default function ConnectWallet() {
 
             {/* Mismatch Warning */}
             {isMismatch && (
-              <div className="mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-sm">
+              <div className="mb-6 p-4 rounded-2xl bg-status-warning/10 border border-status-warning/30 text-status-warning text-sm">
                 <div className="flex items-start space-x-3">
-                  <ShieldAlert className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                  <ShieldAlert className="w-5 h-5 text-status-warning shrink-0 mt-0.5" />
                   <div className="flex-1">
-                    <p className="font-bold text-amber-900">Wallet Mismatch Detected</p>
-                    <p className="text-xs text-amber-800 mt-1">
+                    <p className="font-bold text-fg">Wallet Mismatch Detected</p>
+                    <p className="text-xs text-fg-muted mt-1">
                       This Bharosa account is linked to wallet{' '}
-                      <span className="font-mono font-semibold">{account?.walletAddress}</span>, but your browser is
-                      currently connected with <span className="font-mono font-semibold">{address}</span>.
+                      <span className="font-mono font-semibold text-fg">{account?.walletAddress}</span>, but your browser is
+                      currently connected with <span className="font-mono font-semibold text-fg">{address}</span>.
                     </p>
                     <div className="mt-3 flex flex-wrap items-center gap-3">
-                      <p className="text-xs text-amber-800 italic">
+                      <p className="text-xs text-fg-muted italic">
                         Please switch to your linked wallet in your browser extension, or unlink to link this new one:
                       </p>
                       <button
                         onClick={handleUnlinkWallet}
                         disabled={unlinking}
-                        className="px-3 py-1.5 rounded-lg bg-amber-200 hover:bg-amber-300 text-amber-950 font-semibold text-xs transition-colors flex items-center"
+                        className="px-3 py-1.5 rounded-lg bg-status-warning/20 hover:bg-status-warning/30 text-status-warning font-semibold text-xs transition-colors flex items-center"
                       >
                         {unlinking ? <Loader2 className="w-3.5 h-3.5 animate-spin mr-1" /> : null}
                         Unlink Current Wallet
@@ -321,10 +321,10 @@ export default function ConnectWallet() {
 
             {/* Step 2: Connect Wallet Section */}
             {!isConnected ? (
-              <div className="p-8 rounded-2xl border-2 border-dashed border-[#D9F99D] bg-[#F7FBEF]/50 flex flex-col items-center text-center">
-                <Wallet className="w-12 h-12 text-[#84CC16] mb-3" />
-                <h3 className="text-lg font-bold text-[#1A2E05] mb-1">Step 2: Connect Web3 Wallet</h3>
-                <p className="text-xs text-[#4D6B2A] max-w-md mb-6">
+              <div className="p-8 rounded-2xl border-2 border-dashed border-primary/40 bg-surface-2 flex flex-col items-center text-center">
+                <Wallet className="w-12 h-12 text-primary mb-3" />
+                <h3 className="text-lg font-bold text-fg mb-1">Step 2: Connect Web3 Wallet</h3>
+                <p className="text-xs text-fg-muted max-w-md mb-6">
                   Select MetaMask, Rabby, Coinbase Wallet, or any Injected Web3 provider. Make sure you are on
                   Polygon Amoy, Hardhat Localhost, or Arbitrum Sepolia.
                 </p>
@@ -335,14 +335,14 @@ export default function ConnectWallet() {
             ) : (
               /* Step 3: Wallet Connected, Now Sign to Link */
               <div className="space-y-6">
-                <div className="p-4 rounded-2xl bg-[#FFFFFF] border border-[#ECFCCB] flex flex-wrap items-center justify-between gap-4">
+                <div className="p-4 rounded-2xl bg-surface-2 border border-line flex flex-wrap items-center justify-between gap-4">
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#84CC16]/20 text-[#65A30D] flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-xl bg-primary-soft text-primary flex items-center justify-center">
                       <Wallet className="w-5 h-5" />
                     </div>
                     <div>
-                      <p className="text-xs text-[#4D6B2A]">Connected Wallet</p>
-                      <p className="font-mono text-sm font-semibold text-[#1A2E05]">
+                      <p className="text-xs text-fg-muted">Connected Wallet</p>
+                      <p className="font-mono text-sm font-semibold text-fg">
                         {address?.slice(0, 6)}...{address?.slice(-4)}
                       </p>
                     </div>
@@ -355,14 +355,14 @@ export default function ConnectWallet() {
 
                 {/* Wrong network warning */}
                 {!isSupportedChain && (
-                  <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-between text-xs">
-                    <span className="text-amber-900 font-medium">
+                  <div className="p-4 rounded-2xl bg-status-warning/10 border border-status-warning/30 flex items-center justify-between text-xs">
+                    <span className="text-status-warning font-medium">
                       Unsupported chain (Chain ID: {currentChainId}). Please switch to Hardhat or Polygon Amoy.
                     </span>
                     {switchChain && chains.length > 0 && (
                       <button
                         onClick={() => switchChain({ chainId: chains[0].id })}
-                        className="px-3 py-1.5 bg-amber-200 hover:bg-amber-300 font-semibold rounded-lg text-amber-950 transition-colors"
+                        className="px-3 py-1.5 bg-status-warning/20 hover:bg-status-warning/30 font-semibold rounded-lg text-status-warning transition-colors"
                       >
                         Switch Network
                       </button>
@@ -372,20 +372,20 @@ export default function ConnectWallet() {
 
                 {/* State A: Wallet already linked & matched */}
                 {isWalletLinked && isAddressMatched ? (
-                  <div className="p-6 rounded-2xl bg-[#ECFCCB]/50 border border-[#84CC16] text-center">
-                    <div className="w-12 h-12 rounded-full bg-[#84CC16] text-[#1A2E05] flex items-center justify-center mx-auto mb-3">
+                  <div className="p-6 rounded-2xl bg-primary-soft border border-primary text-center">
+                    <div className="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center mx-auto mb-3">
                       <CheckCircle2 className="w-6 h-6" />
                     </div>
-                    <h3 className="text-xl font-bold font-anton text-[#1A2E05] uppercase tracking-wide">
+                    <h3 className="text-xl font-bold font-anton text-fg uppercase tracking-wide">
                       Cryptographic Key Linked!
                     </h3>
-                    <p className="text-xs text-[#4D6B2A] max-w-md mx-auto mt-1 mb-6">
+                    <p className="text-xs text-fg-muted max-w-md mx-auto mt-1 mb-6">
                       Your wallet is securely registered to your Bharosa profile. You are ready to manage or create
                       your Decentralized Identifier (DID).
                     </p>
                     <button
                       onClick={handleProceed}
-                      className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-[#84CC16] hover:bg-[#65A30D] text-[#1A2E05] font-bold text-sm transition-all shadow-sm group"
+                      className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-primary hover:bg-primary-hover text-on-primary font-bold text-sm transition-all shadow-sm group"
                     >
                       {account?.didRegistered ? 'Proceed to Dashboard' : 'Proceed to DID Onboarding'}
                       <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -393,42 +393,42 @@ export default function ConnectWallet() {
                   </div>
                 ) : (
                   /* State B: Need to Sign SIWE Message to Link */
-                  <div className="border border-[#ECFCCB] rounded-2xl p-6 bg-[#F7FBEF]">
+                  <div className="border border-line rounded-2xl p-6 bg-surface-2">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center space-x-2">
-                        <ShieldCheck className="w-5 h-5 text-[#65A30D]" />
-                        <h4 className="text-sm font-bold text-[#1A2E05]">Anti-Phishing SIWE Verification</h4>
+                        <ShieldCheck className="w-5 h-5 text-primary" />
+                        <h4 className="text-sm font-bold text-fg">Anti-Phishing SIWE Verification</h4>
                       </div>
-                      <span className="text-[11px] font-mono bg-[#ECFCCB] text-[#4D6B2A] px-2 py-0.5 rounded">
+                      <span className="text-[11px] font-mono bg-primary-soft text-primary px-2 py-0.5 rounded">
                         EIP-4361 Proof
                       </span>
                     </div>
 
-                    <div className="p-3 bg-[#FFFFFF] border border-[#ECFCCB] rounded-xl font-mono text-[11px] text-[#4D6B2A] space-y-1 mb-6">
+                    <div className="p-3 bg-surface border border-line rounded-xl font-mono text-[11px] text-fg-muted space-y-1 mb-6">
                       <p>
-                        <strong className="text-[#1A2E05]">Domain:</strong> {window.location.host}
+                        <strong className="text-fg">Domain:</strong> {window.location.host}
                       </p>
                       <p>
-                        <strong className="text-[#1A2E05]">Address:</strong> {address}
+                        <strong className="text-fg">Address:</strong> {address}
                       </p>
                       <p>
-                        <strong className="text-[#1A2E05]">Statement:</strong> Sign in to Bharosa: Trust, Owned by You.
+                        <strong className="text-fg">Statement:</strong> Sign in to Bharosa: Trust, Owned by You.
                       </p>
                       <p>
-                        <strong className="text-[#1A2E05]">Chain ID:</strong> {currentChainId}
+                        <strong className="text-fg">Chain ID:</strong> {currentChainId}
                       </p>
                       <p>
-                        <strong className="text-[#1A2E05]">Nonce:</strong> {nonce || 'Generating...'}
+                        <strong className="text-fg">Nonce:</strong> {nonce || 'Generating...'}
                       </p>
                       <p>
-                        <strong className="text-[#1A2E05]">Cost:</strong> 0 gas (Off-chain digital signature)
+                        <strong className="text-fg">Cost:</strong> 0 gas (Off-chain digital signature)
                       </p>
                     </div>
 
                     <button
                       onClick={handleLinkWallet}
                       disabled={signing || !address}
-                      className="w-full py-3.5 px-4 rounded-xl bg-[#84CC16] hover:bg-[#65A30D] text-[#1A2E05] font-bold text-sm transition-all shadow-sm flex items-center justify-center disabled:opacity-50"
+                      className="w-full py-3.5 px-4 rounded-xl bg-primary hover:bg-primary-hover text-on-primary font-bold text-sm transition-all shadow-sm flex items-center justify-center disabled:opacity-50"
                     >
                       {signing ? (
                         <>
@@ -450,7 +450,7 @@ export default function ConnectWallet() {
         </main>
 
         {/* Footer info */}
-        <footer className="max-w-3xl w-full mx-auto text-center py-4 text-xs text-[#4D6B2A]">
+        <footer className="max-w-3xl w-full mx-auto text-center py-4 text-xs text-fg-muted">
           Bharosa Decentralized Identity Protocol &bull; Zero-Knowledge Cryptography &bull; Polygon Amoy
         </footer>
       </div>

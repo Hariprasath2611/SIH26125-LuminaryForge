@@ -31,24 +31,24 @@ export function WalletChip() {
       <div className="flex items-center space-x-1.5">
         <div
           onClick={copyAddress}
-          className="cursor-pointer group flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-[#ECFCCB] border border-[#84CC16] hover:bg-[#D9F99D] text-[#1A2E05] text-xs transition-all shadow-xs"
+          className="cursor-pointer group flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-primary-soft border border-primary/30 hover:bg-primary-soft/80 text-fg text-xs transition-all shadow-xs"
           title={`Click to copy demo signer address (${demoAddr})`}
         >
           <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#84CC16] opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#65A30D]"></span>
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
           </span>
           <span className="font-bold flex items-center gap-1 text-[11px]">
-            <Sparkles className="w-3 h-3 text-[#65A30D] fill-[#84CC16]" />
+            <Sparkles className="w-3 h-3 text-primary fill-primary" />
             Demo Wallet: {demoName.split(' ')[0]}
           </span>
-          <span className="hidden sm:inline font-mono text-[10px] text-[#4D6B2A]">
+          <span className="hidden sm:inline font-mono text-[10px] text-fg-muted">
             ({demoAddr ? `${demoAddr.slice(0, 4)}...${demoAddr.slice(-3)}` : ''})
           </span>
           {copied ? (
-            <Check className="w-3 h-3 text-[#65A30D]" />
+            <Check className="w-3 h-3 text-primary" />
           ) : (
-            <Copy className="w-3 h-3 text-[#4D6B2A] group-hover:text-[#1A2E05] transition-colors" />
+            <Copy className="w-3 h-3 text-fg-muted group-hover:text-fg transition-colors" />
           )}
         </div>
       </div>
@@ -59,7 +59,7 @@ export function WalletChip() {
     return (
       <button
         onClick={openConnectModal}
-        className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-xl bg-[#84CC16] hover:bg-[#65A30D] text-[#1A2E05] font-semibold text-xs transition-all shadow-sm"
+        className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-xl bg-primary hover:bg-primary-hover text-on-primary font-semibold text-xs transition-all shadow-sm"
       >
         <Wallet className="w-3.5 h-3.5" />
         <span>Connect Wallet</span>
@@ -76,19 +76,19 @@ export function WalletChip() {
       <div className="relative">
         <button
           onClick={() => setNetworkDropdown((prev) => !prev)}
-          className="inline-flex items-center space-x-1 px-2.5 py-1.5 rounded-xl bg-[#ECFCCB] hover:bg-[#D9F99D] text-[#1A2E05] text-xs font-medium border border-[#D9F99D] transition-colors"
+          className="inline-flex items-center space-x-1 px-2.5 py-1.5 rounded-xl bg-surface-2 hover:bg-surface-3 text-fg text-xs font-medium border border-line transition-colors"
           title="Switch Network"
         >
-          <Network className="w-3 h-3 text-[#65A30D]" />
+          <Network className="w-3 h-3 text-primary" />
           <span className="hidden sm:inline max-w-[80px] truncate">{chainName}</span>
-          <ChevronDown className="w-3 h-3 text-[#4D6B2A]" />
+          <ChevronDown className="w-3 h-3 text-fg-muted" />
         </button>
 
         {networkDropdown && (
           <>
             <div className="fixed inset-0 z-40" onClick={() => setNetworkDropdown(false)} />
-            <div className="absolute right-0 mt-2 w-48 bg-[#FFFFFF] border border-[#ECFCCB] rounded-xl shadow-lg p-1.5 z-50 animate-in fade-in zoom-in-95 duration-100">
-              <div className="px-2 py-1 text-[10px] font-bold text-[#65A30D] uppercase tracking-wider">
+            <div className="absolute right-0 mt-2 w-48 bg-surface border border-line rounded-xl shadow-lg p-1.5 z-50 animate-in fade-in zoom-in-95 duration-100 transition-colors">
+              <div className="px-2 py-1 text-[10px] font-bold text-primary uppercase tracking-wider">
                 Select Network
               </div>
               {chains.map((chain) => (
@@ -100,12 +100,12 @@ export function WalletChip() {
                   }}
                   className={`w-full flex items-center justify-between px-2.5 py-1.5 text-xs rounded-lg transition-colors ${
                     chain.id === chainId
-                      ? 'bg-[#ECFCCB] font-bold text-[#1A2E05]'
-                      : 'text-[#4D6B2A] hover:bg-[#F7FBEF] hover:text-[#1A2E05]'
+                      ? 'bg-primary-soft font-bold text-fg'
+                      : 'text-fg-muted hover:bg-surface-2 hover:text-fg'
                   }`}
                 >
                   <span className="truncate">{chain.name}</span>
-                  {chain.id === chainId && <Check className="w-3 h-3 text-[#65A30D]" />}
+                  {chain.id === chainId && <Check className="w-3 h-3 text-primary" />}
                 </button>
               ))}
             </div>
@@ -116,20 +116,20 @@ export function WalletChip() {
       {/* Address Chip */}
       <div
         onClick={copyAddress}
-        className="cursor-pointer group flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-[#FFFFFF] border border-[#ECFCCB] hover:border-[#84CC16] text-[#1A2E05] text-xs font-mono transition-all shadow-xs"
+        className="cursor-pointer group flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-surface border border-line hover:border-primary text-fg text-xs font-mono transition-all shadow-xs"
         title="Click to copy address"
       >
         <span className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#84CC16] opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-[#65A30D]"></span>
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
         </span>
         <span className="font-semibold">
           {address.slice(0, 6)}...{address.slice(-4)}
         </span>
         {copied ? (
-          <Check className="w-3.5 h-3.5 text-[#65A30D]" />
+          <Check className="w-3.5 h-3.5 text-primary" />
         ) : (
-          <Copy className="w-3.5 h-3.5 text-[#4D6B2A] group-hover:text-[#1A2E05] transition-colors" />
+          <Copy className="w-3.5 h-3.5 text-fg-muted group-hover:text-fg transition-colors" />
         )}
       </div>
     </div>

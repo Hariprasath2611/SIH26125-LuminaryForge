@@ -58,22 +58,22 @@ export function NotificationsBell() {
     <div className="relative" ref={bellRef}>
       <button
         onClick={() => setOpen((prev) => !prev)}
-        className="relative p-2 rounded-xl text-[#4D6B2A] hover:text-[#1A2E05] hover:bg-[#ECFCCB] transition-colors"
+        className="relative p-2 rounded-xl text-fg-muted hover:text-fg hover:bg-surface-2 transition-colors"
         aria-label="Notifications"
       >
         <Bell className="w-4 h-4" />
         {unreadCount > 0 && (
-          <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#84CC16] ring-2 ring-[#FFFFFF]" />
+          <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary ring-2 ring-surface" />
         )}
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-2 w-80 bg-[#FFFFFF] border border-[#ECFCCB] rounded-2xl shadow-xl p-3 z-50 animate-in fade-in zoom-in-95 duration-100">
-          <div className="flex items-center justify-between pb-2 border-b border-[#F7FBEF]">
+        <div className="absolute right-0 mt-2 w-80 bg-surface border border-line rounded-2xl shadow-xl p-3 z-50 animate-in fade-in zoom-in-95 duration-100 transition-colors">
+          <div className="flex items-center justify-between pb-2 border-b border-line">
             <div className="flex items-center space-x-1.5">
-              <span className="text-xs font-bold text-[#1A2E05]">Activity & Alerts</span>
+              <span className="text-xs font-bold text-fg">Activity & Alerts</span>
               {unreadCount > 0 && (
-                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-[#ECFCCB] text-[#65A30D]">
+                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-primary-soft text-primary">
                   {unreadCount}
                 </span>
               )}
@@ -81,16 +81,16 @@ export function NotificationsBell() {
             {notifications.length > 0 && (
               <button
                 onClick={clearAll}
-                className="text-[11px] text-[#65A30D] hover:underline font-medium"
+                className="text-[11px] text-primary hover:underline font-medium"
               >
                 Clear
               </button>
             )}
           </div>
 
-          <div className="max-h-72 overflow-y-auto py-2 divide-y divide-[#F7FBEF]">
+          <div className="max-h-72 overflow-y-auto py-2 divide-y divide-line">
             {notifications.length === 0 ? (
-              <div className="text-center py-6 text-xs text-[#4D6B2A]">
+              <div className="text-center py-6 text-xs text-fg-muted">
                 No new notifications
               </div>
             ) : (
@@ -98,18 +98,18 @@ export function NotificationsBell() {
                 <div key={n.id} className="py-2.5 px-1 first:pt-1 last:pb-1">
                   <div className="flex items-start space-x-2.5">
                     {n.type === 'relayer' ? (
-                      <div className="w-6 h-6 rounded-lg bg-[#ECFCCB] text-[#65A30D] flex items-center justify-center shrink-0 mt-0.5">
-                        <Zap className="w-3.5 h-3.5 fill-[#84CC16]" />
+                      <div className="w-6 h-6 rounded-lg bg-primary-soft text-primary flex items-center justify-center shrink-0 mt-0.5">
+                        <Zap className="w-3.5 h-3.5 fill-primary" />
                       </div>
                     ) : (
-                      <div className="w-6 h-6 rounded-lg bg-[#ECFCCB] text-[#65A30D] flex items-center justify-center shrink-0 mt-0.5">
+                      <div className="w-6 h-6 rounded-lg bg-primary-soft text-primary flex items-center justify-center shrink-0 mt-0.5">
                         <ShieldCheck className="w-3.5 h-3.5" />
                       </div>
                     )}
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs font-semibold text-[#1A2E05] truncate">{n.title}</p>
-                      <p className="text-[11px] text-[#4D6B2A] mt-0.5 leading-relaxed">{n.desc}</p>
-                      <span className="text-[10px] text-stone-400 mt-1 block">{n.time}</span>
+                      <p className="text-xs font-semibold text-fg truncate">{n.title}</p>
+                      <p className="text-[11px] text-fg-muted mt-0.5 leading-relaxed">{n.desc}</p>
+                      <span className="text-[10px] text-fg-subtle mt-1 block">{n.time}</span>
                     </div>
                   </div>
                 </div>
