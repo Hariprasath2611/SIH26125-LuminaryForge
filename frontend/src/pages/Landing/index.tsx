@@ -46,6 +46,25 @@ export function LandingPage() {
     };
   }, []);
 
+  // Handle cross-page hash navigation (e.g. from /login to /#about)
+  useEffect(() => {
+    if (window.location.hash) {
+      const id = window.location.hash.replace('#', '');
+      const el = document.getElementById(id);
+      if (el) {
+        setTimeout(() => {
+          const navOffset = 80;
+          const elementPosition = el.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth',
+          });
+        }, 150);
+      }
+    }
+  }, []);
+
   return (
     <div className="w-full bg-[#FFFFFF] text-[#1A2E05] min-h-screen flex flex-col font-['Plus_Jakarta_Sans',sans-serif]">
       <PageMeta
