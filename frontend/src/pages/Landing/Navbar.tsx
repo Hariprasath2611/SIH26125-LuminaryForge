@@ -15,14 +15,28 @@ const NAV_ITEMS = [
 
 export function LandingNavbar({ activeSection }: LandingNavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalHeight > 0) {
+        const progress = Math.min(100, Math.max(0, (window.scrollY / totalHeight) * 100));
+        setScrollProgress(progress);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const scrollToSection = (id: string) => {
     setMobileMenuOpen(false);
     const element = document.getElementById(id);
     if (element) {
+      const navOffset = 80;
       const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset;
+      const offsetPosition = elementPosition + window.pageYOffset - navOffset;
       window.scrollTo({
         top: offsetPosition,
         behavior: 'smooth',
@@ -31,7 +45,7 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
   };
 
   return (
-    <header className="relative z-20 w-full bg-white border-b border-[#D9EBB5]">
+    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-[#D9EBB5] shadow-xs">
       <div className="max-w-[1160px] mx-auto px-6 sm:px-8 flex items-center justify-between h-[72px]">
         {/* Brand Logo & Name */}
         <a
@@ -69,7 +83,7 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
               strokeLinejoin="round"
             />
           </svg>
-          <span>Bharosa</span>
+          <span className="font-extrabold tracking-tight">Bharosa</span>
         </a>
 
         {/* Center Desktop Links */}
@@ -78,9 +92,9 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className={`cursor-pointer transition-colors ${
+              className={`cursor-pointer transition-colors duration-150 py-1 ${
                 activeSection === item.id
-                  ? 'text-[#4D7C0F]'
+                  ? 'text-[#4D7C0F] border-b-2 border-[#84CC16]'
                   : 'text-[#1A2E05] hover:text-[#4D7C0F]'
               }`}
             >
@@ -91,10 +105,7 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
 
         {/* Right CTA Button */}
         <div className="hidden sm:flex items-center">
-          <Link
-            to="/app"
-            className="btn-landing-primary"
-          >
+          <Link to="/app" className="btn-landing-primary">
             Launch App
           </Link>
         </div>
@@ -117,17 +128,21 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
         </div>
       </div>
 
+      {/* Top Scroll Indicator Progress Bar */}
+      <div
+        className="h-[3px] bg-[#84CC16] transition-all duration-75"
+        style={{ width: `${scrollProgress}%` }}
+      />
+
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-[#D9EBB5] px-6 py-4 space-y-3 animate-in slide-in-from-top-2 duration-150">
+        <div className="md:hidden bg-white border-b border-[#D9EBB5] px-6 py-4 space-y-3 animate-in slide-in-from-top-2 duration-150 shadow-md">
           {NAV_ITEMS.map((item) => (
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
               className={`w-full text-left py-2 font-bold text-lg cursor-pointer ${
-                activeSection === item.id
-                  ? 'text-[#4D7C0F]'
-                  : 'text-[#1A2E05]'
+                activeSection === item.id ? 'text-[#4D7C0F]' : 'text-[#1A2E05]'
               }`}
             >
               {item.label}
