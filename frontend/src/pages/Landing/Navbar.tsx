@@ -34,9 +34,8 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
     setMobileMenuOpen(false);
     const element = document.getElementById(id);
     if (element) {
-      const navOffset = 76;
       const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+      const offsetPosition = elementPosition + window.pageYOffset;
       window.scrollTo({
         top: offsetPosition,
         behavior: 'smooth',
@@ -45,7 +44,7 @@ export function LandingNavbar({ activeSection }: LandingNavbarProps) {
   };
 
   return (
-    <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#D9EBB5] transition-all">
+    <header className="relative z-20 w-full bg-white border-b border-[#D9EBB5]">
       <div className="max-w-[1160px] mx-auto px-6 sm:px-8 flex items-center justify-between h-[72px]">
         {/* Brand Logo & Name */}
         <a
