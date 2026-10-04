@@ -6,7 +6,7 @@ export const CONTRACT_ABIS = contractsData.abis;
 export const CHAIN_ID = contractsData.chainId;
 
 export const IdentityRegistryABI = contractsData.abis.IdentityRegistry;
-export const BharosaAccessControlABI = contractsData.abis.AccessControl;
+export const BharosaAccessControlABI = contractsData.abis.BharosaAccessControl;
 export const OwnershipRegistryABI = contractsData.abis.OwnershipRegistry;
 export const SocialRecoveryABI = contractsData.abis.SocialRecovery;
 export const AuditAnchorABI = contractsData.abis.AuditAnchor;
