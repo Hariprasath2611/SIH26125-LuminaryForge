@@ -2,6 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './styles/globals.css';
+import { EventEmitter } from 'events';
+
+// Increase default listener ceiling for web3 and wallet provider events
+if (typeof EventEmitter !== 'undefined' && typeof (EventEmitter as any).defaultMaxListeners === 'number') {
+  (EventEmitter as any).defaultMaxListeners = 100;
+}
 
 // Self-hosted typography
 import '@fontsource/inter/400.css';
