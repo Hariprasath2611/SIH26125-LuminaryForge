@@ -4,4 +4,13 @@ import contractsData from './contracts.json';
 export const DEPLOYED_ADDRESSES = contractsData.addresses;
 export const CONTRACT_ABIS = contractsData.abis;
 export const CHAIN_ID = contractsData.chainId;
+
+export const IdentityRegistryABI = contractsData.abis.IdentityRegistry;
+export const BharosaAccessControlABI = contractsData.abis.BharosaAccessControl;
+export const OwnershipRegistryABI = contractsData.abis.OwnershipRegistry;
+export const SocialRecoveryABI = contractsData.abis.SocialRecovery;
+export const AuditAnchorABI = contractsData.abis.AuditAnchor;
+export const ZKCredentialVerifierABI = contractsData.abis.ZKCredentialVerifier;
+export const MockGroth16VerifierABI = contractsData.abis.MockGroth16Verifier;
+
 export default contractsData;
