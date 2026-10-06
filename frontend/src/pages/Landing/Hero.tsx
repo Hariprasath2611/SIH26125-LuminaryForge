@@ -137,7 +137,7 @@ export function Hero() {
           <div className="flex-[1_1_460px] max-w-[620px]">
             {/* Eyebrow Pill */}
             <div className="in-anim inline-block bg-[#ECFCCB] border border-[#D9EBB5] rounded-full px-5 py-1.5 font-bold text-xs sm:text-sm text-[#1A2E05] mb-4 sm:mb-5 shadow-2xs">
-                 BHAROSA
+              BHAROSA
             </div>
 
             {/* Main Title with spacious, comfortable word and letter spacing */}
