@@ -14,7 +14,21 @@ const asset_routes_1 = __importDefault(require("./routes/asset.routes"));
 const access_routes_1 = __importDefault(require("./routes/access.routes"));
 const relayer_routes_1 = __importDefault(require("./routes/relayer.routes"));
 const security_routes_1 = __importDefault(require("./routes/security.routes"));
+const demo_routes_1 = __importDefault(require("./routes/demo.routes"));
+const copilot_routes_1 = __importDefault(require("./copilot/copilot.routes"));
 const env_1 = require("./config/env");
+// Safety Check: Fail to boot if DEMO_MODE is on while chainId is mainnet
+const MAINNET_CHAIN_IDS = [1, 10, 56, 137, 8453, 42161];
+if (env_1.env.DEMO_MODE) {
+    if (MAINNET_CHAIN_IDS.includes(Number(env_1.env.CHAIN_ID))) {
+        console.error(`[CRITICAL SECURITY] DEMO_MODE cannot be enabled on mainnet chain ID ${env_1.env.CHAIN_ID}! Refusing to start.`);
+        process.exit(1);
+    }
+    if (process.env.NODE_ENV === 'production' && process.env.ALLOW_DEMO_IN_PRODUCTION !== 'true') {
+        console.error(`[CRITICAL SECURITY] DEMO_MODE in production requires explicit ALLOW_DEMO_IN_PRODUCTION=true! Refusing to start.`);
+        process.exit(1);
+    }
+}
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 // Graceful JSON serialization for BigInt (Prisma & Blockchain block numbers)
@@ -22,20 +36,29 @@ BigInt.prototype.toJSON = function () {
     return this.toString();
 };
 const app = (0, express_1.default)();
-const port = env_1.env.PORT;
+const port = env_1.env.PORT || 4000;
 app.use((0, helmet_1.default)({
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
-            scriptSrc: ["'self'", "'wasm-unsafe-eval'"],
-            styleSrc: ["'self'", "'unsafe-inline'"],
+            scriptSrc: [
+                "'self'",
+                "'unsafe-inline'",
+                "'wasm-unsafe-eval'",
+                'https://www.googletagmanager.com',
+                'https://apis.google.com',
+            ],
+            styleSrc: ["'self'", "'unsafe-inline'", 'https:'],
+            fontSrc: ["'self'", 'data:', 'https:'],
             imgSrc: ["'self'", 'data:', 'blob:', 'https:', 'ipfs:'],
             connectSrc: ["'self'", 'http:', 'https:', 'ws:', 'wss:'],
+            frameSrc: ["'self'", 'https://*.firebaseapp.com', 'https://accounts.google.com'],
             workerSrc: ["'self'", 'blob:'],
             frameAncestors: ["'none'"],
         },
     },
     crossOriginEmbedderPolicy: false,
+    crossOriginOpenerPolicy: { policy: 'same-origin-allow-popups' },
     referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
     hsts: { maxAge: 31536000, includeSubDomains: true, preload: true },
 }));
@@ -83,6 +106,10 @@ app.use(`${env_1.env.API_PREFIX}/assets`, asset_routes_1.default);
 app.use(`${env_1.env.API_PREFIX}/access`, access_routes_1.default);
 app.use(`${env_1.env.API_PREFIX}/relayer`, relayer_routes_1.default);
 app.use(`${env_1.env.API_PREFIX}/security`, security_routes_1.default);
+app.use(`${env_1.env.API_PREFIX}/copilot`, copilot_routes_1.default);
+if (env_1.env.DEMO_MODE) {
+    app.use(`${env_1.env.API_PREFIX}/demo`, demo_routes_1.default);
+}
 app.use(`${env_1.env.API_PREFIX}`, audit_routes_1.default); // mounts /v1/dids/:id and /v1/stats
 app.get(`${env_1.env.API_PREFIX}/me`, auth_routes_1.default);
 // Optional Frontend Static Hosting with SPA Fallback (when SERVE_FRONTEND=true)

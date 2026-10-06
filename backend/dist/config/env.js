@@ -29,5 +29,9 @@ const envSchema = zod_1.z.object({
     RELAYER_PRIVATE_KEY: zod_1.z.string().default('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80'),
     PINATA_JWT: zod_1.z.string().optional(),
     SERVE_FRONTEND: zod_1.z.preprocess((val) => val === 'true' || val === true, zod_1.z.boolean()).default(false),
+    FIREBASE_PROJECT_ID: zod_1.z.string().default('bharosa-demo'),
+    FIREBASE_CLIENT_EMAIL: zod_1.z.string().optional(),
+    FIREBASE_PRIVATE_KEY: zod_1.z.string().optional(),
+    FIREBASE_AUTH_EMULATOR_HOST: zod_1.z.string().optional(),
 });
 exports.env = envSchema.parse(process.env);
