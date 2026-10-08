@@ -57,7 +57,7 @@ export function LandingNavbar({ activeSection = '' }: LandingNavbarProps) {
         {/* Brand Logo & Name */}
         <button
           onClick={() => handleNavClick('home')}
-          className="flex items-center gap-2.5 font-extrabold text-[26px] tracking-tight text-[#1A2E05] hover:opacity-90 transition-opacity cursor-pointer"
+          className="flex items-center gap-2.5 font-extrabold text-[26px] tracking-wide text-[#1A2E05] hover:opacity-90 transition-opacity cursor-pointer"
         >
           <svg
             viewBox="0 0 120 120"
@@ -86,7 +86,7 @@ export function LandingNavbar({ activeSection = '' }: LandingNavbarProps) {
               strokeLinejoin="round"
             />
           </svg>
-          <span className="font-extrabold tracking-tight">Bharosa</span>
+          <span className="font-extrabold tracking-wide">Bharosa</span>
         </button>
 
         {/* Center Desktop Links */}
