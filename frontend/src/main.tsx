@@ -8,6 +8,11 @@ import { EventEmitter } from 'events';
 if (typeof EventEmitter !== 'undefined' && typeof (EventEmitter as any).defaultMaxListeners === 'number') {
   (EventEmitter as any).defaultMaxListeners = 100;
 }
+if (typeof window !== 'undefined' && (window as any).ethereum) {
+  try {
+    (window as any).ethereum.setMaxListeners?.(100);
+  } catch (_) {}
+}
 
 // Self-hosted typography
 import '@fontsource/inter/400.css';

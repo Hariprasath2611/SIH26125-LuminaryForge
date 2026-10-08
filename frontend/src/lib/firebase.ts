@@ -17,12 +17,14 @@ export const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 
-// Safe browser analytics initialization
+// Safe browser analytics initialization (only in production with support check)
 export let analytics: ReturnType<typeof getAnalytics> | null = null;
-if (typeof window !== 'undefined') {
+if (typeof window !== 'undefined' && import.meta.env.PROD) {
   isSupported().then((supported) => {
     if (supported) {
-      analytics = getAnalytics(app);
+      try {
+        analytics = getAnalytics(app);
+      } catch (_) {}
     }
   }).catch(() => {
     // Ignore analytics unsupported environment
