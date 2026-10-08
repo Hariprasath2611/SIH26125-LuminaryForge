@@ -142,10 +142,10 @@ export function Hero() {
 
             {/* Main Title with spacious, comfortable word and letter spacing */}
             <h1
-              className="in-anim font-extrabold text-[38px] sm:text-[50px] lg:text-[62px] leading-[1.14] sm:leading-[1.18] tracking-tight text-[#1A2E05] mb-5 sm:mb-6"
+              className="in-anim font-extrabold text-[38px] sm:text-[50px] lg:text-[62px] leading-[1.14] sm:leading-[1.18] tracking-[0.05em] [word-spacing:0.12em] text-[#1A2E05] mb-5 sm:mb-6"
               style={{ animationDelay: '0.12s' }}
             >
-              <span className="block mb-2 sm:mb-2.5">Trust, owned</span>
+              <span className="block mb-2 sm:mb-2.5 tracking-[0.05em] [word-spacing:0.12em]">Trust, owned</span>
               <span className="inline-flex items-center justify-center bg-[#84CC16] text-[#1A2E05] px-5 sm:px-7 lg:px-8 py-2 sm:py-2.5 lg:py-3 rounded-2xl sm:rounded-3xl text-[28px] sm:text-[38px] lg:text-[44px] font-extrabold tracking-wide shadow-sm leading-none">
                 by&nbsp;you.
               </span>

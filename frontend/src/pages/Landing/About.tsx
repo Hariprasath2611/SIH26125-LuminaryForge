@@ -49,7 +49,7 @@ export function About() {
         {/* About Header */}
         <div className="max-w-[720px] mb-14">
           <span className="eb">About</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-[44px] leading-[1.22] sm:leading-[1.26] tracking-tight font-extrabold text-[#1A2E05] mt-2 mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-[44px] leading-[1.22] sm:leading-[1.26] tracking-[0.04em] [word-spacing:0.08em] font-extrabold text-[#1A2E05] mt-2 mb-6">
             Identity today is broken.
           </h2>
           <p className="text-lg sm:text-[19px] text-[#3F5A1E] leading-relaxed">
@@ -71,7 +71,7 @@ export function About() {
         {/* How It Works Header */}
         <div className="mt-24 mb-12">
           <span className="eb">How it works</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-[44px] leading-[1.22] sm:leading-[1.26] tracking-tight font-extrabold text-[#1A2E05] mt-2 mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-[44px] leading-[1.22] sm:leading-[1.26] tracking-[0.04em] [word-spacing:0.08em] font-extrabold text-[#1A2E05] mt-2 mb-4">
             Four steps. No middlemen.
           </h2>
         </div>

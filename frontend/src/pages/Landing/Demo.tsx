@@ -35,7 +35,7 @@ export function Demo() {
         {/* Left Column: Flow Timeline */}
         <div className="flex-[1_1_400px] max-w-[520px]">
           <span className="eb">See it in action</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-[44px] leading-[1.22] sm:leading-[1.26] tracking-tight font-extrabold text-[#1A2E05] mt-2 mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-[44px] leading-[1.22] sm:leading-[1.26] tracking-[0.04em] [word-spacing:0.08em] font-extrabold text-[#1A2E05] mt-2 mb-6">
             A credential, verified in seconds.
           </h2>
           <p className="text-lg sm:text-[19px] text-[#3F5A1E] leading-relaxed mb-8 max-w-lg font-medium">
