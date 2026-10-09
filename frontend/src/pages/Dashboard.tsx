@@ -92,10 +92,10 @@ export function DashboardPage() {
       {/* 1. Greeting Row */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-[32px] font-extrabold text-[#1A2E05] tracking-tight leading-tight">
+          <h1 className="text-2xl sm:text-[30px] font-extrabold text-[#1A2E05] tracking-tight leading-snug">
             Welcome back, {userFirstName}
           </h1>
-          <p className="text-sm sm:text-base text-stone-600 mt-1 font-medium">
+          <p className="text-sm sm:text-base text-stone-600 mt-1.5 font-medium leading-relaxed">
             You own your identity. {requestStatus === 'pending' ? 'One access request is waiting for your decision.' : 'All pending requests have been resolved.'}
           </p>
         </div>

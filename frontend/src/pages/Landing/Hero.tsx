@@ -142,7 +142,7 @@ export function Hero() {
 
             {/* Main Title with spacious, comfortable word and letter spacing */}
             <h1
-              className="in-anim font-extrabold text-[38px] sm:text-[50px] lg:text-[62px] leading-[1.14] sm:leading-[1.18] tracking-[0.05em] [word-spacing:0.12em] text-[#1A2E05] mb-5 sm:mb-6"
+              className="in-anim font-anton font-extrabold text-[38px] sm:text-[50px] lg:text-[62px] leading-[1.14] sm:leading-[1.18] tracking-[0.05em] [word-spacing:0.12em] text-[#1A2E05] mb-5 sm:mb-6"
               style={{ animationDelay: '0.12s' }}
             >
               <span className="block mb-2 sm:mb-2.5 tracking-[0.05em] [word-spacing:0.12em]">Trust, owned</span>
