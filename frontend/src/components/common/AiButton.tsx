@@ -76,7 +76,7 @@ export const AiButton = React.forwardRef<HTMLButtonElement, AiButtonProps>(
               <i className="cr" />
             </span>
           )}
-          {badgeText && <span className="chip">{badgeText}</span>}
+          {badgeText && <span className="chip ai-chip">{badgeText}</span>}
         </span>
       </button>
     );

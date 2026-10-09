@@ -6,7 +6,7 @@
   inherits: false;
 }
 
-/* Floating Copilot Wrapper */
+/* Floating Copilot Root Container */
 .ab {
   --tray: #ffffff;
   --tx: #1A2E05;
@@ -24,7 +24,7 @@
   --page: #ffffff;
   --o: bottom right;
   position: fixed;
-  z-index: 50;
+  z-index: 9999;
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   color: var(--tx);
   user-select: none;
@@ -52,25 +52,25 @@
   display: none !important;
 }
 
-/* Default Corner Positions */
+/* Corner Positions */
 .ab[data-corner="br"] {
-  right: 24px;
-  bottom: 24px;
+  right: 28px;
+  bottom: 28px;
   --o: bottom right;
 }
 .ab[data-corner="bl"] {
-  left: 24px;
-  bottom: 24px;
+  left: 28px;
+  bottom: 28px;
   --o: bottom left;
 }
 .ab[data-corner="tl"] {
-  left: 24px;
-  top: 24px;
+  left: 28px;
+  top: 28px;
   --o: top left;
 }
 .ab[data-corner="tr"] {
-  right: 24px;
-  top: 24px;
+  right: 28px;
+  top: 28px;
   --o: top right;
 }
 
@@ -115,7 +115,7 @@
 }
 
 /* Inner Pill */
-.in {
+.ai .in {
   position: relative;
   overflow: hidden;
   display: flex;
@@ -128,7 +128,7 @@
   box-sizing: border-box;
 }
 
-.in::after {
+.ai .in::after {
   content: '';
   position: absolute;
   top: 0;
@@ -142,20 +142,20 @@
 }
 
 /* Hexagon Icon Badge */
-.ic {
+.ai .ic {
   position: relative;
   flex: 0 0 auto;
   width: 40px;
   height: 40px;
 }
 
-.ic svg {
+.ai .ic svg {
   display: block;
   overflow: visible;
 }
 
 /* Dual Pulsing Radar Rings */
-.pg {
+.ai .pg {
   fill: none;
   stroke: #1A2E05;
   stroke-width: 1.5;
@@ -164,19 +164,19 @@
   animation: ai-ping 2.8s ease-out infinite;
 }
 
-.pg2 {
+.ai .pg2 {
   animation-delay: 1.4s;
 }
 
 /* 4-point Sparkle Stars */
-.sp {
+.ai .sp {
   fill: #BEF264;
   transform-box: fill-box;
   transform-origin: center;
   animation: ai-twinkle 2.6s ease-in-out infinite;
 }
 
-.sp2 {
+.ai .sp2 {
   fill: #BEF264;
   transform-box: fill-box;
   transform-origin: center;
@@ -184,7 +184,7 @@
 }
 
 /* Label */
-.lbl {
+.ai .lbl {
   position: relative;
   font-weight: 800;
   font-size: 17px;
@@ -195,7 +195,7 @@
 }
 
 /* Expandable Typing Prompt */
-.more {
+.ai .more {
   display: flex;
   align-items: center;
   gap: 2px;
@@ -217,7 +217,7 @@
 }
 
 /* Blinking Cursor */
-.cr {
+.ai .cr {
   display: inline-block;
   width: 2px;
   height: 18px;
@@ -226,27 +226,32 @@
   animation: ai-blink 1s steps(1) infinite;
 }
 
-/* Chip */
-.chip {
-  position: relative;
-  background: #1A2E05;
-  color: #BEF264;
-  border-radius: 999px;
-  padding: 3px 10px;
-  font-weight: 800;
-  font-size: 12px;
-  letter-spacing: 0.5px;
-  line-height: 1.2;
+/* Pill Chip (scoped to avoid global .chip collision) */
+.ai .chip,
+.ai .ai-chip {
+  position: relative !important;
+  background: #1A2E05 !important;
+  color: #BEF264 !important;
+  border-radius: 999px !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  animation: none !important;
+  padding: 3px 10px !important;
+  font-weight: 800 !important;
+  font-size: 12px !important;
+  letter-spacing: 0.5px !important;
+  line-height: 1.2 !important;
+  display: inline-block !important;
 }
 
 /* Thinking Dots */
-.dots {
+.ai .dots {
   display: none;
   gap: 4px;
   align-items: center;
 }
 
-.dots i {
+.ai .dots i {
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -254,10 +259,10 @@
   animation: ai-bounce 1s ease-in-out infinite;
 }
 
-.dots i:nth-child(2) {
+.ai .dots i:nth-child(2) {
   animation-delay: 0.15s;
 }
-.dots i:nth-child(3) {
+.ai .dots i:nth-child(3) {
   animation-delay: 0.3s;
 }
 
@@ -296,9 +301,10 @@
 .ai.ai-sm .cr {
   height: 14px;
 }
-.ai.ai-sm .chip {
-  font-size: 10px;
-  padding: 2px 7px;
+.ai.ai-sm .chip,
+.ai.ai-sm .ai-chip {
+  font-size: 10px !important;
+  padding: 2px 7px !important;
 }
 
 /* Opened State Glow */
