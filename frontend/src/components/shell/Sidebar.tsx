@@ -126,13 +126,18 @@ export function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobileOpen }: 
   const navContent = (
     <div className="flex flex-col h-full justify-between bg-white border-r border-[#E5E7EB] select-none text-[#1A2E05]">
       {/* Top Header & Navigation */}
-      <div className="flex-1 overflow-y-auto px-3.5 py-4 space-y-6">
+      <div className={`flex-1 overflow-y-auto py-4 space-y-6 ${collapsed ? 'px-2' : 'px-3.5'}`}>
         {/* Brand Header */}
-        <div className="flex items-center justify-between px-2 h-10">
-          <div className="flex items-center gap-2.5 overflow-hidden">
-            {/* Hexagonal Shield Logo Mark */}
-            <div className="w-8 h-8 rounded-lg bg-[#84CC16]/20 border border-[#84CC16]/40 flex items-center justify-center shrink-0">
-              <svg viewBox="0 0 100 100" className="w-5 h-5 text-[#65A30D]" fill="currentColor">
+        {collapsed ? (
+          <div className="flex flex-col items-center gap-2.5 w-full mb-1">
+            {/* Centered Logo Mark (Unclipped & fully visible) */}
+            <button
+              type="button"
+              onClick={() => setCollapsed(false)}
+              className="w-10 h-10 rounded-xl bg-[#84CC16]/20 border border-[#84CC16]/40 hover:bg-[#84CC16]/30 hover:scale-105 flex items-center justify-center transition-all cursor-pointer group shadow-2xs"
+              title="Bharosa · Expand sidebar"
+            >
+              <svg viewBox="0 0 100 100" className="w-6 h-6 text-[#65A30D]" fill="currentColor">
                 <polygon points="50,5 93,27 93,73 50,95 7,73 7,27" fill="#84CC16" />
                 <path
                   d="M38 52 L48 62 L66 40"
@@ -143,23 +148,51 @@ export function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobileOpen }: 
                   strokeLinejoin="round"
                 />
               </svg>
-            </div>
-            {!collapsed && (
+            </button>
+
+            {/* Desktop Expand Toggle */}
+            <button
+              type="button"
+              onClick={() => setCollapsed(false)}
+              className="hidden md:flex items-center justify-center w-7 h-7 rounded-lg text-stone-400 hover:text-[#1A2E05] hover:bg-stone-100 transition-colors cursor-pointer"
+              title="Expand sidebar"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        ) : (
+          <div className="flex items-center justify-between px-2 h-10">
+            <Link to="/dashboard" className="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
+              {/* Hexagonal Shield Logo Mark */}
+              <div className="w-9 h-9 rounded-xl bg-[#84CC16]/20 border border-[#84CC16]/40 flex items-center justify-center shrink-0">
+                <svg viewBox="0 0 100 100" className="w-5 h-5 text-[#65A30D]" fill="currentColor">
+                  <polygon points="50,5 93,27 93,73 50,95 7,73 7,27" fill="#84CC16" />
+                  <path
+                    d="M38 52 L48 62 L66 40"
+                    fill="none"
+                    stroke="#1A2E05"
+                    strokeWidth="8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
               <span className="font-extrabold text-2xl text-[#1A2E05] tracking-tight">
                 Bharosa
               </span>
-            )}
-          </div>
+            </Link>
 
-          {/* Desktop collapse toggle */}
-          <button
-            onClick={() => setCollapsed(!collapsed)}
-            className="hidden md:flex items-center justify-center w-7 h-7 rounded-lg text-stone-400 hover:text-[#1A2E05] hover:bg-stone-100 transition-colors"
-            title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-          >
-            {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
-          </button>
-        </div>
+            {/* Desktop collapse toggle */}
+            <button
+              type="button"
+              onClick={() => setCollapsed(true)}
+              className="hidden md:flex items-center justify-center w-7 h-7 rounded-lg text-stone-400 hover:text-[#1A2E05] hover:bg-stone-100 transition-colors cursor-pointer"
+              title="Collapse sidebar"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+          </div>
+        )}
 
         {/* Navigation Sections */}
         <div className="space-y-5">
