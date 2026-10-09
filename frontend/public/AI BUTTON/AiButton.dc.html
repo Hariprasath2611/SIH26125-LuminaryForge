@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ask Bharosa AI Button</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+@property --a{syntax:'<angle>';initial-value:0deg;inherits:false}
+body{margin:0;font-family:'Plus Jakarta Sans',sans-serif;color:#1A2E05}
+*{box-sizing:border-box}
+.ai{--a:0deg;display:inline-block;padding:3px;border:0;border-radius:999px;cursor:pointer;font-family:inherit;color:#1A2E05;background:conic-gradient(from var(--a),#65A30D,#ECFCCB 22%,#A3E635 45%,#65A30D 62%,#D9F99D 82%,#65A30D);transition:translate .3s cubic-bezier(.2,.9,.3,1.2);animation:pop .8s cubic-bezier(.2,1.5,.4,1) both,spin 5s linear infinite,glow 3s ease-in-out infinite}
+.ai:hover,.ai:focus-visible{translate:0 -4px;animation-duration:.8s,2s,3s;outline:none}
+.ai:focus-visible{box-shadow:0 0 0 4px #BEF264}
+.in{position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;height:54px;padding:0 18px 0 8px;border-radius:999px;background:linear-gradient(135deg,#BEF264,#84CC16 60%,#74B810)}
+.in::after{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.65),transparent);transform:skewX(-20deg);animation:sheen 4.5s ease-in-out infinite 1.2s}
+.ic{position:relative;flex:0 0 auto;width:40px;height:40px}
+.ic svg{display:block;overflow:visible}
+.pg{fill:none;stroke:#1A2E05;stroke-width:1.5;transform-box:fill-box;transform-origin:center;animation:ping 2.8s ease-out infinite}
+.pg2{animation-delay:1.4s}
+.sp{fill:#BEF264;transform-box:fill-box;transform-origin:center;animation:twinkle 2.6s ease-in-out infinite}
+.sp2{fill:#BEF264;transform-box:fill-box;transform-origin:center;animation:twinkle 2.6s ease-in-out infinite .9s}
+.lbl{position:relative;font-weight:800;font-size:17px;letter-spacing:-.2px;white-space:nowrap}
+.more{display:flex;align-items:center;gap:2px;max-width:0;opacity:0;overflow:hidden;white-space:nowrap;font-weight:600;font-size:15px;color:#2F4A0C;transition:max-width .45s cubic-bezier(.2,.9,.3,1),opacity .3s}
+.ai:hover .more,.ai:focus-visible .more,.ai[data-s=hover] .more{max-width:200px;opacity:1}
+.cr{width:2px;height:18px;background:#1A2E05;margin-left:3px;animation:blink 1s steps(1) infinite}
+.chip{position:relative;background:#1A2E05;color:#BEF264;border-radius:999px;padding:3px 10px;font-weight:800;font-size:12px;letter-spacing:.5px}
+.dots{display:none;gap:4px;align-items:center}
+.dots i{width:6px;height:6px;border-radius:50%;background:#1A2E05;animation:bounce 1s ease-in-out infinite}
+.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
+.ai[data-s=think] .dots{display:flex}
+.ai[data-s=think] .sp,.ai[data-s=think] .sp2{animation-duration:1.1s}
+.row{display:flex;align-items:center;gap:36px;padding:0 48px;height:140px;border-top:1px solid #D9EBB5}
+.tag{width:200px;flex:0 0 auto}
+@keyframes spin{to{--a:360deg}}
+@keyframes pop{from{opacity:0;transform:scale(.6) translateY(24px)}to{opacity:1;transform:none}}
+@keyframes glow{0%,100%{box-shadow:0 8px 22px rgba(132,204,22,.38)}50%{box-shadow:0 12px 36px rgba(132,204,22,.7)}}
+@keyframes sheen{0%,55%{left:-60%}100%{left:130%}}
+@keyframes ping{0%{transform:scale(1);opacity:.55}100%{transform:scale(2.1);opacity:0}}
+@keyframes twinkle{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(.72) rotate(45deg)}}
+@keyframes blink{50%{opacity:0}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div style="width: 880px; height: 420px; background-color: #F7FBEF; background-image: radial-gradient(#DDEDB8 1.5px, transparent 1.6px); background-size: 30px 30px">
+<sc-for list="{{states}}" as="s" hint-placeholder-count="3"><div class="row" style="{{s.b}}"><div class="tag"><div style="font-weight: 800; font-size: 18px">{{s.l}}</div><div style="font-weight: 500; font-size: 14px; color: #4D6B2A; margin-top: 4px; line-height: 1.4">{{s.d}}</div></div>
+<button class="ai" data-s="{{s.k}}" aria-label="Ask Bharosa, AI assistant"><span class="in"><span class="ic"><svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><polygon class="pg" points="20,3 34.7,11.5 34.7,28.5 20,37 5.3,28.5 5.3,11.5"></polygon><polygon class="pg pg2" points="20,3 34.7,11.5 34.7,28.5 20,37 5.3,28.5 5.3,11.5"></polygon><polygon points="20,3 34.7,11.5 34.7,28.5 20,37 5.3,28.5 5.3,11.5" style="fill: #1A2E05"></polygon><path class="sp" d="M20 10.5 L22.4 17.6 L29.5 20 L22.4 22.4 L20 29.5 L17.6 22.4 L10.5 20 L17.6 17.6Z"></path><path class="sp2" d="M30 8 L31 11 L34 12 L31 13 L30 16 L29 13 L26 12 L29 11Z" transform="translate(-4 -3) scale(.8)"></path></svg></span><span class="lbl">{{s.t}}</span><span class="dots"><i></i><i></i><i></i></span><span class="more">Ask me anything<i class="cr"></i></span><span class="chip">AI</span></span></button></div></sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":880,"height":420}}'>
+class Component extends DCLogic {
+renderVals() {
+return {
+states: [
+{k:'idle',l:'Idle',d:'Border orbits, rings ping, light sweeps. Hover it for real.',t:'Ask Bharosa',b:'border-top: 0'},
+{k:'hover',l:'Hover / focus',d:'Expands with a typing prompt and lifts up.',t:'Ask Bharosa',b:''},
+{k:'think',l:'Thinking',d:'Sparkles spin faster and dots bounce while answering.',t:'Thinking',b:''}]
+};
+}
+}
+</script>
+</body>
+</html>
