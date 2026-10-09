@@ -4,13 +4,9 @@ import { PublicLayout } from './layouts/PublicLayout';
 import { AppLayout } from './layouts/AppLayout';
 import { AuthLayout } from './layouts/AuthLayout';
 import { AuthGate, WalletGate, OnboardingGate, RoleGate } from './guards';
-import { Loader2 } from 'lucide-react';
+import { LoadingPage } from './components/common/LoadingPage';
 
-const PageLoader = () => (
-  <div className="flex-1 min-h-[60vh] flex items-center justify-center p-16 text-sm text-[#4D6B2A]">
-    <Loader2 className="w-6 h-6 animate-spin mr-2 text-[#84CC16]" /> Loading Bharosa Protocol...
-  </div>
-);
+const PageLoader = () => <LoadingPage compact title="Bharosa" subtitle="Loading Bharosa Protocol..." />;
 
 // Lazy load route pages
 const Landing = lazy(() => import('./pages/Landing'));
