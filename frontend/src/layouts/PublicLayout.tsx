@@ -54,7 +54,7 @@ export function PublicLayout() {
             <ArrowLeft className="w-3.5 h-3.5 mr-1" /> Home
           </Link>
           <Link
-            to="/app"
+            to="/login"
             className="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-[#84CC16] hover:bg-[#65A30D] text-[#1A2E05] font-bold text-xs uppercase tracking-wider transition-all shadow-xs"
           >
             <span>Launch App</span>
