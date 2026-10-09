@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAccount } from 'wagmi';
 import { useAuth } from '../hooks/useAuth';
-import { Loader2 } from 'lucide-react';
+import { LoadingPage } from '../components/common/LoadingPage';
 
 export default function AppRedirect() {
   const navigate = useNavigate();
@@ -46,10 +46,5 @@ export default function AppRedirect() {
     navigate('/dashboard', { replace: true });
   }, [user, account, loading, isConnected, address, isDemoUser, navigate]);
 
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#F7FBEF] text-[#1A2E05]">
-      <Loader2 className="w-8 h-8 animate-spin text-[#84CC16] mb-3" />
-      <p className="text-sm font-medium">Entering Bharosa Protocol...</p>
-    </div>
-  );
+  return <LoadingPage title="Bharosa" subtitle="Routing to your workspace..." />;
 }
