@@ -8,6 +8,7 @@ import { AlertCircle, Loader2 } from 'lucide-react';
 import { PageMeta } from '../../components/PageMeta';
 import { DEMO_USERS } from '../../lib/demoAccounts';
 import { LandingNavbar } from '../Landing/Navbar';
+import { LoadingPage } from '../../components/common/LoadingPage';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -21,7 +22,6 @@ export default function Login() {
   const [authError, setAuthError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [loadingDemo, setLoadingDemo] = useState<string | null>(null);
-  const [loadingStep, setLoadingStep] = useState<string>('');
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -80,18 +80,33 @@ export default function Login() {
   const handleDemoClick = async (demoId: string) => {
     setAuthError(null);
     setLoadingDemo(demoId);
-    setLoadingStep('Initializing demo session…');
     try {
-      await signInWithDemo(demoId);
+      const minAnimationTime = new Promise((resolve) => setTimeout(resolve, 1500));
+      await Promise.all([signInWithDemo(demoId), minAnimationTime]);
       const destination = (!from || from === '/app' || from === '/login') ? '/dashboard' : from;
       navigate(destination, { replace: true });
     } catch (err: any) {
       console.error('[Login] Demo sign-in error:', err);
       setAuthError(err?.message || 'Failed to initialize demo session.');
       setLoadingDemo(null);
-      setLoadingStep('');
     }
   };
+
+  if (loadingDemo) {
+    const demoUser = DEMO_USERS.find((u) => u.id === loadingDemo);
+    return (
+      <LoadingPage
+        title="Bharosa"
+        subtitle={demoUser ? `Signing in as ${demoUser.name}…` : 'Initializing demo session…'}
+        steps={[
+          'Connecting to Polygon Amoy',
+          `Resolving ${demoUser?.name || 'demo'} credentials`,
+          'Preparing local cryptographic wallet',
+          'Entering Bharosa workspace',
+        ]}
+      />
+    );
+  }
 
   return (
     <>
@@ -274,13 +289,7 @@ export default function Login() {
               </p>
             </div>
 
-            {/* Loading indicator for demo login */}
-            {loadingDemo && (
-              <div className="mb-4 p-3.5 rounded-2xl bg-white border border-[#84CC16] flex items-center justify-center gap-3 text-xs font-semibold text-[#1A2E05] shadow-xs animate-in fade-in">
-                <Loader2 className="w-4 h-4 animate-spin text-[#84CC16]" />
-                <span>{loadingStep || 'Signing in with sample credentials…'}</span>
-              </div>
-            )}
+
 
             {/* 5 Demo User Cards */}
             <div className="space-y-3">
