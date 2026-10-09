@@ -165,7 +165,7 @@ export function Hero() {
               className="in-anim flex flex-wrap items-center gap-4 mb-6 sm:mb-7"
               style={{ animationDelay: '0.4s' }}
             >
-              <Link to="/app" className="btn-landing-primary">
+              <Link to="/login" className="btn-landing-primary">
                 Launch App
               </Link>
               <button

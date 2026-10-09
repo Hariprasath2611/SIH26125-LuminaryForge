@@ -108,7 +108,7 @@ export function LandingNavbar({ activeSection = '' }: LandingNavbarProps) {
 
         {/* Right CTA Button */}
         <div className="hidden sm:flex items-center">
-          <Link to="/app" className="btn-landing-primary">
+          <Link to="/login" className="btn-landing-primary">
             Launch App
           </Link>
         </div>
@@ -116,7 +116,7 @@ export function LandingNavbar({ activeSection = '' }: LandingNavbarProps) {
         {/* Mobile Hamburger Button */}
         <div className="md:hidden flex items-center gap-2">
           <Link
-            to="/app"
+            to="/login"
             className="px-4 py-1.5 rounded-full bg-[#84CC16] text-[#1A2E05] font-bold text-xs uppercase"
           >
             App
@@ -153,7 +153,7 @@ export function LandingNavbar({ activeSection = '' }: LandingNavbarProps) {
           ))}
           <div className="pt-2">
             <Link
-              to="/app"
+              to="/login"
               onClick={() => setMobileMenuOpen(false)}
               className="btn-landing-primary w-full"
             >
