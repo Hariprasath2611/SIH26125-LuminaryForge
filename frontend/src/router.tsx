@@ -69,6 +69,10 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: '/loading',
+        element: <LoadingPage />,
+      },
     ],
   },
 

@@ -1,19 +1,14 @@
 import React from 'react';
 import { Navigate, useLocation, Outlet } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
-import { Loader2 } from 'lucide-react';
+import { LoadingPage } from '../components/common/LoadingPage';
 
 export function AuthGate({ children }: { children?: React.ReactNode }) {
   const { user, loading, isDemoUser } = useAuth();
   const location = useLocation();
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-[#F7FBEF] text-[#1A2E05]">
-        <Loader2 className="w-8 h-8 animate-spin text-[#84CC16] mb-3" />
-        <p className="text-sm font-medium">Verifying Bharosa credentials...</p>
-      </div>
-    );
+    return <LoadingPage title="Bharosa" subtitle="Verifying your session..." />;
   }
 
   if (!user) {
