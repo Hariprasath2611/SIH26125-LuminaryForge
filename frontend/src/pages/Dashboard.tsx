@@ -201,7 +201,7 @@ export function DashboardPage() {
                   <div className="w-8 h-8 rounded-full bg-[#ECFCCB] flex items-center justify-center text-[#65A30D]">
                     <KeyRound className="w-4 h-4" />
                   </div>
-                  <h3 className="text-base font-bold text-[#1A2E05]">Access request waiting</h3>
+                  <h3 className="text-base sm:text-[17px] font-bold text-[#1A2E05] tracking-tight leading-snug">Access request waiting</h3>
                 </div>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ECFCCB] text-[#4D6B2A] text-xs font-semibold">
                   <Clock className="w-3.5 h-3.5" />
@@ -283,7 +283,7 @@ export function DashboardPage() {
                 <div className="w-8 h-8 rounded-full bg-[#ECFCCB] flex items-center justify-center text-[#65A30D]">
                   <FileText className="w-4 h-4" />
                 </div>
-                <h3 className="text-base font-bold text-[#1A2E05]">Recent activity</h3>
+                <h3 className="text-base sm:text-[17px] font-bold text-[#1A2E05] tracking-tight leading-snug">Recent activity</h3>
               </div>
               <Link
                 to="/audit"
@@ -301,8 +301,8 @@ export function DashboardPage() {
                     <Clock className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-[#1A2E05]">Access requested</h4>
-                    <p className="text-xs text-stone-500 mt-0.5">
+                    <h4 className="text-sm font-bold text-[#1A2E05] tracking-tight leading-snug">Access requested</h4>
+                    <p className="text-xs text-stone-500 mt-0.5 leading-normal">
                       TechCorp HR asked to view Transcript.pdf
                     </p>
                   </div>
@@ -317,8 +317,8 @@ export function DashboardPage() {
                     <KeyRound className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-[#1A2E05]">Access granted</h4>
-                    <p className="text-xs text-stone-500 mt-0.5">
+                    <h4 className="text-sm font-bold text-[#1A2E05] tracking-tight leading-snug">Access granted</h4>
+                    <p className="text-xs text-stone-500 mt-0.5 leading-normal">
                       Degree Certificate shared with TechCorp HR for 7 days
                     </p>
                   </div>
@@ -333,8 +333,8 @@ export function DashboardPage() {
                     <FileText className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-[#1A2E05]">Asset registered</h4>
-                    <p className="text-xs text-stone-500 mt-0.5">
+                    <h4 className="text-sm font-bold text-[#1A2E05] tracking-tight leading-snug">Asset registered</h4>
+                    <p className="text-xs text-stone-500 mt-0.5 leading-normal">
                       Transcript.pdf encrypted and anchored on-chain
                     </p>
                   </div>
@@ -349,8 +349,8 @@ export function DashboardPage() {
                     <Award className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-[#1A2E05]">Credential received</h4>
-                    <p className="text-xs text-stone-500 mt-0.5">
+                    <h4 className="text-sm font-bold text-[#1A2E05] tracking-tight leading-snug">Credential received</h4>
+                    <p className="text-xs text-stone-500 mt-0.5 leading-normal">
                       B.Tech Degree issued by Chennai University
                     </p>
                   </div>
@@ -384,8 +384,8 @@ export function DashboardPage() {
             </div>
 
             {/* Name & Subtitle */}
-            <h3 className="text-2xl font-bold text-white mt-3.5 tracking-tight">{userName}</h3>
-            <p className="text-xs text-[#A3E635] font-medium mt-0.5">Your decentralized ID (DID)</p>
+            <h3 className="text-2xl font-extrabold text-white mt-4 tracking-tight leading-snug">{userName}</h3>
+            <p className="text-xs text-[#A3E635] font-medium mt-1 leading-normal">Your decentralized ID (DID)</p>
 
             {/* DID Box */}
             <div className="bg-[#223E17]/60 border border-[#3E6B2A]/60 rounded-xl px-3.5 py-2.5 mt-4 font-mono text-xs text-[#D9F99D] truncate">
@@ -420,7 +420,7 @@ export function DashboardPage() {
               <div className="w-8 h-8 rounded-full bg-[#ECFCCB] flex items-center justify-center text-[#65A30D]">
                 <ShieldCheck className="w-4 h-4" />
               </div>
-              <h3 className="text-base font-bold text-[#1A2E05]">Your setup</h3>
+              <h3 className="text-base sm:text-[17px] font-bold text-[#1A2E05] tracking-tight leading-snug">Your setup</h3>
             </div>
 
             <div className="space-y-3">
@@ -458,7 +458,7 @@ export function DashboardPage() {
                 <div className="w-8 h-8 rounded-full bg-[#ECFCCB] flex items-center justify-center text-[#65A30D]">
                   <KeyRound className="w-4 h-4" />
                 </div>
-                <h3 className="text-base font-bold text-[#1A2E05]">Active grant</h3>
+                <h3 className="text-base sm:text-[17px] font-bold text-[#1A2E05] tracking-tight leading-snug">Active grant</h3>
               </div>
               <Link
                 to="/access"
@@ -470,8 +470,8 @@ export function DashboardPage() {
 
             {!grantRevoked ? (
               <div>
-                <h4 className="text-base font-bold text-[#1A2E05]">Degree Certificate</h4>
-                <p className="text-xs text-stone-500 mt-0.5">
+                <h4 className="text-base font-bold text-[#1A2E05] tracking-tight mt-1 leading-snug">Degree Certificate</h4>
+                <p className="text-xs text-stone-500 mt-1 leading-relaxed">
                   Shared with TechCorp HR · Hiring verification
                 </p>
 
@@ -504,8 +504,8 @@ export function DashboardPage() {
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-[#1A2E05]">No security alerts</h4>
-              <p className="text-xs text-stone-500 mt-0.5">Your account looks healthy.</p>
+              <h4 className="text-sm font-bold text-[#1A2E05] tracking-tight leading-snug">No security alerts</h4>
+              <p className="text-xs text-stone-500 mt-0.5 leading-normal">Your account looks healthy.</p>
             </div>
           </div>
         </div>
@@ -526,8 +526,8 @@ export function DashboardPage() {
               <QrCode className="w-6 h-6" />
             </div>
 
-            <h3 className="text-lg font-bold text-[#1A2E05]">Your DID QR Code</h3>
-            <p className="text-xs text-stone-500 mt-1 max-w-xs mx-auto">
+            <h3 className="text-lg sm:text-xl font-bold text-[#1A2E05] tracking-tight leading-snug">Your DID QR Code</h3>
+            <p className="text-xs text-stone-500 mt-1.5 max-w-xs mx-auto leading-relaxed">
               Scan with any W3C compliant wallet or verifier to resolve your decentralized identity.
             </p>
 

@@ -63,10 +63,10 @@ export function Topbar({ onOpenMobileMenu }: TopbarProps) {
         </button>
 
         <div>
-          <h1 className="text-xl sm:text-2xl font-extrabold text-[#1A2E05] tracking-tight leading-tight">
+          <h1 className="text-xl sm:text-2xl font-extrabold text-[#1A2E05] tracking-tight leading-snug">
             {route.title}
           </h1>
-          <p className="text-xs text-stone-400 font-medium mt-0.5">
+          <p className="text-xs text-stone-400 font-medium mt-1">
             {route.breadcrumb}
           </p>
         </div>
