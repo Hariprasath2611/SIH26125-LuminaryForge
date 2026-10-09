@@ -337,6 +337,20 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Force light form control styling across all user-agent and OS dark mode settings */
+input,
+textarea,
+select {
+  background-color: #FFFFFF !important;
+  color: #1A2E05 !important;
+  color-scheme: light;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #9CA3AF !important;
+}
+
 h1,
 h2,
 h3,
