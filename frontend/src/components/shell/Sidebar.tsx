@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { DEMO_USERS, DemoAccount } from '../../lib/demoAccounts';
 import {
@@ -21,6 +21,7 @@ import {
   ArrowLeftRight,
   Check,
   Sparkles,
+  LogOut,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -75,7 +76,8 @@ const PORTAL_ITEMS: NavItem[] = [
 
 export function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobileOpen }: SidebarProps) {
   const location = useLocation();
-  const { user, account, activeDemoAccount, signInWithDemo, isDemoUser } = useAuth();
+  const navigate = useNavigate();
+  const { user, account, activeDemoAccount, signInWithDemo, isDemoUser, signOut } = useAuth();
   const [showDemoModal, setShowDemoModal] = useState<boolean>(false);
   const demoModalRef = useRef<HTMLDivElement>(null);
 
