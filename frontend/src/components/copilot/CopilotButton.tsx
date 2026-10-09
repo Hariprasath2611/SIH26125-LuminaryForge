@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AiButton } from './AiButton';
 import './copilot-seal.css';
 
 interface CopilotButtonProps {
@@ -88,8 +89,6 @@ export const CopilotButton: React.FC<CopilotButtonProps> = ({
   const [isDragging, setIsDragging] = useState(false);
   const [nudgeText, setNudgeText] = useState<string | null>(null);
   const [toastText, setToastText] = useState<string | null>(null);
-  const [isWiggling, setIsWiggling] = useState(false);
-  const [isCalm, setIsCalm] = useState(true);
 
   // Chat state
   const [messages, setMessages] = useState<ChatMsg[]>([]);
@@ -98,48 +97,40 @@ export const CopilotButton: React.FC<CopilotButtonProps> = ({
 
   const rootRef = useRef<HTMLDivElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
-  const tiltRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLElement>(null);
   const msgsRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const dragRef = useRef<{ sx: number; sy: number; ox: number; oy: number; id: number } | null>(null);
+  const dragRef = useRef<{ sx: number; sy: number; ox: number; oy: number } | null>(null);
   const movedRef = useRef(false);
   const suppressClickRef = useRef(false);
-  const idleTimerRef = useRef<NodeJS.Timeout | null>(null);
   const nudgeTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const rafRef = useRef<number | null>(null);
-  const lastMouseRef = useRef<PointerEvent | MouseEvent | null>(null);
-
-  // Calculate default corner coordinates
-  const getCornerCoords = useCallback((c: Corner) => {
-    const w = document.documentElement.clientWidth;
-    const h = document.documentElement.clientHeight;
-    const m = window.innerWidth <= 520 ? 12 : 20;
-    return {
-      x: c.charAt(1) === 'l' ? m : w - 96 - m,
-      y: c.charAt(0) === 't' ? m : h - 96 - m,
-    };
-  }, []);
 
   // Update corner and save to localStorage
   const applyCorner = useCallback(
     (c: Corner) => {
       setCorner(c);
-      const coords = getCornerCoords(c);
-      setPosition(coords);
+      setPosition(null);
       try {
         localStorage.setItem('bharosa-ai-corner', c);
       } catch (_) {}
     },
-    [getCornerCoords]
+    []
   );
 
+  // Listen to global open event from any inline AiButton
   useEffect(() => {
-    applyCorner(corner);
-    const handleResize = () => applyCorner(corner);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [corner, applyCorner]);
+    const handleGlobalOpen = () => {
+      if (!isOpen) {
+        if (externalOnClick) {
+          externalOnClick();
+        } else {
+          setInternalIsOpen(true);
+        }
+      }
+    };
+    window.addEventListener('open-bharosa-copilot', handleGlobalOpen);
+    return () => window.removeEventListener('open-bharosa-copilot', handleGlobalOpen);
+  }, [isOpen, externalOnClick]);
 
   // Nudge tooltip helper
   const showNudge = useCallback((text: string, ms = 5500) => {
@@ -155,33 +146,10 @@ export const CopilotButton: React.FC<CopilotButtonProps> = ({
     setNudgeText(null);
   }, []);
 
-  // Idle timer to trigger playful wiggle
-  const resetIdle = useCallback(() => {
-    if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
-    idleTimerRef.current = setTimeout(() => {
-      if (!isOpen) {
-        setIsWiggling(true);
-        setTimeout(() => setIsWiggling(false), 950);
-      }
-    }, 25000);
-  }, [isOpen]);
-
-  useEffect(() => {
-    resetIdle();
-    const handleActivity = () => resetIdle();
-    window.addEventListener('pointerdown', handleActivity);
-    window.addEventListener('keydown', handleActivity);
-    return () => {
-      window.removeEventListener('pointerdown', handleActivity);
-      window.removeEventListener('keydown', handleActivity);
-      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
-    };
-  }, [resetIdle]);
-
   // Initial welcome nudge
   useEffect(() => {
     const timer = setTimeout(() => {
-      showNudge('Need a hand?');
+      showNudge('Need a hand? Ask Bharosa');
     }, 1800);
     return () => clearTimeout(timer);
   }, [showNudge]);
@@ -206,104 +174,13 @@ export const CopilotButton: React.FC<CopilotButtonProps> = ({
     return () => io.disconnect();
   }, [showNudge]);
 
-  // Magnetic 3D tilt tracking
-  const applyTilt = useCallback(() => {
-    rafRef.current = null;
-    const event = lastMouseRef.current;
-    if (!event || isDragging || !btnRef.current || !tiltRef.current || !rootRef.current) return;
-
-    const r = btnRef.current.getBoundingClientRect();
-    const dx = event.clientX - (r.left + 48);
-    const dy = event.clientY - (r.top + 48);
-    const d = Math.hypot(dx, dy);
-
-    const k = d < 240 ? (240 - d) / 240 : 0;
-    const clamp = (v: number, min: number, max: number) => Math.max(min, Math.min(max, v));
-
-    setIsCalm(false);
-    tiltRef.current.style.setProperty('--mx', `${clamp(dx * 0.12, -10, 10) * k}px`);
-    tiltRef.current.style.setProperty('--my', `${clamp(dy * 0.12, -10, 10) * k}px`);
-    tiltRef.current.style.setProperty('--ry', `${d < 420 ? clamp(dx / 18, -16, 16) : 0}deg`);
-    tiltRef.current.style.setProperty('--rx', `${d < 420 ? clamp(-dy / 18, -16, 16) : 0}deg`);
-    rootRef.current.style.setProperty('--ex', `${clamp(dx / 28, -4, 4)}px`);
-    rootRef.current.style.setProperty('--ey', `${clamp(dy / 28, -4, 4)}px`);
-  }, [isDragging]);
-
-  const relaxTilt = useCallback(() => {
-    setIsCalm(true);
-    if (tiltRef.current) {
-      tiltRef.current.style.setProperty('--mx', '0px');
-      tiltRef.current.style.setProperty('--my', '0px');
-      tiltRef.current.style.setProperty('--rx', '0deg');
-      tiltRef.current.style.setProperty('--ry', '0deg');
-    }
-    if (rootRef.current) {
-      rootRef.current.style.setProperty('--ex', '0px');
-      rootRef.current.style.setProperty('--ey', '0px');
-    }
-  }, []);
-
-  useEffect(() => {
-    const handlePointerMove = (e: PointerEvent) => {
-      lastMouseRef.current = e;
-      if (!rafRef.current) {
-        rafRef.current = requestAnimationFrame(applyTilt);
-      }
-    };
-    const handleMouseOut = (e: MouseEvent) => {
-      if (!e.relatedTarget) relaxTilt();
-    };
-
-    window.addEventListener('pointermove', handlePointerMove);
-    document.addEventListener('mouseout', handleMouseOut);
-    return () => {
-      window.removeEventListener('pointermove', handlePointerMove);
-      document.removeEventListener('mouseout', handleMouseOut);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, [applyTilt, relaxTilt]);
-
-  // Click burst of mini hexagon particles
-  const burstParticles = useCallback(() => {
-    if (!btnRef.current) return;
-    const r = btnRef.current.getBoundingClientRect();
-    const cx = r.left + 48;
-    const cy = r.top + 48;
-
-    for (let i = 0; i < 9; i++) {
-      const p = document.createElement('i');
-      p.className = 'ab-p';
-      p.style.left = `${cx}px`;
-      p.style.top = `${cy}px`;
-      document.body.appendChild(p);
-
-      const a = (i / 9) * Math.PI * 2 + Math.random() * 0.4;
-      const dist = 50 + Math.random() * 40;
-
-      const anim = p.animate(
-        [
-          { transform: 'translate(-50%,-50%) scale(1)', opacity: 1 },
-          {
-            transform: `translate(calc(-50% + ${Math.cos(a) * dist}px), calc(-50% + ${
-              Math.sin(a) * dist
-            }px)) scale(.2) rotate(120deg)`,
-            opacity: 0,
-          },
-        ],
-        { duration: 650 + Math.random() * 250, easing: 'cubic-bezier(.2,.8,.3,1)' }
-      );
-      anim.onfinish = () => p.remove();
-    }
-  }, []);
-
   // Dragging support
   const handlePointerDown = (e: React.PointerEvent) => {
     if (e.button !== 0) return;
     const r = rootRef.current?.getBoundingClientRect();
     if (!r) return;
-    dragRef.current = { sx: e.clientX, sy: e.clientY, ox: r.left, oy: r.top, id: e.pointerId };
+    dragRef.current = { sx: e.clientX, sy: e.clientY, ox: r.left, oy: r.top };
     movedRef.current = false;
-    resetIdle();
   };
 
   useEffect(() => {
@@ -311,7 +188,7 @@ export const CopilotButton: React.FC<CopilotButtonProps> = ({
       if (!dragRef.current) return;
       const dx = e.clientX - dragRef.current.sx;
       const dy = e.clientY - dragRef.current.sy;
-      if (!movedRef.current && Math.hypot(dx, dy) > 6) {
+      if (!movedRef.current && Math.hypot(dx, dy) > 8) {
         movedRef.current = true;
         setIsDragging(true);
         hideNudge();
@@ -319,8 +196,8 @@ export const CopilotButton: React.FC<CopilotButtonProps> = ({
       if (movedRef.current) {
         const w = document.documentElement.clientWidth;
         const h = document.documentElement.clientHeight;
-        const nx = Math.max(4, Math.min(w - 100, dragRef.current.ox + dx));
-        const ny = Math.max(4, Math.min(h - 100, dragRef.current.oy + dy));
+        const nx = Math.max(12, Math.min(w - 240, dragRef.current.ox + dx));
+        const ny = Math.max(12, Math.min(h - 64, dragRef.current.oy + dy));
         setPosition({ x: nx, y: ny });
       }
     };
@@ -329,14 +206,14 @@ export const CopilotButton: React.FC<CopilotButtonProps> = ({
       if (dragRef.current && movedRef.current && position) {
         const w = document.documentElement.clientWidth;
         const h = document.documentElement.clientHeight;
-        const newCorner: Corner = `${position.y + 48 < h / 2 ? 't' : 'b'}${
-          position.x + 48 < w / 2 ? 'l' : 'r'
+        const newCorner: Corner = `${position.y + 32 < h / 2 ? 't' : 'b'}${
+          position.x + 100 < w / 2 ? 'l' : 'r'
         }` as Corner;
         applyCorner(newCorner);
         suppressClickRef.current = true;
         setTimeout(() => {
           suppressClickRef.current = false;
-        }, 50);
+        }, 100);
       }
       setIsDragging(false);
       dragRef.current = null;
@@ -353,14 +230,13 @@ export const CopilotButton: React.FC<CopilotButtonProps> = ({
   // Open / Close Toggle
   const togglePanel = useCallback(() => {
     if (suppressClickRef.current) return;
-    burstParticles();
     hideNudge();
     if (externalOnClick) {
       externalOnClick();
     } else {
       setInternalIsOpen((prev) => !prev);
     }
-  }, [burstParticles, hideNudge, externalOnClick]);
+  }, [hideNudge, externalOnClick]);
 
   const closePanel = useCallback(() => {
     if (externalOnClick && isOpen) {
@@ -373,7 +249,6 @@ export const CopilotButton: React.FC<CopilotButtonProps> = ({
   // Keyboard shortcuts (Ctrl+K, /, Escape)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      resetIdle();
       const tag = (e.target as HTMLElement)?.tagName?.toLowerCase() || '';
       const isInput = tag === 'input' || tag === 'textarea' || (e.target as HTMLElement)?.isContentEditable;
 
@@ -392,7 +267,7 @@ export const CopilotButton: React.FC<CopilotButtonProps> = ({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, togglePanel, closePanel, resetIdle]);
+  }, [isOpen, togglePanel, closePanel]);
 
   // Auto focus input when opened
   useEffect(() => {
@@ -417,7 +292,7 @@ export const CopilotButton: React.FC<CopilotButtonProps> = ({
     setIsTyping(true);
     setState('thinking');
 
-    // Simulate natural thinking delay & answer lookup
+    // Simulate thinking delay & answer lookup
     setTimeout(() => {
       let matchedAnswer =
         'I only know a few demo topics. Try asking about verifying a credential, granting access, zero-knowledge proofs, or social recovery.';
@@ -456,9 +331,7 @@ export const CopilotButton: React.FC<CopilotButtonProps> = ({
     <div
       ref={rootRef}
       id="ab"
-      className={`ab ${isOpen ? 'open' : ''} ${isDragging ? 'dragging' : ''} ${isCalm ? 'calm' : ''} ${
-        isWiggling ? 'wiggle' : ''
-      }`}
+      className={`ab ${isOpen ? 'open' : ''} ${isDragging ? 'dragging' : ''}`}
       data-state={state}
       data-corner={corner}
       style={{
@@ -681,89 +554,19 @@ export const CopilotButton: React.FC<CopilotButtonProps> = ({
         <div className="ab-foot">Ctrl + K to open · Esc to close · Never share keys or seed phrases</div>
       </section>
 
-      {/* Floating Interactive AI Seal Button */}
-      <button
+      {/* Floating Interactive AI Capsule Button (Exact AiButton design) */}
+      <AiButton
         ref={btnRef}
-        className="ab-btn"
-        type="button"
-        aria-label="Ask Bharosa, AI assistant"
+        state={state === 'thinking' ? 'think' : (isOpen ? 'hover' : 'idle')}
+        label="Ask Bharosa"
+        expandPrompt="Ask me anything"
+        badgeText="AI"
         aria-expanded={isOpen}
         aria-controls="abPanel"
-        title="Ask Bharosa (Ctrl+K). Drag to move."
+        title="Ask Bharosa AI (Ctrl+K). Drag to move."
         onClick={togglePanel}
         onPointerDown={handlePointerDown}
-      >
-        <div ref={tiltRef} className="ab-tilt">
-          <svg className="ab-svg" viewBox="0 0 96 96" width="96" height="96" aria-hidden="true">
-            <defs>
-              <linearGradient id="abBody" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" className="s1" />
-                <stop offset="1" className="s2" />
-              </linearGradient>
-              <linearGradient id="abScan" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" style={{ stopColor: 'var(--scan)', stopOpacity: 0 }} />
-                <stop offset="0.5" style={{ stopColor: 'var(--scan)', stopOpacity: 0.8 }} />
-                <stop offset="1" style={{ stopColor: 'var(--scan)', stopOpacity: 0 }} />
-              </linearGradient>
-              <clipPath id="abHex">
-                <polygon points="48,18 74,33 74,63 48,78 22,63 22,33" />
-              </clipPath>
-            </defs>
-
-            {/* Orbiting Dotted Ring with Satellite Dot */}
-            <g className="ring">
-              <circle
-                cx="48"
-                cy="48"
-                r="44"
-                fill="none"
-                stroke="#84CC16"
-                strokeWidth="1.5"
-                strokeDasharray="2 7"
-                strokeLinecap="round"
-                opacity="0.8"
-              />
-              <circle cx="48" cy="4" r="3.2" fill="#84CC16" />
-            </g>
-
-            {/* Stamp Pulse Animation */}
-            <polygon className="stamp" points="48,18 74,33 74,63 48,78 22,63 22,33" />
-
-            {/* Hexagonal Seal Body */}
-            <polygon
-              className="body"
-              points="48,18 74,33 74,63 48,78 22,63 22,33"
-              fill="url(#abBody)"
-              strokeWidth="1.6"
-              strokeLinejoin="round"
-            />
-
-            {/* Inner Outline */}
-            <polygon className="inner" points="48,24 69,36 69,60 48,72 27,60 27,36" />
-
-            {/* Animated Laser Scanning Beam */}
-            <g clipPath="url(#abHex)">
-              <rect className="scan" x="22" y="12" width="52" height="24" />
-            </g>
-
-            {/* Interactive Dynamic Icon Elements */}
-            <g className="icon">
-              <path className="chk" d="M37 49.5 45 57.5 60 40" />
-              <path className="spk" d="M48 33 51.4 44.6 63 48 51.4 51.4 48 63 44.6 51.4 33 48 44.6 44.6Z" />
-              <g className="dots">
-                <circle cx="38" cy="49" r="3.2" />
-                <circle cx="48" cy="49" r="3.2" />
-                <circle cx="58" cy="49" r="3.2" />
-              </g>
-            </g>
-          </svg>
-
-          {/* AI Badge */}
-          <span className="ab-badge" aria-hidden="true">
-            AI
-          </span>
-        </div>
-      </button>
+      />
 
       <span
         role="status"
