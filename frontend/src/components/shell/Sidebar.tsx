@@ -125,6 +125,16 @@ export function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobileOpen }: 
     }
   };
 
+  const handleSignOut = async () => {
+    try {
+      setMobileOpen(false);
+      await signOut();
+      navigate('/login', { replace: true });
+    } catch (err) {
+      console.error('Failed to log out:', err);
+    }
+  };
+
   const navContent = (
     <div className="flex flex-col h-full justify-between bg-white border-r border-[#E5E7EB] select-none text-[#1A2E05]">
       {/* Top Header & Navigation */}
@@ -300,20 +310,49 @@ export function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobileOpen }: 
 
         {/* User Profile Card */}
         {!collapsed ? (
-          <div className="p-3 rounded-2xl bg-[#F7FBEF] border border-[#D9EBB5] flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-[#84CC16] text-[#1A2E05] font-extrabold text-xs flex items-center justify-center shrink-0">
-              {initials}
+          <div className="p-2.5 rounded-2xl bg-[#F7FBEF] border border-[#D9EBB5] flex items-center justify-between gap-2.5">
+            <div className="flex items-center gap-2.5 min-w-0 flex-1">
+              <div className="w-9 h-9 rounded-full bg-[#84CC16] text-[#1A2E05] font-extrabold text-xs flex items-center justify-center shrink-0 shadow-2xs">
+                {initials}
+              </div>
+              <div className="overflow-hidden min-w-0 flex-1">
+                <p className="text-sm font-bold text-[#1A2E05] truncate" title={userDisplayName}>
+                  {userDisplayName}
+                </p>
+                <p className="text-xs text-stone-500 truncate" title={userSubtitle}>
+                  {userSubtitle}
+                </p>
+              </div>
             </div>
-            <div className="overflow-hidden min-w-0 flex-1">
-              <p className="text-sm font-bold text-[#1A2E05] truncate">{userDisplayName}</p>
-              <p className="text-xs text-stone-500 truncate">{userSubtitle}</p>
-            </div>
+
+            {/* Logout Button */}
+            <button
+              type="button"
+              onClick={handleSignOut}
+              className="w-8 h-8 rounded-xl flex items-center justify-center text-stone-400 hover:text-rose-600 hover:bg-rose-50 border border-transparent hover:border-rose-200 transition-all cursor-pointer shrink-0"
+              title="Log out"
+              aria-label="Log out"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
           </div>
         ) : (
-          <div className="flex justify-center py-2" title={userDisplayName}>
-            <div className="w-9 h-9 rounded-full bg-[#84CC16] text-[#1A2E05] font-extrabold text-xs flex items-center justify-center">
+          <div className="flex flex-col items-center gap-2 py-1">
+            <div
+              className="w-9 h-9 rounded-full bg-[#84CC16] text-[#1A2E05] font-extrabold text-xs flex items-center justify-center shadow-2xs"
+              title={userDisplayName}
+            >
               {initials}
             </div>
+            <button
+              type="button"
+              onClick={handleSignOut}
+              className="w-8 h-8 rounded-xl flex items-center justify-center text-stone-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
+              title="Log out"
+              aria-label="Log out"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
           </div>
         )}
 
@@ -357,6 +396,16 @@ export function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobileOpen }: 
                   </button>
                 );
               })}
+            </div>
+            <div className="pt-1 mt-1 border-t border-[#F2F4F7]">
+              <button
+                type="button"
+                onClick={handleSignOut}
+                className="w-full text-left p-2 rounded-xl text-xs text-rose-600 hover:bg-rose-50 font-semibold flex items-center gap-2 transition-colors cursor-pointer"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                <span>Log out</span>
+              </button>
             </div>
           </div>
         )}
