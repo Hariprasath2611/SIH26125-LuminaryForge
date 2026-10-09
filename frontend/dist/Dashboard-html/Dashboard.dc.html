@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bharosa – Dashboard</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Plus Jakarta Sans',sans-serif;color:#1A2E05;background:#F7FBEF}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+p{margin:0;line-height:1.5}
+h2{margin:0;font-size:18px;line-height:24px;font-weight:800;letter-spacing:-.3px}
+.ic{flex:0 0 auto;width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.gl{margin:24px 16px 8px;font-size:12px;line-height:16px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:#6B7F4A}
+.gl.first{margin-top:16px}
+.nv{display:flex;align-items:center;gap:12px;height:44px;padding:0 16px;margin-bottom:4px;border-radius:14px;font-weight:700;font-size:15px;color:#4D6B2A;transition:background .2s,transform .2s,color .2s}
+.nv:hover{background:#F2F9E3;color:#1A2E05;transform:translateX(3px)}
+.nv.on{background:#ECFCCB;color:#1A2E05;box-shadow:inset 4px 0 0 #84CC16}
+.nv b{margin-left:auto;min-width:22px;height:22px;padding:0 7px;border-radius:999px;background:#84CC16;color:#1A2E05;font-size:12px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+.card{background:#FFFFFF;border:1px solid #D9EBB5;border-radius:20px;padding:24px;transition:transform .25s,box-shadow .25s}
+.card:hover{box-shadow:0 14px 34px rgba(132,204,22,.2)}
+.st:hover{transform:translateY(-4px)}
+.hd{display:flex;align-items:center;gap:12px}
+.hd .hi{flex:0 0 auto;width:36px;height:36px;border-radius:50%;background:#ECFCCB;display:flex;align-items:center;justify-content:center}
+.hd .hi .ic{width:18px;height:18px}
+.hd .go{margin-left:auto;font-weight:700;font-size:14px;color:#4D7C0F}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 24px;border-radius:999px;font:700 15px 'Plus Jakarta Sans',sans-serif;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn .ic{width:18px;height:18px}
+.btn:hover{transform:translateY(-2px)}
+.bp{border:0;background:#84CC16;color:#1A2E05;box-shadow:0 8px 22px rgba(132,204,22,.36)}
+.bo{border:1.5px solid #BFD98A;background:#FFFFFF;color:#1A2E05}
+.sm{min-height:36px;padding:0 16px;font-size:14px}
+.chip{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px;border-radius:999px;font-weight:700;font-size:13px;background:#F7FBEF;border:1px solid #D9EBB5}
+.chip .ic{width:16px;height:16px}
+.ev{display:flex;align-items:flex-start;gap:16px;padding:16px 0;border-top:1px solid #E7F2CF}
+.ev .ei{flex:0 0 auto;width:36px;height:36px;border-radius:50%;background:#ECFCCB;display:flex;align-items:center;justify-content:center}
+.ev .ei .ic{width:18px;height:18px}
+.ev .et{font-weight:800;font-size:15px;line-height:20px}
+.ev .ed{font-size:14px;line-height:20px;color:#4D6B2A;font-weight:500}
+.ev .ew{flex:0 0 auto;font-size:13px;line-height:20px;color:#6B7F4A;font-weight:600}
+.chk{display:flex;align-items:center;gap:12px;font-weight:700;font-size:14px}
+.chk span{width:24px;height:24px;border-radius:50%;background:#ECFCCB;display:inline-flex;align-items:center;justify-content:center}
+.chk .ic{width:14px;height:14px;stroke-width:3}
+.pill{width:42px;height:42px;border-radius:50%;border:1px solid #D9EBB5;display:flex;align-items:center;justify-content:center;background:#FFFFFF;position:relative}
+.ping{position:absolute;top:9px;right:10px;width:10px;height:10px;border-radius:50%;background:#84CC16;border:2px solid #FFFFFF}
+.ping::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid #84CC16;animation:ring 2s ease-out infinite}
+.rise{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes ring{0%{transform:scale(.6);opacity:.8}100%{transform:scale(1.8);opacity:0}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@media (max-width:960px){.side{display:none}.cols{flex-direction:column}.topbar{padding:0 20px!important}.mainp{padding:20px 20px 112px!important}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div style="min-height: 1000px; background: #F7FBEF">
+<svg width="0" height="0" style="position: absolute" aria-hidden="true">
+<symbol id="bd-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z"></path></symbol>
+<symbol id="bd-id" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"></rect><circle cx="9" cy="11" r="2"></circle><path d="M6.5 16c.5-1.5 1.5-2.2 2.5-2.2s2 .7 2.5 2.2M14 10h4M14 14h4"></path></symbol>
+<symbol id="bd-cred" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5"></circle><path d="M9.8 9l1.6 1.6L14.4 7.6M9 14l-1 6 4-2 4 2-1-6"></path></symbol>
+<symbol id="bd-file" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5M9 13h6M9 17h4"></path></symbol>
+<symbol id="bd-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"></circle><path d="M11 12l8-8M16 7l3 3M14 9l2 2"></path></symbol>
+<symbol id="bd-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></symbol>
+<symbol id="bd-recover" viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4"></path></symbol>
+<symbol id="bd-list" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"></rect><path d="M9 4h6v3H9zM9 12h6M9 16h4"></path></symbol>
+<symbol id="bd-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"></path></symbol>
+<symbol id="bd-shieldok" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6zM9 12l2.2 2.2L15.5 10"></path></symbol>
+<symbol id="bd-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"></path></symbol>
+<symbol id="bd-bell" viewBox="0 0 24 24"><path d="M6 17h12l-1.5-2V11a4.5 4.5 0 0 0-9 0v4zM10 20h4"></path></symbol>
+<symbol id="bd-wallet" viewBox="0 0 24 24"><path d="M4 7a2 2 0 0 1 2-2h12v4M4 7v10a2 2 0 0 0 2 2h14V9H6a2 2 0 0 1-2-2z"></path><circle cx="16.5" cy="14" r="1"></circle></symbol>
+<symbol id="bd-up" viewBox="0 0 24 24"><path d="M12 16V5M7 10l5-5 5 5M5 19h14"></path></symbol>
+<symbol id="bd-share" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.5"></circle><circle cx="18" cy="6" r="2.5"></circle><circle cx="18" cy="18" r="2.5"></circle><path d="M8.2 10.8l7.6-3.6M8.2 13.2l7.6 3.6"></path></symbol>
+<symbol id="bd-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></symbol>
+<symbol id="bd-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V6a2 2 0 0 1 2-2h9"></path></symbol>
+<symbol id="bd-qr" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><path d="M14 14h2v2h-2zM18 14h2v6h-4M14 18v2"></path></symbol>
+<symbol id="bd-switch" viewBox="0 0 24 24"><path d="M7 7h11l-3-3M17 17H6l3 3"></path></symbol>
+</svg>
+
+<div style="background: #84CC16; text-align: center; padding: 8px 16px; font-weight: 800; font-size: 13px; line-height: 20px; letter-spacing: .3px">DEMO MODE · Signed in as Priya Sharma (Student) with a built-in test wallet</div>
+<div style="display: flex; align-items: flex-start">
+
+<aside class="side" style="width: 268px; flex: 0 0 auto; position: sticky; top: 0; min-height: 964px; background: #FFFFFF; border-right: 1px solid #D9EBB5; padding: 24px 16px; display: flex; flex-direction: column">
+<a href="#" style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 16px; font-weight: 800; font-size: 25px; letter-spacing: -.5px"><svg viewBox="0 0 120 120" width="36" height="36" role="img" aria-label="Bharosa logo"><polygon points="60,8 105,34 105,86 60,112 15,86 15,34" style="fill: none; stroke: #65A30D; stroke-width: 4"></polygon><polygon points="60,20 94.6,40 94.6,80 60,100 25.4,80 25.4,40" style="fill: #84CC16"></polygon><path d="M41 61 L55 75 L81 46" style="fill: none; stroke: #1A2E05; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round"></path></svg>Bharosa</a>
+<div class="gl first">Overview</div>
+<a class="nv on" href="#"><svg class="ic"><use href="#bd-home"></use></svg>Dashboard</a>
+<div class="gl">My identity</div>
+<a class="nv" href="#"><svg class="ic"><use href="#bd-id"></use></svg>Identity</a>
+<a class="nv" href="#"><svg class="ic"><use href="#bd-cred"></use></svg>Credentials</a>
+<a class="nv" href="#"><svg class="ic"><use href="#bd-file"></use></svg>Assets</a>
+<a class="nv" href="#"><svg class="ic"><use href="#bd-key"></use></svg>Access control<b>1</b></a>
+<a class="nv" href="#"><svg class="ic"><use href="#bd-eye"></use></svg>ZK proofs</a>
+<a class="nv" href="#"><svg class="ic"><use href="#bd-recover"></use></svg>Recovery</a>
+<div class="gl">Trust &amp; safety</div>
+<a class="nv" href="#"><svg class="ic"><use href="#bd-list"></use></svg>Audit log</a>
+<a class="nv" href="#"><svg class="ic"><use href="#bd-shield"></use></svg>Security Center</a>
+<div style="margin-top: auto; padding-top: 24px">
+<a class="nv" href="#"><svg class="ic"><use href="#bd-shieldok"></use></svg>Public verify</a>
+<div style="display: flex; align-items: center; gap: 12px; margin-top: 12px; padding: 16px; background: #F7FBEF; border: 1px solid #D9EBB5; border-radius: 16px"><span style="flex: 0 0 auto; width: 44px; height: 44px; border-radius: 50%; background: #84CC16; display: flex; align-items: center; justify-content: center; font-weight: 800">PS</span><span style="flex: 1; min-width: 0"><span style="display: block; font-weight: 800; font-size: 15px; line-height: 20px">Priya Sharma</span><span style="display: block; font-size: 13px; line-height: 18px; color: #4D6B2A; font-weight: 500">Student · Demo wallet</span></span></div>
+<a class="nv" href="#" style="margin: 8px 0 0; height: 40px; font-size: 14px; color: #4D7C0F"><svg class="ic" style="width: 18px; height: 18px"><use href="#bd-switch"></use></svg>Switch demo user</a>
+</div>
+</aside>
+
+<div style="flex: 1; min-width: 0">
+<header class="topbar" style="position: sticky; top: 0; z-index: 5; height: 72px; padding: 0 32px; display: flex; align-items: center; gap: 16px; background: rgba(255,255,255,.94); border-bottom: 1px solid #D9EBB5">
+<div style="flex: 1; min-width: 0"><div style="font-weight: 800; font-size: 24px; line-height: 28px; letter-spacing: -.6px">Dashboard</div><div style="font-size: 13px; line-height: 18px; color: #6B7F4A; font-weight: 500">Home / Dashboard</div></div>
+<span class="chip" style="background: #F7FBEF"><i style="width: 8px; height: 8px; border-radius: 50%; background: #16A34A"></i>Polygon Amoy</span>
+<span class="chip" style="background: #FFFFFF"><svg class="ic"><use href="#bd-wallet"></use></svg>Demo wallet · 0xAB12…c9F4</span>
+<a class="pill" href="#" aria-label="Notifications, 1 unread"><svg class="ic"><use href="#bd-bell"></use></svg><span class="ping"></span></a>
+</header>
+
+<main class="mainp" style="padding: 32px 32px 112px; display: flex; flex-direction: column; gap: 24px">
+<div class="rise" style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+<div><h1 style="margin: 0 0 8px; font-size: 36px; line-height: 40px; letter-spacing: -1.2px; font-weight: 800">Welcome back, Priya</h1><p style="color: #4D6B2A; font-size: 17px; line-height: 24px">You own your identity. One access request is waiting for your decision.</p></div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px"><a class="btn bo" href="#"><svg class="ic"><use href="#bd-share"></use></svg>Share a credential</a><a class="btn bp" href="#"><svg class="ic"><use href="#bd-up"></use></svg>Upload an asset</a></div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px">
+<div class="card st rise" style="animation-delay: .05s"><div style="display: flex; align-items: center; justify-content: space-between"><span style="font-weight: 700; font-size: 15px; line-height: 20px; color: #4D6B2A">Credentials</span><span class="hi" style="width: 40px; height: 40px; border-radius: 50%; background: #ECFCCB; display: flex; align-items: center; justify-content: center"><svg class="ic"><use href="#bd-cred"></use></svg></span></div><div style="font-weight: 800; font-size: 48px; line-height: 56px; letter-spacing: -2px; margin: 16px 0 4px">1</div><div style="font-size: 14px; line-height: 20px; font-weight: 600; color: #4D6B2A">B.Tech Degree · valid</div></div>
+<div class="card st rise" style="animation-delay: .1s"><div style="display: flex; align-items: center; justify-content: space-between"><span style="font-weight: 700; font-size: 15px; line-height: 20px; color: #4D6B2A">Encrypted assets</span><span style="width: 40px; height: 40px; border-radius: 50%; background: #ECFCCB; display: flex; align-items: center; justify-content: center"><svg class="ic"><use href="#bd-file"></use></svg></span></div><div style="font-weight: 800; font-size: 48px; line-height: 56px; letter-spacing: -2px; margin: 16px 0 4px">2</div><div style="font-size: 14px; line-height: 20px; font-weight: 600; color: #4D6B2A">Stored on IPFS</div></div>
+<div class="card st rise" style="animation-delay: .15s"><div style="display: flex; align-items: center; justify-content: space-between"><span style="font-weight: 700; font-size: 15px; line-height: 20px; color: #4D6B2A">Active grants</span><span style="width: 40px; height: 40px; border-radius: 50%; background: #ECFCCB; display: flex; align-items: center; justify-content: center"><svg class="ic"><use href="#bd-key"></use></svg></span></div><div style="font-weight: 800; font-size: 48px; line-height: 56px; letter-spacing: -2px; margin: 16px 0 4px">1</div><div style="font-size: 14px; line-height: 20px; font-weight: 600; color: #4D6B2A">Expires in 2 days</div></div>
+<div class="card st rise" style="animation-delay: .2s"><div style="display: flex; align-items: center; justify-content: space-between"><span style="font-weight: 700; font-size: 15px; line-height: 20px; color: #4D6B2A">Pending requests</span><span style="width: 40px; height: 40px; border-radius: 50%; background: #84CC16; display: flex; align-items: center; justify-content: center"><svg class="ic"><use href="#bd-clock"></use></svg></span></div><div style="font-weight: 800; font-size: 48px; line-height: 56px; letter-spacing: -2px; margin: 16px 0 4px">1</div><div style="font-size: 14px; line-height: 20px; font-weight: 600; color: #4D6B2A">Needs your review</div></div>
+</div>
+
+<div class="cols" style="display: flex; gap: 24px; align-items: flex-start">
+<div style="flex: 1.7; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<div class="card rise" style="border-left: 6px solid #84CC16; animation-delay: .25s; display: flex; flex-direction: column; gap: 16px">
+<div class="hd"><span class="hi"><svg class="ic"><use href="#bd-key"></use></svg></span><h2>Access request waiting</h2><span class="chip" style="margin-left: auto; background: #ECFCCB; border-color: #D9EBB5"><svg class="ic"><use href="#bd-clock"></use></svg>12 min ago</span></div>
+<p style="font-size: 17px; line-height: 24px"><b>TechCorp HR</b> wants to view <b>Transcript.pdf</b></p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><span class="chip">Role: Employer</span><span class="chip">Purpose: Hiring verification</span><span class="chip">Access for 7 days</span></div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px"><a class="btn bp" href="#"><svg class="ic"><use href="#bd-check"></use></svg>Approve and sign</a><a class="btn bo" href="#">Decline</a><span style="font-size: 13px; line-height: 18px; color: #6B7F4A; font-weight: 500">You confirm in your wallet. You can revoke anytime.</span></div>
+</div>
+<div class="card rise" style="animation-delay: .32s">
+<div class="hd" style="margin-bottom: 8px"><span class="hi"><svg class="ic"><use href="#bd-list"></use></svg></span><h2>Recent activity</h2><a class="go" href="#">View audit log</a></div>
+<div class="ev"><span class="ei"><svg class="ic"><use href="#bd-clock"></use></svg></span><div style="flex: 1; min-width: 0"><div class="et">Access requested</div><div class="ed">TechCorp HR asked to view Transcript.pdf</div></div><span class="ew">12 min ago</span></div>
+<div class="ev"><span class="ei"><svg class="ic"><use href="#bd-key"></use></svg></span><div style="flex: 1; min-width: 0"><div class="et">Access granted</div><div class="ed">Degree Certificate shared with TechCorp HR for 7 days</div></div><span class="ew">5 days ago</span></div>
+<div class="ev"><span class="ei"><svg class="ic"><use href="#bd-file"></use></svg></span><div style="flex: 1; min-width: 0"><div class="et">Asset registered</div><div class="ed">Transcript.pdf encrypted and anchored on-chain</div></div><span class="ew">6 days ago</span></div>
+<div class="ev"><span class="ei"><svg class="ic"><use href="#bd-cred"></use></svg></span><div style="flex: 1; min-width: 0"><div class="et">Credential received</div><div class="ed">B.Tech Degree issued by Chennai University</div></div><span class="ew">6 days ago</span></div>
+</div>
+</div>
+
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<div class="rise" style="animation-delay: .28s; position: relative; overflow: hidden; border-radius: 20px; padding: 24px; background: linear-gradient(145deg, #2F5209, #1A2E05); color: #FFFFFF; box-shadow: 0 18px 40px rgba(26,46,5,.28)">
+<svg viewBox="0 0 120 120" width="190" height="190" aria-hidden="true" style="position: absolute; right: -40px; top: -34px; opacity: .22"><polygon points="60,8 105,34 105,86 60,112 15,86 15,34" style="fill: none; stroke: #BEF264; stroke-width: 3"></polygon><polygon points="60,20 94.6,40 94.6,80 60,100 25.4,80 25.4,40" style="fill: #84CC16"></polygon></svg>
+<div style="position: relative; display: flex; flex-direction: column; gap: 16px">
+<span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; background: #84CC16; color: #1A2E05; border-radius: 999px; padding: 0 12px; height: 26px; font-weight: 800; font-size: 12px; letter-spacing: .5px"><svg class="ic" style="width: 14px; height: 14px; stroke-width: 3"><use href="#bd-check"></use></svg>VERIFIED IDENTITY</span>
+<div><div style="font-weight: 800; font-size: 28px; line-height: 34px; letter-spacing: -.6px">Priya Sharma</div><div style="font-size: 13px; line-height: 18px; color: #BEF264; font-weight: 600; margin-top: 4px">Your decentralized ID (DID)</div></div>
+<div style="padding: 12px 16px; background: rgba(255,255,255,.1); border: 1px solid rgba(190,242,100,.35); border-radius: 12px; font-family: monospace; font-size: 13px; line-height: 20px; word-break: break-all">did:ethr:80002:0xAB12…c9F4</div>
+<div style="display: flex; gap: 12px"><a class="btn sm" href="#" style="background: #84CC16; color: #1A2E05"><svg class="ic"><use href="#bd-copy"></use></svg>Copy</a><a class="btn sm" href="#" style="border: 1.5px solid rgba(190,242,100,.6); color: #FFFFFF"><svg class="ic"><use href="#bd-qr"></use></svg>Show QR</a></div>
+</div>
+</div>
+<div class="card rise" style="animation-delay: .34s; display: flex; flex-direction: column; gap: 16px"><div class="hd"><span class="hi"><svg class="ic"><use href="#bd-shieldok"></use></svg></span><h2>Your setup</h2></div>
+<div class="chk"><span><svg class="ic"><use href="#bd-check"></use></svg></span>DID registered on-chain</div>
+<div class="chk"><span><svg class="ic"><use href="#bd-check"></use></svg></span>Wallet linked to your account</div>
+<div class="chk"><span><svg class="ic"><use href="#bd-check"></use></svg></span>Encryption key published</div></div>
+<div class="card rise" style="animation-delay: .4s; display: flex; flex-direction: column; gap: 16px"><div class="hd"><span class="hi"><svg class="ic"><use href="#bd-key"></use></svg></span><h2>Active grant</h2><a class="go" href="#">Manage</a></div>
+<div><div style="font-weight: 800; font-size: 16px; line-height: 22px">Degree Certificate</div><div style="font-size: 14px; line-height: 20px; color: #4D6B2A; font-weight: 500">Shared with TechCorp HR · Hiring verification</div></div>
+<div><div style="height: 8px; border-radius: 8px; background: #ECFCCB; overflow: hidden"><div style="width: 71%; height: 100%; background: #84CC16; border-radius: 8px"></div></div>
+<div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 13px; line-height: 18px; font-weight: 700"><span style="color: #4D6B2A">Expires in 2 days</span><a href="#" style="color: #B91C1C">Revoke</a></div></div></div>
+<div class="card rise" style="animation-delay: .46s; display: flex; align-items: center; gap: 16px"><span style="flex: 0 0 auto; width: 44px; height: 44px; border-radius: 50%; background: #ECFCCB; display: flex; align-items: center; justify-content: center"><svg class="ic"><use href="#bd-shieldok"></use></svg></span><div><div style="font-weight: 800; font-size: 16px; line-height: 22px">No security alerts</div><div style="font-size: 14px; line-height: 20px; color: #4D6B2A; font-weight: 500">Your account looks healthy.</div></div></div>
+</div>
+</div>
+</main>
+</div>
+</div>
+<a href="#" aria-label="Ask Bharosa, AI assistant" style="position: fixed; right: 24px; bottom: 24px; z-index: 20; display: block; width: 76px; height: 76px; animation: bob 6s ease-in-out infinite; filter: drop-shadow(0 10px 14px rgba(26,46,5,.3))"><svg viewBox="0 0 96 96" width="76" height="76" aria-hidden="true"><circle cx="48" cy="48" r="44" style="fill: none; stroke: #84CC16; stroke-width: 1.5; stroke-dasharray: 2 7; stroke-linecap: round"></circle><polygon points="48,18 74,33 74,63 48,78 22,63 22,33" style="fill: #1A2E05; stroke: #84CC16; stroke-width: 1.6; stroke-linejoin: round"></polygon><path d="M48 33 51.4 44.6 63 48 51.4 51.4 48 63 44.6 51.4 33 48 44.6 44.6Z" style="fill: #BEF264"></path><rect x="62" y="14" width="26" height="16" rx="8" style="fill: #84CC16; stroke: #F7FBEF; stroke-width: 2"></rect><text x="75" y="26" text-anchor="middle" style="font: 800 10px 'Plus Jakarta Sans', sans-serif; fill: #1A2E05">AI</text></svg></a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
