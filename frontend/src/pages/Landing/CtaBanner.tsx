@@ -45,7 +45,7 @@ export function CtaBanner() {
             Create your Bharosa ID in minutes. Your keys, your credentials, your rules.
           </p>
           <Link
-            to="/app"
+            to="/login"
             className="inline-flex items-center justify-center min-h-[48px] px-8 rounded-full font-bold text-base bg-[#1A2E05] hover:bg-black text-[#FFFFFF] shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
           >
             Launch App
