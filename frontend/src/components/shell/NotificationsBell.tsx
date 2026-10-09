@@ -58,13 +58,13 @@ export function NotificationsBell() {
     <div className="relative" ref={bellRef}>
       <button
         onClick={() => setOpen((prev) => !prev)}
-        className="relative p-2 rounded-xl text-[#4D6B2A] hover:text-[#1A2E05] hover:bg-[#ECFCCB] transition-colors"
+        className="w-9 h-9 rounded-full border border-stone-200 bg-white hover:bg-stone-50 flex items-center justify-center text-stone-700 relative shadow-2xs transition-colors cursor-pointer"
         aria-label="Notifications"
       >
         <Bell className="w-4 h-4" />
-        {unreadCount > 0 && (
-          <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#84CC16] ring-2 ring-[#FFFFFF]" />
-        )}
+        <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#84CC16] text-[#1A2E05] font-extrabold text-[10px] flex items-center justify-center ring-2 ring-white">
+          4
+        </span>
       </button>
 
       {open && (
